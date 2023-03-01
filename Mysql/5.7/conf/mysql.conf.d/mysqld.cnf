@@ -87,5 +87,5 @@ max_allowed_packet = 128M
 
 [mysqld_safe]	
 log-error=/home/mysql/mysql5.7.39/log/mysqld.log
-pid-file=/home/mysql/mysql5.7.39/tmp/mysqld.pid
+pid-file=/home/mysql/mysql5.7.39/run/mysqld.pid
 
