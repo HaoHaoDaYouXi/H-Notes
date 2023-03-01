@@ -1,0 +1,330 @@
+#
+[mysqld]
+datadir=/var/lib/mysql
+#socket=/var/lib/mysql/mysql.sock
+user=mysql
+
+### 设置主从的时候的唯一ID 每台主机的ID不可重复
+server-id=11061
+### 以gtid做主从同步相关配置
+gtid-mode=on
+enforce-gtid-consistency=on
+log-slave-updates=true
+#automatic
+### 忽略大小写
+lower_case_table_names=1
+### utf8字符集
+character-set-server=utf8
+init_connect='SET NAMES utf8'
+
+group_concat_max_len= 153600
+
+############################
+### 打开日志(主机需要打开)，这个mysql-bin也可以自定义，这里也可以加上路径，如：/home/www/mysql_bin_log/mysql-bin 主要用来做增量备份跟主从同步
+#log-bin=mysql-bin
+### binlog日志的基本文件名，后面会追加标识来表示每一个文件
+#log-bin-basename = /var/lib/mysql/mysql-bin
+### 指定的是binlog文件的索引文件，这个文件管理了所有的binlog文件的目录
+#log-bin-index=mysql-binlog.index
+
+### 这一个参数的作用和上面三个的作用是相同的，mysql会根据这个配置自动设置log_bin为on状态，自动设置log_bin_index文件为你指定的文件名后跟.index
+log-bin=/var/lib/mysql/mysql-bin
+### 保留15天的binlog日志，系统重启、执行flush logs 或者 binlog日志文件大小达到上限时会删除binlog日志
+expire_logs_days = 15
+report-port=3306
+#############################################################################################################################
+### 当二进制日志启用后，这个变量就会启用
+### 它控制是否可以信任存储函数创建者，不会创建写入二进制日志引起不安全事件的存储函数。
+### 如果设置为0（默认值），用户不得创建或修改存储函数，除非它们具有除CREATE ROUTINE或ALTER ROUTINE特权之外的SUPER权限
+### 设置为0还强制使用DETERMINISTIC特性或READS SQL DATA或NO SQL特性声明函数的限制
+### 如果变量设置为1，MySQL不会对创建存储函数实施这些限制。 此变量也适用于触发器的创建
+### CMS项目要求开启此配置
+log_bin_trust_function_creators = 1
+##############################################################################################################################
+### 创建符号链接(建议禁用符号链接，以防止各种安全风险。开启将参数的值设置为1)
+### 使用symbolic link的一个好处是当一个磁盘或分区空间不够时，可以将数据存储到其他的磁盘或分区
+symbolic-links=0
+### 避免 Mysql 外部锁定，减少出错几率、增强稳定性
+skip_external_locking
+### 主从复制同步时，不同步mysql库
+binlog-ignore-db=mysql
+### 设定mysql的复制模式(STATEMENT  ROW  MIXED-混合模式)
+binlog-format=ROW
+#binlog_format=mixed
+### 启动pid文件存放路径
+pid-file=/var/run/mysqld/mysqld.pid
+### 错误日志存放路径
+log-error=/var/log/mysqld_error.log
+### 网络传输时单个数据包的大小,网络传输中一次消息量的最大值，默认 4M ，必须设为 1024 的整倍数
+### 接受的数据包大小；增加该变量的值十分安全，这是因为仅当需要时才会分配额外内存。例如，仅当你发出长查询或MySQLd必须返回大的结果行时MySQLd才会分配更多内存
+### 该变量之所以取较小默认值是一种预防措施，以捕获客户端和服务器之间的错误信息包，并确保不会因偶然使用大的信息包而导致内存溢
+### 石头网配置为1M
+max_allowed_packet = 8M
+### 每个客户端线程和连接缓存和结果缓存交互，每个缓存最初都被分配大小为net_buffer_length的容量，并动态增长，直至达到max_allowed_packet参数的大小，默认为16K
+net_buffer_length = 8K
+### 所有线程的打开表的数量。增加此值会增加mysqld所需的文件描述符的数量
+### 通过检查Opened_tables状态变量来检查是否需要增加表缓存
+### 如果Opened_tables的值很大，而且你经常不使用FLUSH TABLES（这只是强制关闭并重新打开所有的表），那么你应该增加table_open_cache变量的值
+### 打开文件描述符的缓存个数，防止系统频繁打开、关闭描述符而浪费资源（ 对性能有影响，默认 2000 ）
+### 石头网改为64
+table_open_cache = 1000
+#####################################################################################
+### 每个连接到MySQL服务器的线程都需要有自己的缓冲，默认为其分配256K。事务开始之后，则需要增加更多的空间
+### 运行较小的查询可能仅给指定的线程增加少量的内存消耗，例如存储查询语句的空间等
+### 但如果对数据表做复杂的操作比较复杂，例如排序则需要使用临时表，此时会分配大约read_buffer_size，sort_buffer_size，read_rnd_buffer_size，tmp_table_size大小的内存空间
+### 不过它们只是在需要的时候才分配，并且在那些操作做完之后就释放了
+######################
+### 为每个线程对MyISAm表执行顺序读所分配的内存。如果数据库有很多顺序读，可以增加这个参数，默认值是131072字节。
+### Mysql 读入缓冲区大小，对表进行顺序扫描的请求将分配一个读入缓冲区，Mysql 会为其分配一段内存缓冲区,此参数为每线程分配
+### Mysql 随机 Query 缓冲区大小，当按任意顺序读取行时，将分配一个随机读取缓冲区
+### 如进行排序查询时，Mysql 会首先扫描该缓冲，避免磁盘搜索，提高查询速度,默认 256K ，该缓冲也是为每线程分配
+### 石头网配置256K
+read_buffer_size = 2M
+### 这个参数用在MyISAM表和任何存储引擎表随机读所使用的内存。
+### 石头网配置512K
+read_rnd_buffer_size = 8M
+### 每个会话执行排序操作所分配的内存大小.如果系统中排序比较大，且内存充足、并发不大时，可以适当增大此值,默认 256K ，此参数为每线程分配独立的 buffer
+sort_buffer_size = 8M
+
+#write_buffer = 2M
+myisam_sort_buffer_size = 8M
+skip-external-locking
+max_binlog_size = 10M
+master-info-repository=TABLE
+relay-log-info-repository=TABLE
+sync-master-info = 1
+slave-parallel-workers = 2
+binlog-checksum = CRC32
+
+#################################
+### 启用复制有关的所有校验功能
+master-verify-checksum = 1
+slave-sql-verify-checksum = 1
+#################################
+
+
+
+
+######################################################################################
+### MySQL服务器用来作普通索引扫描、范围索引扫描和不使用索引而执行全表扫描这些操作所用的缓存大小,默认256K
+### join 为 ALL、index、rang 或 index_merge 时使用的 buffer.默认 256K ，每 Thread 都会建立自己独立的 buffer
+### 石头网2.0配置256K
+join_buffer_size = 8M
+
+### 参数表示每线程的堆栈大小,默认256K.石头网配置256K
+thread_stack = 256K
+
+### mysql服务缓存以重用的线程数
+### Thread Cache 池中存放的连接线程数,此池中的线程不是启动服务时就创建的
+### 而是随着连接线程的创建和使用，逐渐将用完的线程存入其中，达到此值后将不再缓存连接线程
+### 缓存命中率计算公式：Thread_Cache_Hit = ( Connections - Thread_created ) / Connections * 100%
+### 系统运行一段时间后，Thread Cache 命中率应该保持在 90% 以上
+### 默认配置18 石头网配置58 根据物理内存设置规则如下:1G--8; 2G--16; 3G--32; 大于3G--64
+thread_cache_size = 120
+
+
+
+### 用来缓存 MyISAM 存储引擎的索引.默认 8M ，如果使用 Innodb 存储引擎，此值设为 64M 或更小
+### 计算公式：key_reads / key_read_requests * 100% 的值小于 0.1%
+#### 石头网设置20M
+key_buffer_size = 32M
+
+### 使用全文索引最小长度,默认为4
+ft_min_word_len = 4
+### 内部内存临时表的最大内存,默认16M
+tmp_table_size = 32M
+
+########## Innodb 存储引擎相关参数 ##############
+
+### 当这个参数启用的时候，InnoDB会将新建表的数据和索引单独存放在.ibd格式的文件中，而不是存放在系统表空间中。默认开启
+### 即默认开启共享表空间
+innodb_file_per_table = 1
+
+
+### InnDB存储引擎缓存表和索引数据所使用的内存大小
+### Innodb 存储引擎核心参数，用于缓存 Innodb 表的索引、数据
+### 默认 128M ，单独使用 Innodb 存储引擎且单一 Mysql 服务时建议设为物理内存的 70% - 80%
+### 可以通过 show status like 'innodb_buffer_pool_%'; 来获取 innodb buffer pool 的实时状态信息
+### Innodb_buffer_pool_pages_total 总共的 pages（ Innodb 存储引擎中所有数据存放最小物理单位 page ，每个 page 默认为 16KB ）
+### Innodb_buffer_pool_pages_free  空闲的 pages
+### Innodb_buffer_pool_pages_data  有数据的 pages
+### Innodb_buffer_pool_read_requests  总共的 read 请求次数
+### Innodb_buffer_pool_reads  读取物理磁盘读取数据的次数，即：在 buffer pool 中没有找到
+### Innodb_buffer_pool_wait_free  因 buffer 空间不足而产生的 wait_free
+### Innodb_buffer_pool_read_ahead_rnd  记录进行随机读的时候产生的预读次数
+### Innodb_buffer_pool_read_ahead_seq  记录连续读的时候产生的预读次数
+### Innodb_buffer_pool_size  使用率 = innodb_buffer_pool_pages_data / innodb_buffer_pool_pages_total * 100%
+### Innodb_buffer_pool_read  命中率 = （ innodb_buffer_pool_read_requests - innodb_buffer_pool_reads ）/ innodb_buffer_pool_read_requests * 100%
+####################################################################################
+### 默认128M,CMS配置4096M
+innodb_buffer_pool_size = 4096M
+
+### 默认配置为8,在使用大的 innodb_buffer_pool_size 是，设定为1表现不错
+### 具体设置存疑
+innodb_buffer_pool_instances = 6
+
+### 当提交相关的I/O操作被批量重新排列时，这个参数控制提交操作的ACID一致性和高性能之间的平衡
+### Innodb 事务日志刷新方式，0 为每隔一秒 log thread 会将 log buffer 中的数据写入到文件
+### 并通知文件系统进行文件同步 flush 操作，极端情况下会丢失一秒的数据
+### 1 为每次事务结束都会触发 log thread 将 log buffer 中的数据写入文件并通知文件系统同步文件，数据最安全、不会丢失任何已经提交的数据
+### 2 为每次事务结束后 log thread 会将数据写入事务日志，但只是调用了文件系统的文件写入操作，并没有同步到物理磁盘，因为文件系统都是有缓存机制的，各文件系统的缓存刷新机制不同
+### 当设为 1 时是最为安全的，但性能也是最差的。0 为每秒同步一次，性能相对高一些。设为 2 性能是最好的，但故障后丢失数据也最多（ OS 跟主机硬件、供电足够安全可以选择，或对数据少量丢失可以接受
+innodb_flush_log_at_trx_commit = 1
+
+
+### InnoDB写入磁盘日志文件所使用的缓存字节大小。
+### 事务日志所使用的缓冲区。Innodb 在写事务日志时，为了提高写 Log 的 IO 性能
+### 先将信息写入 Innodb Log Buffer 中，当满足 Innodb_flush_log_trx_commit 参数或日志缓冲区写满时，再将日志同步到磁盘中
+### 石头网设定为4M 默认 8M ，一般设为 16~64M 即可，可以通过 show status like 'innodb_log%'; 查看状态
+innodb_log_buffer_size = 8M
+
+### 关闭数据库时把热数据 dump 到本地磁盘，默认为关闭
+#innodb_buffer_pool_dump_at_shutdown = 1
+### 采用手工方式把热数据 dump 到本地磁盘，默认为关闭
+#innodb_buffer_pool_dump_now = 1
+### 使用系统自带的内存分配器，替代 innodb_additional_mem_pool_size的参数，默认开启
+innodb_use_sys_malloc = 1
+###  用来存放Innodb的内部目录 这个值不用分配太大，系统可以自动调。
+#innodb_additional_mem_pool_size = 16M
+### InnoDB数据文件的路径和大小.默认值为ibdata1:12M:autoextend
+#innodb_data_file_path = ibdata1:24M:autoextend
+
+### Innodb 使用后台线程处理数据页上的 IO 请求，根据 CPU 核数修改，默认 4
+innodb_read_io_threads = 8
+innodb_write_io_threads = 8
+
+### Innodb 线程并发数，0 为不限制，默认 0
+innodb_thread_concurrency = 0
+
+### 启动时把热数据加载到内存,默认关闭
+#innodb_buffer_pool_load_at_startup = 1
+### 采用手工方式把热数据加载到内存
+#innodb_buffer_pool_load_now = 1
+
+### 最大连接失败次数，跟性能没有太大关系，主要跟安全方面有关 达到此上限后会无条件阻止其连接数据库 ，默认 100,石头网设定500
+max_connect_errors = 500
+### 设定远程用户必须回应PORT类型数据连接的最大时间，默认值 10
+#connect_timeout = 30
+### 服务器关闭非交换连接之前等待活动的秒数，默认 28800 秒
+#interactive_timeout = 604800
+
+
+
+
+
+
+
+###############################################################
+
+### 绕过密码验证可直接使用root登录(用于修改密码)
+#skip-grant-tables=1
+### 启动服务器来禁用主机名缓存
+#skip-host-cache
+### 设置数据库的时间
+#default-time-zone = '+8:00'
+
+### mysql关闭非交互连接前的等待时间，单位是秒
+### 注意：在 my.cnf 中修改这个参数需要配合 interactive_timeout (超时间隔)参数一起修改，否则不生效
+### Mysql 处理完一条连接后所等待释放的时间，如果并发很高，默认设置会导致最大连接被占满，出现 "too many connections" 错误
+### 如果这个值很低，比如 5 ，可能会导致出现 "ERROR 2006 (HY000) MySQL server has gone away" 的错误
+### 出现这个错误还有可能是 max_allowed_packet 设置过小
+#wait_timeout = 604800
+### Mysql关闭交互连接前的等待时间，单位是秒  mysql关闭连接前的等待时间，单位是默认 28800 秒
+### 如果客户端尝试连接的错误数量超过这个参数设置的值，则服务器不再接受新的客户端连接。可以通过清空主机的缓存来解除服务器的这种阻止新连接的状态
+### 通过FLUSH HOSTS或mysqladmin flush-hosts命令来清空缓存
+### 慢查询的时间设置，默认为10，单位为秒
+#long_query_time = 20
+### 开启慢查询日志，开启后将会记录执行时间超过 long_query_time 参数值的 SQL 语句 一般临时开启即可
+#slow_query_log = on
+### 定义慢查询日志存放位置
+#slow_query_log_file = /usr/local/mysql/data/slow.log
+
+### 为查询结果所分配的缓存,查询缓冲大小，当重复查询时会直接从该缓冲中获取，但是当所查询表有改变时，缓冲的查询将失效（ 频繁写入、更新、高并发的环境下建议关闭此缓冲 ）
+### 默认为1 石头网和CMS设定也为 1
+### MySQL的查询缓冲大小（从4.0.1开始，MySQL提供了查询缓冲机制）使用查询缓冲，MySQL将SELECT语句和查询结果存放在缓冲区中，
+### 今后对于同样的SELECT语句（区分大小写），将直接从缓冲区中读取结果。根据MySQL用户手册，使用查询缓冲最多可以达到238%的效率。
+### 通过检查状态值'Qcache_%'，可以知道query_cache_size设置是否合理：如果Qcache_lowmem_prunes的值非常大，则表明经常出现缓冲不够的情况，
+### 如果Qcache_hits的值也非常大，则表明查询缓冲使用非常频繁，此时需要增加缓冲大小；如果Qcache_hits的值不大，则表明你的查询重复率很低，
+### 这种情况下使用查询缓冲反而会影响效率，那么可以考虑不用查询缓冲。此外，在SELECT语句中加入SQL_NO_CACHE可以明确表示不使用查询缓冲
+query_cache_size = 16M
+### 单个查询所能够使用的缓冲区大小
+query_cache_limit = 1M
+
+### 是否启用 query_cache ，0 为不使用.若要关闭 query_cache 时，需同时将 query_cache_size 、query_cache_limit 设为 0
+query_cache_type = 1
+### 如果一个事务需要的内存超过这个参数，就会报错
+### 默认为16M,石头网为16M
+max_heap_table_size=32M
+
+##############################################################################################################################
+
+### 默认存储引擎
+default-storage-engine = innodb
+### InnoDB日志组包含的日志个数。InnoDB以循环的方式写入日志。这个参数的默认值和推荐值均是2。日志的路径由innodb_log_group_home_dir参数设定。
+innodb_log_files_in_group=2
+### 日志组中每个日志文件的字节大小。所有日志文件的大小(innodb_log_file_size * innodb_log_files_in_group)不能超过512GB
+### 石头网配置4M
+innodb_log_file_size=256M
+### InnDB事务等待行锁的时间长度。默认值 石头网的配置 都是50秒。
+#innodb_lock_wait_timeout = 50
+### 指定刷新数据到InnoDB数据文件和日志文件的方法，刷新方法会对I/O有影响。
+#innodb_flush_method=O_DIRECT
+### 禁止 SQL 读取本地文件
+#local-infile = 0
+### 开启查询日志，一般选择不开启，因为查询日志记录很详细，会增大磁盘 IO 开销，影响性能
+#general_log = on
+### 查询日志存放位置及文件名
+#general_log_file = /usr/local/mysql/data/mysql.log
+### 二进制日志缓冲大小，此参数是为每 Session 单独分配的，当一个线程开始一个事务时，
+### Mysql 就会为此 Session 分配一个 binlog cache，当这个事务提交时，binlog cache 中的数据被写入 binlog 文件
+### 通过 show status like 'binlog_cache%'; 来查看使用 binlog cache 的次数及使用磁盘的次数
+#binlog_cache_size = 2M
+
+### 在row模式下..开启该参数,将把sql语句打印到binlog日志里面.默认是0(off);
+### 虽然将语句放入了binlog,但不会执行这个sql,就相当于注释一样.但对于dba来说,在查看binlog的时候,很有用处
+binlog-rows-query-log_events = 1
+
+### 默认为full,在binlog为row格式下,full将记录update前后所有字段的值,minimal时,只记录更改字段的值和where字段的值,noblob时,记录除了blob和text的所有字段的值,如果update的blob或text字段,也只记录该字段更改后的值,更改前的不记录
+### 大家都知道row格式下的binlog增长速度太快,对存储空间,主从传输都是一个不小的压力.因为每个event记录了所有更改数据前后的值,不管数据是否有改动都会记录.binlog_row_image的引入就大大减少了binlog记录的数据.在结合binlog_rows_query_log_events,对于dba日常维护binlog是完全没有压力的,而且节省了硬盘空间开销,减小I/O,减少了主从传输压力
+binlog_row_image='minimal'
+
+### 这个参数对 Mysql 系统来说很重要，不仅影响到 binlog 对 Mysql 所带来的性能损耗，还影响到 Mysql 中数据的完整性
+### 值为 0 时代表事务提交后，Mysql 不做 fsync 之类的磁盘同步指令刷新 binlog_cache 中的信息到磁盘，
+### 而让 Filesystem 自行决定什么时候同步，或者 cache 满了之后才同步磁盘
+### 值为 n 时代表进行 n 次事务提交后，Mysql 将进行一次 fsync 之类的磁盘同步指令来将 binlog_cache 中的数据强制写入磁盘
+### 系统默认将此参数设置为 0 ，即不做任何强制性的磁盘刷新指令，性能最好，但是风险也最大
+### 当系统崩溃时 binlog_cache 中的所有 binlog 信息都会丢失
+### 而设置为 1 时，是最安全但是性能损耗最大。当系统崩溃时，最多丢失 binlog_cache 中未完成的一个事务，
+### 对实际数据没有实质性的影响
+sync_binlog = 1
+### Mysql 连接请求队列存放数，当某一时刻客户端连接请求过多，造成 Mysql Server 无法为其建立连接时存放的数量
+### 最大 65535(增大时需同时调整 OS 级别的网络监听队列限制)
+back_log = 1000
+### 如果此参数不开启，error_log 中会有警告信息
+explicit_defaults_for_timestamp = 1
+
+
+### 事务隔离级别，为了有效保证并发读取数据的正确性,默认 Repeatables Read 即：可重复读
+### Innodb 有四种隔离级别：Read Uncommitted（ 未提交读 ）、Read Committed（ 已提交读 ）、Repeatable Read（ 可重复读 ）、Serializable（ 可序列化 ）
+#transaction_isolation = REPEATABLE-READ
+
+
+###  如果这个参数设为OFF，则MySQL服务在检查客户端连接的时候会解析主机名；如果这个参数设为ON，则MySQL服务只会使用IP，在这种情况下，授权表中的Host字段必须是IP地址或localhost
+skip-name-resolve
+skip-external-locking
+
+### 设置客户端的并发连接数量,500~1000 是个比较合适的值，注意每建立的连接都会占用一定的内存空间，直到连接被关闭才释放内存
+max_connections =  6000
+
+open_files_limit = 65535
+innodb_open_files = 1000
+
+
+
+[mysqldump]
+quick
+### 使用 mysqldump 工具备份数据库时，当某张表过大时备份会报错，需要增大该值（ 增大到大于表大小的值 ）
+max_allowed_packet = 64M
+[client]
+port = 3306
+#socket = /var/1ib/mysql/mysql.sock

@@ -1,0 +1,10 @@
+[client]
+port            = 61307
+socket          = /home/mysql/mysql5.7.39/mysql.sock
+default-character-set   = utf8
+
+[mysql]
+no-auto-rehash
+default-character-set=utf8
+prompt="\c \\u@\\h : \\d \\D > "
+socket          = /home/mysql/mysql5.7.39/mysql.sock
