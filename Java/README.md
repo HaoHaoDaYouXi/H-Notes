@@ -156,6 +156,8 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 ### [Gradle](./docs/gradle/gradle.md)
 - [Gradle常用命令](./docs/wait.md)
 
+### [Groovy](./docs/groovy/groovy.md)
+
 ### [Maven](./docs/wait.md)
 - [Maven常用命令](./docs/wait.md)
 - [Maven常用标签](./docs/wait.md)
