@@ -9,10 +9,10 @@
 ```
 ## ⒉一些常用接口及实现
 
-![social基本原理_1](../../img/social/social_1.jpg) <br/>
-![social基本原理_2](../../img/social/social_2.jpg) <br/>
-![social基本原理_3](../../img/social/social_3.jpg) <br/>
-![social基本原理_4](../../img/social/social_4.jpg) <br/>
+![social基本原理_1](img/social_1.jpg) <br/>
+![social基本原理_2](img/social_2.jpg) <br/>
+![social基本原理_3](img/social_3.jpg) <br/>
+![social基本原理_4](img/social_4.jpg) <br/>
 
 ### 1.ServiceProvider =》AbstractOAuth2ServiceProvider
 

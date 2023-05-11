@@ -5,7 +5,7 @@ Java 堆内存被划分为新生代和年老代两部分，
 因此 java 虚拟中针对新生代和年老代分别提供了多种不同的垃圾收集器，
 JDK7/8后，HotSpot虚拟机所有收集器及组合（连线），如下图：
 
-![垃圾收集器](../../../img/jvm/gc/ljsjq.png) <br/>
+![垃圾收集器](img/ljsjq.png) <br/>
 
 
 ### <div id="Serial">Serial 垃圾收集器（单线程、复制算法）</div>
@@ -20,7 +20,7 @@ Serial 垃圾收集器虽然在收集垃圾过程中需要暂停所有其他的�
 
 Serial/Serial Old组合收集器运行示意图如下：
 
-![Serial](../../../img/jvm/gc/serial.png) <br/>
+![Serial](img/serial.png) <br/>
 
 
 ### <div id="ParNew">ParNew 垃圾收集器（Serial+多线程）</div>
@@ -34,7 +34,7 @@ ParNew虽然是除了多线程外和Serial 收集器几乎完全一样，
 
 ParNew/Serial Old组合收集器运行示意图如下：
 
-![ParNew](../../../img/jvm/gc/parNew.png) <br/>
+![ParNew](img/parNew.png) <br/>
 
 ### <div id="Parallel-Scavenge">Parallel Scavenge 收集器（多线程复制算法、高效）</div>
 Parallel Scavenge 收集器也是一个新生代垃圾收集器，同样使用复制算法，
@@ -56,7 +56,7 @@ Serial Old 是 Serial 垃圾收集器年老代版本，
 
 新生代 Serial 与年老代 Serial Old 搭配垃圾收集过程图：
 
-![SerialOld](../../../img/jvm/gc/serialOld.png) <br/>
+![SerialOld](img/serialOld.png) <br/>
 
 ### <div id="Parallel-Old">Parallel Old 收集器（多线程标记整理算法）</div>
 Parallel Old 收集器是Parallel Scavenge的年老代版本，
@@ -69,7 +69,7 @@ Parallel Old 收集器是Parallel Scavenge的年老代版本，
 
 新生代 Parallel Scavenge 和年老代 Parallel Old 收集器搭配运行过程图：
 
-![ParallelOld](../../../img/jvm/gc/parallelOld.png) <br/>
+![ParallelOld](img/parallelOld.png) <br/>
 
 ### <div id="CMS">CMS 收集器（多线程标记清除算法）</div>
 Concurrent mark sweep(CMS)收集器是一种年老代垃圾收集器，其最主要目标是获取最短垃圾
@@ -93,7 +93,7 @@ CMS 工作机制相比其他的垃圾收集器来说更复杂，整个过程分�
 
 CMS 收集器运行示意图如下：
 
-![CMS](../../../img/jvm/gc/cms.png) <br/>
+![CMS](img/cms.png) <br/>
 
 ### <div id="G1">G1 收集器</div>
 Garbage first 垃圾收集器是目前垃圾收集器理论发展的最前沿成果，
@@ -108,8 +108,4 @@ G1 收集器避免全区域垃圾收集，它把堆内存划分为大小固定�
 
 G1 收集器运行示意图如下：
 
-![G1](../../../img/jvm/gc/g1.png) <br/>
-
-
-
-
+![G1](img/g1.png) <br/>
