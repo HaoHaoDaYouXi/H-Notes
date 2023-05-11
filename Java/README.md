@@ -144,7 +144,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [Zuul](./docs/wait.md)
     - [SpringCloudBus](./docs/wait.md)
 - [SpringCloudAlibaba](./docs/wait.md)
-    
+  
 
 ### [Shiro](./docs/wait.md)
 - [Shiro的核心概念](./docs/wait.md)
@@ -152,6 +152,9 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [Shiro有哪些组件？](./docs/wait.md)
 - [Shiro注解](./docs/wait.md)
 - [Shiro优点](./docs/wait.md)
+
+### [Gradle](./docs/gradle/gradle.md)
+- [Gradle常用命令](./docs/wait.md)
 
 ### [Maven](./docs/wait.md)
 - [Maven常用命令](./docs/wait.md)
@@ -243,6 +246,3 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [Lombok](./docs/wait.md)
     - [Data](./docs/wait.md)
     - [build](./docs/wait.md)
-
-
-
