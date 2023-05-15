@@ -1,3 +1,3 @@
-echo "git pull orgin master...."
+echo "git pull orgin main...."
 
-git pull origin master
+git pull origin main
