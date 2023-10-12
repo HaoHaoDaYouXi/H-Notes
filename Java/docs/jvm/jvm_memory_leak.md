@@ -132,11 +132,13 @@ public class MemoryLeak {
 在jvm规范中，方法区主要存放的是类信息、常量、静态变量等。
 所以如果程序加载的类过多，或者使用反射、gclib等这种动态代理生成类的技术，
 就可能导致该区发生内存溢出，一般该区发生内存溢出时的错误信息为：
-outOfMemoryError：permgem space
+java.lang.OutOfMemoryError: PermGen space(1.8以前)或者java.lang.OutOfMemoryError: Metaspace(1.8及以后)
 
 代码举例：
 ~~~
-jvm参数：-XX:PermSize=2m -XX:MaxPermSize=2m
+jvm参数：-XX:PermSize=100M -XX:MaxPermSize=100M
+以上时1.8以前的
+1.8及以后的为：-XX:MetaspaceSize=100M -XX:MaxMetaspaceSize=100m
 ~~~
 
 将方法区的大小设置很低即可，在启动加载类库时就会出现内存不足的情况
@@ -213,10 +215,18 @@ public class StackOverflowTest {
 
 #
 
+### <div id="ncyccl">记一次内存泄露、溢出处理流程：</div>
 
+处理内存泄露、溢出的前提得知道如何更快的定位内存的原因，一般情况就是一次性申请对象过多、内存没有释放、项目内存分配的不够多
 
+大体的情况都清楚时，就需要定位问题出现点，并解决问题
 
-
-
-
-
+定位问题一般就是通过堆信息判断，所以：
+1. 第一步就是获取堆信息，
+    - 项目已经OOM挂了，并且没有配置HeapDump文件时，只能根据项目运行日志判断，若项目也没有配置运行日志，那基本无法判断了，所以最好配置好HeapDump文件
+      - HeapDump配置：-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=文件目录
+    - 项目还未OOM，这时可以通过jmap指令导出堆信息，或者通过Arthas这类的
+      - jmap指令：jmap -dump:format=b,file=文件名.hprof 进程ID
+2. 第二步解析堆信息文件，下载获取到的堆信息文件，然后可以通过JavaVisualVM软件解析堆文件，通过解析的内容可以看到对象的占用，根据占用情况查看使用情况可以定位到代码位置
+3. 第三步解决问题，根据定位到的代码问题或者内存分配导致的相关问题做对应的处理
+4. 如果怀疑是内存释放导致的问题时可以查看下方法区的大小是否设置的大于分配的内容，导致一直无法进行释放

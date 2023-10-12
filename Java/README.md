@@ -26,6 +26,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
   - [堆](./docs/jvm/jvm_memory.md#dui)
   - [方法区](./docs/jvm/jvm_memory.md#ffq)
 - [内存泄露、溢出](./docs/jvm/jvm_memory_leak.md)
+  - [记一次内存泄露、溢出处理流程](./docs/jvm/jvm_memory_leak.md#ncyccl)
 - [堆栈的区别？队列和栈的区别？](./docs/jvm/jvm_queue_stack_heap.md)
 - [Java垃圾回收机制(GC)？](./docs/jvm/gc/gc.md)
   - [如何确定哪些是垃圾](./docs/jvm/gc/which_garbage.md)
