@@ -84,3 +84,48 @@ Conda是没有重命名环境的功能的, 要实现这个基本需求, 只能�
 conda create --name newname --clone oldname //克隆环境
 conda remove --name oldname --all //彻底删除旧环境
 ~~~
+
+# 设置镜像源
+
+查看默认文件中的源
+```
+conda config --show channels
+```
+
+添加清华源
+```
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
+```
+
+添加阿里云镜像源
+```
+conda config --add channels https://mirrors.aliyun.com/anaconda/pkgs/free/
+conda config --add channels https://mirrors.aliyun.com/anaconda/pkgs/main/
+```
+
+添加中科大源
+```
+conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/
+conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/
+conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
+conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/msys2/
+conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/bioconda/
+conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/menpo/
+```
+
+删除默认源
+```
+conda config --remove channels defaults
+```
+
+删除文件中指定的源
+```
+conda config --remove channels https://mirrors.aliyun.com/anaconda/pkgs/free/
+```
+
+设置搜索时显示通道地址
+```
+conda config --set show_channel_urls yes
+```
