@@ -1,4 +1,4 @@
-# Centos8防火墙设置
+# Firewalld
 ## 1、centos中firewalld与iptables
 centos7以前的版本默认使用iptables服务进行管理防火墙规则。centos7以及其以上版本默认使用firewalld服务管理防火墙。所以在centos8中，就使用其默认的firewalld配置防火墙。
 
