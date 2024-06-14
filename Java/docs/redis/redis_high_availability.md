@@ -1,4 +1,4 @@
-#Redis 高可用
+# Redis 高可用
 高可用，我们要从为什么要用它以及它的实现方式和单机的区别，这些方方面面来看待
 
 Redis的几种常见使用方式包括：
@@ -76,5 +76,3 @@ sentinel可以通过API向管理员或其他应用程序发送通知。
 当master被标记为客观下线，sentinel会向下面所有的slave发送info的频率改为1s一次，
 若没有一定数量的sentinel同意master下线，那master的客观下线状态会被移除，
 若master对ping的命令有回复，master的主观下线状态也会被移除。
-
-

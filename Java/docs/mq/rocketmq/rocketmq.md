@@ -19,6 +19,7 @@
 解决方案：
 尝试将C盘 C:\Users\用户 的store文件夹删除，再进行启动
 ~~~
+windows启动命令：[start_mq.bat](start_mq.bat)
 
 ### 端口说明
 我们在安装rocketmq后，要开放的端口一般有4个：9876，10911，10912，10909

@@ -1,4 +1,4 @@
-#垃圾回收算法
+# 垃圾回收算法
 
 
 ### <div id="bjqcsf">标记清除算法  Mark-Sweep</div>
@@ -79,7 +79,7 @@ Space 进行清理。
 移到老生代中。
 
 
-#GC 分代收集算法 VS 分区收集算法
+# GC 分代收集算法 VS 分区收集算法
 
 ### 分代收集算法
 当前主流 VM 垃圾收集都采用”分代收集”(Generational Collection)算法, 
