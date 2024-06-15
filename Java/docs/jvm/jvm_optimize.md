@@ -68,7 +68,7 @@ case：如何：-XX:MetaspaceSize=21807104 设置Java元空间的值
 > -XX:MaxPermSize
 >> 最大内存大小。（例如：-XX:MaxPermSize=512m）
 
-##### 元空间,从JDK8开始，JVM将原来存放klass元数据的永生代Perm换成了本地元空间Metaspace
+##### 元空间,从JDK8开始，JVM将原来存放元数据的永生代Perm换成了本地元空间Metaspace
 > -XX:MetaspaceSize
 >> 初始内存大小。（例如：-XX:MetaspaceSize=64m）
 
