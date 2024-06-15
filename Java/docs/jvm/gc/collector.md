@@ -8,7 +8,7 @@ JDK7/8后，HotSpot虚拟机所有收集器及组合（连线），如下图：
 ![垃圾收集器](img/ljsjq.png) <br/>
 
 
-### <div id="Serial">Serial 垃圾收集器（单线程、复制算法）</div>
+### <div id="serial">Serial 垃圾收集器（单线程、复制算法）</div>
 Serial（英文连续）是最基本垃圾收集器，使用复制算法，
 曾经是JDK1.3.1 之前新生代唯一的垃圾收集器。
 Serial 是一个单线程的收集器，它不但只会使用一个 CPU 或一条线程去完成垃圾收集工
@@ -23,7 +23,7 @@ Serial/Serial Old组合收集器运行示意图如下：
 ![Serial](img/serial.png) <br/>
 
 
-### <div id="ParNew">ParNew 垃圾收集器（Serial+多线程）</div>
+### <div id="parnew">ParNew 垃圾收集器（Serial+多线程）</div>
 ParNew 垃圾收集器其实是 Serial 收集器的多线程版本，也使用复制算法，
 除了使用多线程进行垃圾收集之外，其余的行为和 Serial 收集器完全一样，
 ParNew 垃圾收集器在垃圾收集过程中同样也要暂停所有其他的工作线程。
@@ -36,7 +36,7 @@ ParNew/Serial Old组合收集器运行示意图如下：
 
 ![ParNew](img/parNew.png) <br/>
 
-### <div id="Parallel-Scavenge">Parallel Scavenge 收集器（多线程复制算法、高效）</div>
+### <div id="parallel_scavenge">Parallel Scavenge 收集器（多线程复制算法、高效）</div>
 Parallel Scavenge 收集器也是一个新生代垃圾收集器，同样使用复制算法，
 也是一个多线程的垃圾收集器，它重点关注的是程序达到一个可控制的吞吐量
 （Thoughput，CPU 用于运行用户代码的时间/CPU 总消耗时间，
@@ -46,7 +46,7 @@ Parallel Scavenge 收集器也是一个新生代垃圾收集器，同样使用�
 自适应调节策略也是 ParallelScavenge 收集器与 ParNew 收集器的一个重要区别。
 
 
-### <div id="Serial-Old">Serial Old 收集器（单线程标记整理算法 ）</div>
+### <div id="serial_old">Serial Old 收集器（单线程标记整理算法 ）</div>
 Serial Old 是 Serial 垃圾收集器年老代版本，
 它同样是个单线程的收集器，使用标记-整理算法，
 这个收集器也主要是运行在 Client 默认的 java 虚拟机默认的年老代垃圾收集器。 
@@ -58,7 +58,7 @@ Serial Old 是 Serial 垃圾收集器年老代版本，
 
 ![SerialOld](img/serialOld.png) <br/>
 
-### <div id="Parallel-Old">Parallel Old 收集器（多线程标记整理算法）</div>
+### <div id="parallel_old">Parallel Old 收集器（多线程标记整理算法）</div>
 Parallel Old 收集器是Parallel Scavenge的年老代版本，
 使用多线程的标记-整理算法，在 JDK1.6才开始提供。在 JDK1.6 之前，
 新生代使用 ParallelScavenge 收集器只能搭配年老代的 Serial Old 收集器，
@@ -71,7 +71,7 @@ Parallel Old 收集器是Parallel Scavenge的年老代版本，
 
 ![ParallelOld](img/parallelOld.png) <br/>
 
-### <div id="CMS">CMS 收集器（多线程标记清除算法）</div>
+### <div id="cms">CMS 收集器（多线程标记清除算法）</div>
 Concurrent mark sweep(CMS)收集器是一种年老代垃圾收集器，其最主要目标是获取最短垃圾
 回收停顿时间，和其他年老代使用标记-整理算法不同，它使用多线程的标记-清除算法。
 最短的垃圾收集停顿时间可以为交互比较高的程序提高用户体验。
@@ -95,7 +95,7 @@ CMS 收集器运行示意图如下：
 
 ![CMS](img/cms.png) <br/>
 
-### <div id="G1">G1 收集器</div>
+### <div id="g1">G1 收集器</div>
 Garbage first 垃圾收集器是目前垃圾收集器理论发展的最前沿成果，
 相比与 CMS 收集器，G1 收集器两个最突出的改进是：
 1. 基于标记-整理算法，不产生内存碎片。
