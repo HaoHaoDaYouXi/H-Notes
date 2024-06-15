@@ -54,7 +54,6 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [IO](docs/wait.md)
     - [IO的模型](docs/wait.md)
     - [BIO、NIO、AIO](docs/wait.md)
-    - [序列化怎么实现的？](docs/wait.md)
     - [什么情况应该使用什么IO？](docs/wait.md)
 - [线程](docs/wait.md)
     - [线程的生命周期](docs/wait.md)
