@@ -43,8 +43,8 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [Parallel Old](docs/jvm/gc/collector.md#Parallel-Old)
     - [CMS](docs/jvm/gc/collector.md#CMS)
     - [G1](docs/jvm/gc/collector.md#G1)
-- [jvm类加载](docs/wait.md)
-- [jvm优化](docs/wait.md)
+- [jvm类加载](docs/jvm/jvm_class_load.md)
+- [jvm优化](docs/jvm/jvm_optimize.md)
 
 ### [JAVA](docs/java/java.md)
 - [java的特色，它和其他语言的区别](docs/wait.md)
