@@ -48,7 +48,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 
 ### [JAVA](docs/java/java.md)
 - [java的特色，它和其他语言的区别](docs/java/java.md#java_ts)
-- [java的多态、泛型、注解、序列化、类](docs/wait.md)
+- [java的多态、泛型、反射、注解、序列化](docs/java/java.md#java_dt)
 - [throw和throws的区别](docs/wait.md)
 - [深拷贝和浅拷贝](docs/java/deep_shallow_copy.md)
 - [IO](docs/wait.md)
