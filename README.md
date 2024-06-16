@@ -2,4 +2,6 @@
 
 我的笔记仓库
 
-## [Java](Java/README.md)
+## [linux](linux/README.md)
+## [java](java/README.md)
+[python](python%2FREADME.md)
