@@ -4,7 +4,7 @@
 
 ## [java](java/README.md)
 ## [linux](linux/README.md)
-## [go](go1/README.md)
+## [go](go/README.md)
 ## [python](python/README.md)
 ## [ai](ai/README.md)
 ## [other](other/README.md)
