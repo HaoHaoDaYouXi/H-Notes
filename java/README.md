@@ -53,7 +53,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [异常](docs/java/exception.md)
 - [I/O流](docs/java/io.md)
     - [IO的模型](docs/java/io.md#io_mx)
-    - [BIO、NIO、AIO](docs/wait.md)
+    - [BIO、NIO、AIO](docs/java/io.md#bio_nio_aio)
     - [什么情况应该使用什么IO？](docs/wait.md)
 - [线程](docs/wait.md)
     - [线程的生命周期](docs/wait.md)
@@ -112,6 +112,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [SpringBoot实现热部署有哪几种方式？](docs/wait.md)
 - [SpringBoot配置加载顺序？](docs/wait.md)
 - [SpringBoot2.X 有什么新特性与1.X 有什么区别？](docs/wait.md)
+- [SpringBoot+Netty](https://github.com/HaoHaoDaYouXi/springboot_netty)
 
 ### [JPA](docs/wait.md)
 - [事物的传播行为](docs/wait.md)
