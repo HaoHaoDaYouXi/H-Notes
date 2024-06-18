@@ -51,7 +51,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [java的多态、泛型、反射、注解、序列化](docs/java/java.md#java_dt)
 - [深拷贝和浅拷贝](docs/java/deep_shallow_copy.md)
 - [异常](docs/java/exception.md)
-- [IO](docs/wait.md)
+- [I/O流](docs/java/io.md)
     - [IO的模型](docs/wait.md)
     - [BIO、NIO、AIO](docs/wait.md)
     - [什么情况应该使用什么IO？](docs/wait.md)
