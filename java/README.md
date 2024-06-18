@@ -52,7 +52,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [深拷贝和浅拷贝](docs/java/deep_shallow_copy.md)
 - [异常](docs/java/exception.md)
 - [I/O流](docs/java/io.md)
-    - [IO的模型](docs/wait.md)
+    - [IO的模型](docs/java/io.md#io_mx)
     - [BIO、NIO、AIO](docs/wait.md)
     - [什么情况应该使用什么IO？](docs/wait.md)
 - [线程](docs/wait.md)
