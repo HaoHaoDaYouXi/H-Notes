@@ -54,7 +54,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [I/O流](docs/java/io.md)
     - [IO的模型](docs/java/io.md#io_mx)
     - [BIO、NIO、AIO](docs/java/io.md#bio_nio_aio)
-    - [什么情况应该使用什么IO？](docs/wait.md)
+    - [IO的使用场景](docs/java/io.md#io_sycj)
 - [线程](docs/wait.md)
     - [线程的生命周期](docs/wait.md)
     - [线程的实现](docs/wait.md)
