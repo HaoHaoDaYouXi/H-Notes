@@ -1,12 +1,12 @@
 ## 异常
 
 ### 异常分类
-在`java`中，所有的异常都有⼀个共同的祖先`java.lang`包中的`Throwable`类。
+在`Java`中，所有的异常都有⼀个共同的祖先`java.lang`包中的`Throwable`类。
 `Throwable`类有两个重要的⼦类，分为`Error`和`Exception`
 
 - `Error`
-  - `Error`类是指`java`运行时系统的内部错误和资源耗尽错误。属于程序⽆法处理的错误，我们没办法通过`catch`来进⾏捕获不建议通过`catch`捕获。
-  例如`java`虚拟机运⾏错误(`Virtual MachineError`)、虚拟机内存不够错误(`OutOfMemoryError`)、类定义错误(`NoClassDefFoundError`)等。
+  - `Error`类是指`Java`运行时系统的内部错误和资源耗尽错误。属于程序⽆法处理的错误，我们没办法通过`catch`来进⾏捕获不建议通过`catch`捕获。
+  例如`Java`虚拟机运⾏错误(`Virtual MachineError`)、虚拟机内存不够错误(`OutOfMemoryError`)、类定义错误(`NoClassDefFoundError`)等。
   应用程序不会抛出该类对象。如果出现了这样的错误，除了告知用户，剩下的就是尽力使程序安全的终止。
 
 - `Exception`（`RuntimeException`、`CheckedException`）
@@ -17,12 +17,12 @@
     如果出现`RuntimeException`，那么一定是代码错误.
 
 ### 检查异常 `CheckedException`：
-`java`代码在编译过程中，如果受检查异常没有被`try catch`或者`throws`关键字处理的话，就没办法通过编译。
+`Java`代码在编译过程中，如果受检查异常没有被`try catch`或者`throws`关键字处理的话，就没办法通过编译。
 除了`RuntimeException`及其⼦类以外，其他的`Exception`类及其⼦类都属于受检查异常。
 常⻅的受检查异常有：`IO`相关的异常、`ClassNotFoundException`、`SQLException`...。
 
 ### 不受检查异常 `UncheckedException`：
-`java`代码在编译过程中，我们即使不处理不受检查异常也可以正常通过编译。
+`Java`代码在编译过程中，我们即使不处理不受检查异常也可以正常通过编译。
 `RuntimeException`及其⼦类都统称为⾮受检查异常
 
 常⻅的[Exception && Error](exception_error.md):
@@ -66,7 +66,7 @@
 ⾯对必须要关闭的资源，我们总是应该优先使⽤`try-with-resources`⽽不是`try-finally`。随之产⽣的代码更简短，更清晰，产⽣的异常对我们也更有⽤。
 `try-with-resources`语句让我们更容易编写必须要关闭的资源的代码，若采⽤`try-finally`则⼏乎做不到这点。
 
-`java`中类似于`InputStream`、`OutputStream`等的资源都需要我们调⽤`close()`⽅法来⼿动关闭，⼀般情况下我们都是通过`try-catch-finally`语句来实现这个需求
+`Java`中类似于`InputStream`、`OutputStream`等的资源都需要我们调⽤`close()`⽅法来⼿动关闭，⼀般情况下我们都是通过`try-catch-finally`语句来实现这个需求
 
 如下：
 ~~~java
