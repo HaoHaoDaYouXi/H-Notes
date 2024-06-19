@@ -61,7 +61,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [线程的状态](docs/java/thread.md#xc_zt)
     - [线程的实现](docs/java/thread.md#xc_sx)
     - [线程池](docs/java/thread.md#xc_xcc)
-    - [start和run的区别](docs/wait.md)
+    - [start和run的区别](docs/java/thread.md#xc_start_run)
     - [sleep和wait的区别](docs/wait.md)
     - [后台线程](docs/wait.md)
     - [线程共享数据](docs/wait.md)

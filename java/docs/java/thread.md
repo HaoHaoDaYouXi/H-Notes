@@ -211,8 +211,13 @@ scheduledThreadPool.scheduleAtFixedRate(newRunnable(){
 `Executors.newSingleThreadExecutor()`返回一个线程池(这个线程池只有一个线程)，
 这个线程池可以在线程死后(或发生异常时)重新启动一个线程来替代原来的线程继续执行下去！
 
+## <div id="xc_start_run">`start`和`run`的区别</div>
 
+`start()`方法来启动线程，真正实现了多线程运行。
+这时无需等待`run`方法体代码执行完毕，可以直接继续执行后续的代码。
 
+通过调用`Thread`类的`start()`方法来启动一个线程，这时此线程是处于就绪状态，并没有运行。
 
+方法`run()`称为线程体，它包含了要执行的这个线程的内容，线程就进入了运行状态，开始运行`run`函数当中的代码。`Run`方法运行结束，此线程终止。然后`CPU`再调度其它线程。
 
 1
