@@ -65,7 +65,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [sleep和wait的区别](docs/java/thread.md#xc_sleep_wait)
     - [后台线程](docs/java/thread.md#xc_htxc)
     - [线程共享数据](docs/java/thread.md#xc_gxsj)
-    - [线程调度和调度算法](docs/wait.md)
+    - [线程调度和调度算法](docs/java/thread.md#xc_xcdd_ddsf)
 - [集合](docs/wait.md)
     - [线程安全和线程不安全的集合分别是？它们的区别？](docs/wait.md)
     - [HashMap的扩容机制，达到扩容要求一定会扩容吗？](docs/wait.md)
