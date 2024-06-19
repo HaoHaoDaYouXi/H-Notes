@@ -162,6 +162,56 @@ while(true) {
 ```
 
 ## <div id="xc_xcc">线程池</div>
+线程池就是管理一系列线程的资源池，其提供了一种限制和管理线程资源的方式。
+每个线程池还维护一些基本统计信息，例如已完成任务的数量。
+
+**线程池的好处：**
+- 降低资源消耗：通过重复利用已创建的线程降低线程创建和销毁造成的消耗。
+- 提高响应速度：当任务到达时，任务可以不需要等到线程创建就能立即执行。
+- 提高线程的可管理性：线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控。
+
+**线程池一般用于执行多个不相关联的耗时任务，没有多线程的情况下，任务顺序执行，使用了线程池的话可让多个不相关联的任务同时执行。**
+
+`Java`里面线程池的顶级接口是`Executor`，但是严格意义上讲`Executor`并不是一个线程池，而只是一个执行线程的工具。
+真正的线程池接口是`ExecutorService`。
+
+### `newCachedThreadPool`
+创建一个可根据需要创建新线程的线程池，但是在以前构造的线程可用时将重用它们。
+对于执行很多短期异步任务的程序而言，这些线程池通常可提高程序性能。
+调用`execute`将重用以前构造的线程(如果线程可用)。如果现有线程没有可用的，则创建一个新线程并添加到池中。
+终止并从缓存中移除那些已有`60`秒钟未被使用的线程。因此，长时间保持空闲的线程池不会使用任何资源。
+
+### `newFixedThreadPool`
+创建一个可重用固定线程数的线程池，以共享的无界队列方式来运行这些线程。
+在任意点，在大多数`nThreads`线程会处于处理任务的活动状态。
+如果在所有线程处于活动状态时提交附加任务，则在有可用线程之前，附加任务将在队列中等待。
+如果在关闭前的执行期间由于失败而导致任何线程终止，那么一个新线程将代替它执行后续的任务(如果需要)。
+在某个线程被显式地关闭之前，池中的线程将一直存在。
+
+### `newScheduledThreadPool`
+创建一个线程池，它可安排在给定延迟后运行命令或者定期地执行。
+```
+ScheduledExecutorService scheduledThreadPool= Executors.newScheduledThreadPool(3);
+scheduledThreadPool.schedule(newRunnable(){
+    @Override
+    public void run() {
+        System.out.println("延迟三秒");
+    }
+}, 3, TimeUnit.SECONDS);
+
+scheduledThreadPool.scheduleAtFixedRate(newRunnable(){
+    @Override
+    public void run() {
+        System.out.println("延迟 1 秒后每三秒执行一次");
+    }
+},1,3,TimeUnit.SECONDS);
+```
+
+### `newSingleThreadExecutor`
+`Executors.newSingleThreadExecutor()`返回一个线程池(这个线程池只有一个线程)，
+这个线程池可以在线程死后(或发生异常时)重新启动一个线程来替代原来的线程继续执行下去！
+
+
 
 
 
