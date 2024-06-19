@@ -64,3 +64,13 @@ for (ThreadInfo threadInfo : threadInfos) {
 ![thread_life.png](img/thread_life.png)
 
 ## <div id="xc_zt">线程的状态</div>
+`Java`线程在运⾏的⽣命周期中的指定时刻只可能处于下⾯ 6 种不同状态的其中⼀个状态：
+
+- `NEW`：初始状态，线程被创建出来但没有被调⽤`start()`。
+- `RUNNABLE`：运⾏状态，线程被调⽤了`start()`等待运⾏的状态。
+- `BLOCKED`：阻塞状态，需要等待锁释放。
+- `WAITING`：等待状态，表示该线程需要等待其他线程做出⼀些特定动作（通知或中断）。
+- `TIME_WAITING`：超时等待状态，可以在指定的时间后⾃⾏返回⽽不是像`WAITING`那样⼀直等待。
+- `TERMINATED`：终⽌状态，表示该线程已经运⾏完毕。线程在⽣命周期中并不是固定处于某⼀个状态⽽是随着代码的执⾏在不同状态之间切换。
+
+- ![thread_status.png](img/thread_status.png)
