@@ -220,4 +220,10 @@ scheduledThreadPool.scheduleAtFixedRate(newRunnable(){
 
 方法`run()`称为线程体，它包含了要执行的这个线程的内容，线程就进入了运行状态，开始运行`run`函数当中的代码。`Run`方法运行结束，此线程终止。然后`CPU`再调度其它线程。
 
-1
+## <div id="xc_sleep_wait">`sleep`和`wait`的区别</div>
+
+
+
+
+
+----
