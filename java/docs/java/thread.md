@@ -230,5 +230,6 @@ scheduledThreadPool.scheduleAtFixedRate(newRunnable(){
 
 而当调用`wait()`方法的时候，线程会放弃对象锁，进入等待此对象的等待锁定池，只有针对此对象调用`notify()`方法后本线程才进入对象锁定池准备获取对象锁进入运行状态。
 
+## <div id="xc_htxc">后台线程</div>
 
 ----
