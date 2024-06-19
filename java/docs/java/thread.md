@@ -74,3 +74,5 @@ for (ThreadInfo threadInfo : threadInfos) {
 - `TERMINATED`：终⽌状态，表示该线程已经运⾏完毕。线程在⽣命周期中并不是固定处于某⼀个状态⽽是随着代码的执⾏在不同状态之间切换。
 
 - ![thread_status.png](img/thread_status.png)
+
+## <div id="xc_sx">线程实现</div>
