@@ -245,4 +245,8 @@ scheduledThreadPool.scheduleAtFixedRate(newRunnable(){
    也就是说守护线程不依赖于终端，但是依赖于系统，与系统“同生共死”。
    当`JVM`中所有的线程都是守护线程的时候，`JVM`就可以退出了；如果还有一个或以上的非守护线程则`JVM`不会退出。
 
+## <div id="xc_gxsj">线程共享数据</div>
+
+
+
 ----
