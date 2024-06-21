@@ -93,6 +93,46 @@
 
 ![hashMap_java8.png](img/hashMap_java8.png)
 
+### 负载因子为什么是`0.75`？
+`HashMap`的加载因子(`load factor`，直译为加载因子，意译为负载因子)是指哈希表中填充元素的个数与桶的数量的比值，当元素个数达到负载因子与桶的数量的乘积时，就需要进行扩容。
+
+这个值一般选择`0.75`，是因为这个值可以在时间和空间成本之间做到一个折中，使得哈希表的性能达到较好的表现。
+
+如果负载因子过大，填充因子较多，那么哈希表中的元素就会越来越多地聚集在少数的桶中，这就导致了冲突的增加，这些冲突会导致查找、插入和删除操作的效率下降。
+
+同时，这也会导致需要更频繁地进行扩容，进一步降低了性能。
+
+如果负载因子过小，那么桶的数量会很多，虽然可以减少冲突，但是在空间利用上面也会有浪费，因此选择`0.75`是为了取得一个平衡点，即在时间和空间成本之间取得一个比较好的平衡点。
+
+总之，选择`0.75`这个值是为了在时间和空间成本之间达到一个较好的平衡点，既可以保证哈希表的性能表现，又能够充分利用空间。
+
 ## <div id="jh_concurrenthashmap">`ConcurrentHashMap`</div>
+
+### `Segment`段
+`ConcurrentHashMap`和`HashMap`思路是差不多的，但是因为它支持并发操作，所以要复杂一些。
+
+整个`ConcurrentHashMap`由一个个`Segment`组成，`Segment`代表”部分“或”一段“的意思，所以很多地方都会将其描述为分段锁。
+
+### 线程安全(`Segment`继承`ReentrantLock`加锁)
+
+简单理解就是，`ConcurrentHashMap`是一个`Segment`数组，`Segment`通过继承`ReentrantLock`来进行加锁，
+所以每次需要加锁的操作锁住的是一个`segment`，这样只要保证每个`Segment`是线程安全的，也就实现了全局的线程安全。
+
+### 并行度(默认 16)
+`concurrencyLevel`：并行级别、并发数、`Segment`数。默认是`16`，也就是说`ConcurrentHashMap`有`16`个`Segments`，
+所以理论上，这个时候，最多可以同时支持`16`个线程并发写，只要它们的操作分别分布在不同的`Segment`上。
+这个值可以在初始化的时候设置为其他值，但是一旦初始化以后，它是不可以扩容的。
+再具体到每个`Segment`内部，其实每个`Segment`很像之前介绍的`HashMap`，不过它要保证线程安全，所以处理起来要麻烦些。
+
+#### `Java8`对`ConcurrentHashMap`进行了比较大的改动,`Java8`也引入了红黑树。
+**`Java8`之前**
+
+![concurrentHashMap_java7.png](img/concurrentHashMap_java7.png)
+
+**`Java8`之后**
+
+![concurrentHashMap_java8.png](img/concurrentHashMap_java8.png)
+
+
 
 ----
