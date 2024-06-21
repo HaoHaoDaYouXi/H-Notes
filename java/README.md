@@ -68,8 +68,8 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [线程调度和调度算法](docs/java/thread.md#xc_xcdd_ddsf)
 - [集合](docs/java/collection.md)
     - [`List`，`Set`，`Queue`，`Map`四者的区别？](docs/java/collection.md#jh_szdqb)
-    - [HashMap的扩容机制，达到扩容要求一定会扩容吗？](docs/wait.md)
-    - [ConcurrentHashMap是通过什么控制线程安全的？](docs/wait.md)
+    - [HashMap](docs/java/collection.md#jh_hashmap)
+    - [ConcurrentHashMap](docs/java/collection.md#jh_concurrenthashmap)
 - 锁 Lock
     - [乐观锁和悲观锁的区别？](docs/wait.md)
     - [自旋锁是什么？](docs/wait.md)

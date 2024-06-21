@@ -84,5 +84,15 @@
 2. `loadFactor`：负载因子，默认为`0.75`。
 3. `threshold`：扩容的阈值，等于`capacity`*`loadFactor`
 
+### `HashMap`1.8之后
+`Java8`对`HashMap`进行了一些修改，最大的不同就是利用了红黑树，所以其由`数组+链表+红黑树`组成。
+
+根据`HashMap`1.8之前的介绍，我们知道，查找的时候，根据`hash`值我们能够快速定位到数组的具体下标，但是之后的话，需要顺着链表一个个比较下去才能找到我们需要的，时间复杂度取决于链表的长度，为`O(n)`。
+
+为了降低这部分的开销，在`Java8`中，当链表中的元素超过了`8`个以后，会将链表转换为红黑树，在这些位置进行查找的时候可以降低时间复杂度为`O(logN)`。
+
+![hashMap_java8.png](img/hashMap_java8.png)
+
+## <div id="jh_concurrenthashmap">`ConcurrentHashMap`</div>
 
 ----
