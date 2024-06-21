@@ -63,4 +63,26 @@
     - 红⿊树(⾃平衡的排序⼆叉树)
     - `key`不可以重复，`value`可以重复
 
+## <div id="jh_hashmap">`HashMap`(数组+链表+红黑树)</div>
+
+`HashMap`根据键的`hashCode`值存储数据，大多数情况下可以直接定位到它的值，因而具有很快的访问速度，但遍历顺序却是不确定的。
+
+`HashMap`最多只允许一条记录的键为`null`，允许多条记录的值为`null`。
+
+`HashMap`非线程安全，即任一时刻可以有多个线程同时写`HashMap`，可能会导致数据的不一致。
+
+如果需要满足线程安全，可以用`Collections`的`synchronizedMap`方法使`HashMap`具有线程安全的能力，或者使用`ConcurrentHashMap`。
+
+### `HashMap`1.8之前
+
+![hashMap_java7.png](img/hashMap_java7.png)
+
+大方向上，`HashMap`里面是一个数组，然后数组中每个元素是一个单向链表。
+上图中，每个绿色的实体是嵌套类`Entry`的实例，`Entry`包含四个属性：`key`，`value`，`hash`值和用于单向链表的`next`。
+
+1. `capacity`：当前数组容量，始终保持`2^n`，可以扩容，扩容后数组大小为当前的`2`倍。
+2. `loadFactor`：负载因子，默认为`0.75`。
+3. `threshold`：扩容的阈值，等于`capacity`*`loadFactor`
+
+
 ----
