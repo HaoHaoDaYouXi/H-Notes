@@ -70,9 +70,9 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [`List`，`Set`，`Queue`，`Map`四者的区别？](docs/java/collection.md#jh_szdqb)
     - [HashMap](docs/java/collection.md#jh_hashmap)
     - [ConcurrentHashMap](docs/java/collection.md#jh_concurrenthashmap)
-- 锁 Lock
-    - [乐观锁和悲观锁的区别？](docs/wait.md)
-    - [自旋锁是什么？](docs/wait.md)
+- [锁`Lock`](docs/java/lock.md)
+    - [乐观锁和悲观锁](docs/java/lock.md#lgs)
+    - [自旋锁](docs/java/lock.md#zxs)
     - [Synchronized同步锁](docs/wait.md)
     - [ReentrantLock可重入锁](docs/wait.md)
     - [Semaphore信号量](docs/wait.md)
