@@ -114,6 +114,18 @@
 - `lock`能获得锁就返回`true`，不能的话一直等待获得锁
 - `lock`和`lockInterruptibly`，如果两个线程分别执行这两个方法，但此时中断这两个线程，`lock`不会抛出异常，而`lockInterruptibly`会抛出异常。
 
+## <div id="atomicInteger">`AtomicInteger`</div>
+`AtomicInteger`，一个提供原子操作的`Integer`的类，
+常见的还有：`AtomicBoolean`、`AtomicInteger`、`AtomicLong`、`AtomicReference`等
+
+他们的实现原理相同，区别在与运算对象类型的不同，还可以通过`AtomicReference<V>`将一个对象的所有操作转化成原子操作。
+
+在多线程程序中，诸如`++i`或`i++`等运算不具有原子性，是不安全的线程操作之一。
+
+通常会使用`synchronized`将该操作变成一个原子操作，但`JVM`为此类操作特意提供了一些同步类，使得使用更方便，且使程序运行效率变得更高。
+
+通过相关资料显示，通常`AtomicInteger`的性能是`ReentrantLock`的好几倍。
+
 ## <div id="semaphore">`Semaphore`信号量</div>
 `Semaphore`是一种基于计数的信号量。它可以设定一个阈值，基于此，多个线程竞争获取许可信号，做完自己的申请后归还，超过阈值后，线程申请许可信号将会被阻塞。
 
