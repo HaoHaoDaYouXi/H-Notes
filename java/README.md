@@ -79,7 +79,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [Semaphore信号量](docs/java/lock.md#semaphore)
     - [可重入锁(递归锁)](docs/java/lock.md#kcrs)
     - [公平锁和非公平锁](docs/java/lock.md#gps_fgps)
-    - [ReadWriterLock读写锁](docs/wait.md)
+    - [ReadWriterLock读写锁](docs/java/lock.md#dxs)
     - [共享锁和独占锁](docs/wait.md)
     - [锁的状态](docs/wait.md)
     - [分段锁](docs/wait.md)
