@@ -80,7 +80,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [可重入锁(递归锁)](docs/java/lock.md#kcrs)
     - [公平锁和非公平锁](docs/java/lock.md#gps_fgps)
     - [ReadWriterLock读写锁](docs/java/lock.md#dxs)
-    - [共享锁和独占锁](docs/wait.md)
+    - [共享锁和独占锁](docs/java/lock.md#gxs_dzs)
     - [锁的状态](docs/wait.md)
     - [分段锁](docs/wait.md)
     - [分布式锁](docs/wait.md)
