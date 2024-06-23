@@ -75,7 +75,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [自旋锁](docs/java/lock.md#zxs)
     - [Synchronized同步锁](docs/java/lock.md#tbs)
     - [ReentrantLock可重入锁](docs/java/lock.md#reentrantlock)
-    - [Semaphore信号量](docs/wait.md)
+    - [Semaphore信号量](docs/java/lock.md#semaphore)
     - [可重入锁(递归锁)](docs/wait.md)
     - [公平锁和非公平锁](docs/wait.md)
     - [ReadWriterLock读写锁](docs/wait.md)
