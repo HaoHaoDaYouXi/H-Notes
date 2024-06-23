@@ -220,6 +220,11 @@
 `JDK1.6`以后，为了减少获得锁和释放锁所带来的性能消耗，提高性能，引入了“轻量级锁”和"偏向锁"。
 
 
+## <div id="fds">分段锁</div>
+分段锁也并非一种实际的锁，而是一种设计
+
+[`ConcurrentHashMap`](collection.md#jh_concurrenthashmap)是学习分段锁的最好实践
+
 
 
 
