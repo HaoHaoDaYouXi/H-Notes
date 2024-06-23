@@ -87,7 +87,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
       - [重量级锁](docs/java/lock.md#zljs)
     - [分段锁](docs/java/lock.md#fds)
     - [分布式锁](docs/java/lock.md#fbss)
-    - [锁的优化](docs/wait.md)
+    - [锁的优化](docs/java/lock.md#sdyh)
 - [队列](docs/wait.md)
     - [阻塞队列](docs/wait.md)
     - [队列实现](docs/wait.md)
