@@ -63,7 +63,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [`Queue`](docs/java/queue.md#queue)
     - [`Deque`](docs/java/queue.md#deque)
     - [`PriorityQueue`](docs/java/queue.md#priorityqueue)
-    - [阻塞队列(`BlockingQueue`)](docs/wait.md)
+    - [`BlockingQueue`](docs/wait.md)
 - [锁`Lock`](docs/java/lock.md)
     - [乐观锁和悲观锁](docs/java/lock.md#lgs)
     - [自旋锁](docs/java/lock.md#zxs)
