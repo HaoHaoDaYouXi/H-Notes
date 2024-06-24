@@ -93,7 +93,7 @@
 
 ![hashMap_java8.png](img/hashMap_java8.png)
 
-### 负载因子为什么是`0.75`？
+### <div id="fzyz">负载因子为什么是`0.75`？</div>
 `HashMap`的加载因子(`load factor`，直译为加载因子，意译为负载因子)是指哈希表中填充元素的个数与桶的数量的比值，当元素个数达到负载因子与桶的数量的乘积时，就需要进行扩容。
 
 这个值一般选择`0.75`，是因为这个值可以在时间和空间成本之间做到一个折中，使得哈希表的性能达到较好的表现。
@@ -107,14 +107,12 @@
 总之，选择`0.75`这个值是为了在时间和空间成本之间达到一个较好的平衡点，既可以保证哈希表的性能表现，又能够充分利用空间。
 
 ## <div id="jh_concurrenthashmap">`ConcurrentHashMap`</div>
-
-### `Segment`段
 `ConcurrentHashMap`和`HashMap`思路是差不多的，但是因为它支持并发操作，所以要复杂一些。
 
+### <div id="segment">`Segment`段</div>
 整个`ConcurrentHashMap`由一个个`Segment`组成，`Segment`代表”部分“或”一段“的意思，所以很多地方都会将其描述为分段锁。
 
 ### 线程安全(`Segment`继承`ReentrantLock`加锁)
-
 简单理解就是，`ConcurrentHashMap`是一个`Segment`数组，`Segment`通过继承`ReentrantLock`来进行加锁，
 所以每次需要加锁的操作锁住的是一个`segment`，这样只要保证每个`Segment`是线程安全的，也就实现了全局的线程安全。
 
@@ -125,11 +123,12 @@
 再具体到每个`Segment`内部，其实每个`Segment`很像之前介绍的`HashMap`，不过它要保证线程安全，所以处理起来要麻烦些。
 
 #### `Java8`对`ConcurrentHashMap`进行了比较大的改动,`Java8`也引入了红黑树。
-**`Java8`之前**
+
+### <div id="java8_before">`Java8`之前</div>
 
 ![concurrentHashMap_java7.png](img/concurrentHashMap_java7.png)
 
-**`Java8`之后**
+### <div id="java8_after">`Java8`之后</div>
 
 ![concurrentHashMap_java8.png](img/concurrentHashMap_java8.png)
 
