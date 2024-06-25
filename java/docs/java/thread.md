@@ -463,7 +463,24 @@ public class TestThread {
 ThreadLocal.ThreadLocalMap threadLocals = null;
 ```
 
+### <div id="threadlocal_sycj">使用场景</div>
+最常见的`ThreadLocal`使用场景：数据库连接、Session 管理等。
+```java
+private static final ThreadLocal threadLocal = new ThreadLocal();
 
+public static Session getSession() throws InfrastructureException {
+    Session s = (Session) threadLocal.get();
+    try {
+        if (s == null) {
+            s = getSessionFactory().openSession();
+            threadLocal.set(s);
+        }
+    } catch (HibernateException ex) {
+        throw new InfrastructureException(ex);
+    }
+    return s;
+}
+```
 
 
 ----
