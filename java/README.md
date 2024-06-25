@@ -93,6 +93,8 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [分段锁](docs/java/lock.md#fds)
     - [分布式锁](docs/java/lock.md#fbss)
     - [锁的优化](docs/java/lock.md#sdyh)
+    - [CAS](docs/wait.md)
+    - [AQS](docs/wait.md)
 - [线程](docs/java/thread.md)
   - [线程和进程](docs/java/thread.md#xc_jc)
   - [线程的生命周期](docs/java/thread.md#xc_smzq)
