@@ -452,6 +452,16 @@ public class TestThread {
 
 `ThreadLocal`类主要解决的就是让每个线程绑定⾃⼰的值，可以将`ThreadLocal`类形象的⽐喻成存放数据的盒⼦，盒⼦中可以存储每个线程的私有数据。
 
+### <div id="threadlocal_map">`ThreadLocalMap`（线程的一个属性）</div>
+每个线程中都有一个自己的`ThreadLocalMap`类对象，可以将线程自己的对象保持到其中，各管各的，线程可以正确的访问到自己的对象。
+
+将一个共用的`ThreadLocal`静态实例作为`key`，将不同对象的引用保存到不同线程的`ThreadLocalMap`中，
+然后在线程执行的各处通过这个静态`ThreadLocal`实例的`get()`方法取得自己线程保存的那个对象，避免了将这个对象作为参数传递的麻烦。
+
+`ThreadLocalMap`其实就是线程里面的一个属性，它在`Thread`类中定义
+```
+ThreadLocal.ThreadLocalMap threadLocals = null;
+```
 
 
 
