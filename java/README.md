@@ -104,7 +104,9 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
   - [后台线程](docs/java/thread.md#xc_htxc)
   - [线程共享数据](docs/java/thread.md#xc_gxsj)
   - [线程调度和调度算法](docs/java/thread.md#xc_xcdd_ddsf)
-  - [ThreadLocal](docs/wait.md)
+  - [ThreadLocal](docs/java/thread.md#threadlocal)
+    - [ThreadLocalMap](docs/java/thread.md#threadlocal_map)
+    - [使用场景](docs/java/thread.md#threadlocal_sycj)
     
 ### [Spring](docs/wait.md)
 - [Spring的原理和特点](docs/wait.md)
