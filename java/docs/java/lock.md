@@ -324,5 +324,11 @@ public class AtomicInteger extends Number implements java.io.Serializable {
 
 因为每次操作的版本号都会随之增加，所以不会出现`ABA`问题，因为版本号只会增加不会减少。
 
+## <div id="aqs">AQS（抽象的队列同步器）</div>
+
+
+
+
+
 
 ----
