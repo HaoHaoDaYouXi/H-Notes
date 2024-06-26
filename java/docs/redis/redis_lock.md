@@ -39,7 +39,7 @@ return 0
 end
 ## 3、实现
 首先，我们在pom文件中，引入Jedis。注意由于版本的不同，API可能有所差异。
-```
+```xml
 <dependency>
     <groupId>redis.clients</groupId>
     <artifactId>jedis</artifactId>
@@ -47,7 +47,7 @@ end
 </dependency>
 ```
 加锁的过程很简单，就是通过SET指令来设置值，成功则返回；否则就循环等待，在timeout时间内仍未获取到锁，则获取失败。
-```
+```java
 @Service
 public class RedisLock {
 
@@ -100,7 +100,7 @@ public class RedisLock {
 }
 ```
 解锁我们通过jedis.eval来执行一段LUA就可以。将锁的Key键和生成的字符串当做参数传进来。
-```
+```java
     /**
      * 解锁
      * @param id
@@ -127,7 +127,7 @@ public class RedisLock {
     }
 ```
 最后，我们可以在多线程环境下测试一下。我们开启1000个线程，对count进行累加。调用的时候，关键是唯一字符串的生成。这里，笔者使用的是Snowflake算法。
-```
+```java
 @Controller
 public class IndexController {
 
@@ -178,9 +178,7 @@ Redisson是架设在Redis基础上的一个Java驻内存数据网格（In-Memory
 
 上面我们自己实现的Redis分布式锁，其实不具有可重入性。那么下面我们先来看看Redisson中如何调用可重入锁。
 
-在这里，笔者使用的是它的最新版本，3.10.1。
-
-```
+```xml
 <dependency>
     <groupId>org.redisson</groupId>
     <artifactId>redisson</artifactId>
@@ -190,7 +188,7 @@ Redisson是架设在Redis基础上的一个Java驻内存数据网格（In-Memory
 
 首先，通过配置获取RedissonClient客户端的实例，然后getLock获取锁的实例，进行操作即可。
 
-```
+```java
 public static void main(String[] args) {
 
     Config config = new Config();
@@ -212,14 +210,14 @@ public static void main(String[] args) {
 
 我们先来看RLock lock = client.getLock("lock1"); 这句代码就是为了获取锁的实例，然后我们可以看到它返回的是一个RedissonLock对象。
 
-```
+```java
 public RLock getLock(String name) {
     return new RedissonLock(connectionManager.getCommandExecutor(), name);
 }
 ```
 
 在RedissonLock构造方法中，主要初始化一些属性。
-```
+```java
 public RedissonLock(CommandAsyncExecutor commandExecutor, String name) {
     super(commandExecutor, name);
     //命令执行器
@@ -238,7 +236,7 @@ public RedissonLock(CommandAsyncExecutor commandExecutor, String name) {
 当我们调用lock方法，定位到lockInterruptibly。
 在这里，完成了加锁的逻辑。
 
-```
+```java
 public void lockInterruptibly(long leaseTime, TimeUnit unit) throws InterruptedException {
     
     //当前线程ID
@@ -282,7 +280,7 @@ public void lockInterruptibly(long leaseTime, TimeUnit unit) throws InterruptedE
 
 获取锁的过程是怎样的呢？接下来就要看tryAcquire方法。在这里，它有两种处理方式，一种是带有过期时间的锁，一种是不带过期时间的锁。
 
-```
+```java
 private <T> RFuture<Long> tryAcquireAsync(long leaseTime, TimeUnit unit, final long threadId) {
 
     //如果带有过期时间，则按照普通方式获取锁
@@ -316,7 +314,7 @@ private <T> RFuture<Long> tryAcquireAsync(long leaseTime, TimeUnit unit, final l
 接着往下看，tryLockInnerAsync方法是真正执行获取锁的逻辑，它是一段LUA脚本代码。
 在这里，它使用的是hash数据结构。
 
-```
+```java
 <T> RFuture<T> tryLockInnerAsync(long leaseTime, TimeUnit unit,     
                             long threadId, RedisStrictCommand<T> command) {
 
@@ -349,7 +347,7 @@ private <T> RFuture<Long> tryAcquireAsync(long leaseTime, TimeUnit unit, final l
 如果锁已存在，但锁的不是当前线程，则证明有其他线程持有锁。返回当前锁的过期时间，加锁失败
 
 加锁成功后，在redis的内存数据中，就有一条hash结构的数据。Key为锁的名称；field为随机字符串+线程ID；值为1。如果同一线程多次调用lock方法，值递增1。
-```
+```shell
 127.0.0.1:6379> hgetall lock1
 1) "b5ae0be4-5623-45a5-8faa-ab7eb167ce87:1"
 2) "1"
@@ -357,7 +355,7 @@ private <T> RFuture<Long> tryAcquireAsync(long leaseTime, TimeUnit unit, final l
 
 ## 4、解锁
 我们通过调用unlock方法来解锁。
-```
+```java
 public RFuture<Void> unlockAsync(final long threadId) {
     final RPromise<Void> result = new RedissonPromise<Void>();
     
@@ -397,7 +395,7 @@ public RFuture<Void> unlockAsync(final long threadId) {
 然后我们再看unlockInnerAsync方法。
 这里也是一段LUA脚本代码。
 
-```
+```java
 protected RFuture<Boolean> unlockInnerAsync(long threadId) {
     return commandExecutor.evalWriteAsync(getName(), LongCodec.INSTANCE, EVAL,
     
