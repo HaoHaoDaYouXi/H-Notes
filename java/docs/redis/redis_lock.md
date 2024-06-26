@@ -12,7 +12,6 @@
 
 分布式锁的实现有很多，比如基于数据库、memcached、Redis、系统文件、zookeeper等。它们的核心的理念跟上面的过程大致相同。
 
-# 
 # <div id="redis">二、Redis实现</div>
 我们先来看如何通过单节点Redis实现一个简单的分布式锁。
 
