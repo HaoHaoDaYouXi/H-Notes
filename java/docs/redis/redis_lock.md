@@ -347,7 +347,7 @@ private <T> RFuture<Long> tryAcquireAsync(long leaseTime, TimeUnit unit, final l
 如果锁已存在，但锁的不是当前线程，则证明有其他线程持有锁。返回当前锁的过期时间，加锁失败
 
 加锁成功后，在redis的内存数据中，就有一条hash结构的数据。Key为锁的名称；field为随机字符串+线程ID；值为1。如果同一线程多次调用lock方法，值递增1。
-```shell
+```redis
 127.0.0.1:6379> hgetall lock1
 1) "b5ae0be4-5623-45a5-8faa-ab7eb167ce87:1"
 2) "1"
@@ -375,8 +375,7 @@ public RFuture<Void> unlockAsync(final long threadId) {
             //如果返回空，则证明解锁的线程和当前锁不是同一个线程，抛出异常
             if (opStatus == null) {
                 IllegalMonitorStateException cause = 
-                    new IllegalMonitorStateException("
-                        attempt to unlock lock, not locked by current thread by node id: "
+                    new IllegalMonitorStateException("attempt to unlock lock, not locked by current thread by node id: "
                         + id + " thread-id: " + threadId);
                 result.tryFailure(cause);
                 return;
