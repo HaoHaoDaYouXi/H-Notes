@@ -229,6 +229,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [Redis的并发竞争问题和cas](docs/wait.md)
 - [Redis和Memcached 有什么区别？](docs/wait.md)
 - [生产环境中的Redis应该怎么部署的？](docs/wait.md)
+- [Redis分布式锁](docs/redis/redis_lock.md)
 
 ### [消息队列 MQ](docs/wait.md)
 - [为什么使用消息队列？](docs/wait.md)
