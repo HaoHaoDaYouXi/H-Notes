@@ -38,7 +38,7 @@ else
 return 0
 end
 ## 3、实现
-首先，我们在pom文件中，引入Jedis。在这里，笔者用的是最新版本，注意由于版本的不同，API可能有所差异。
+首先，我们在pom文件中，引入Jedis。注意由于版本的不同，API可能有所差异。
 ```
 <dependency>
     <groupId>redis.clients</groupId>
