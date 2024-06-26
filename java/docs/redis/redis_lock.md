@@ -355,6 +355,7 @@ private <T> RFuture<Long> tryAcquireAsync(long leaseTime, TimeUnit unit, final l
 1) "b5ae0be4-5623-45a5-8faa-ab7eb167ce87:1"
 2) "1"
 ```
+
 ## 4、解锁
 我们通过调用unlock方法来解锁。
 ```
@@ -437,8 +438,9 @@ protected RFuture<Boolean> unlockInnerAsync(long threadId) {
 
 通过hincrby递减1，先释放一次锁。若剩余次数还大于0，则证明当前锁是重入锁，刷新过期时间；若剩余次数小于0，删除key并发布锁释放的消息，解锁成功
 
-
 至此，Redisson中的可重入锁的逻辑，就分析完了。
 但值得注意的是，上面的两种实现方式都是针对单机Redis实例而进行的。
 如果我们有多个Redis实例，请参阅Redlock算法。
 该算法的具体内容，请参考http://redis.cn/topics/distlock.html
+
+----
