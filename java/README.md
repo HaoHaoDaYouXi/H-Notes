@@ -115,7 +115,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [ThreadLocalMap](docs/java/thread.md#threadlocal_map)
     - [使用场景](docs/java/thread.md#threadlocal_sycj)
     
-### [Spring](docs/wait.md)
+### [Spring](docs/spring/spring.md)
 - [Spring的原理和特点](docs/wait.md)
 - [Spring的核心组件](docs/wait.md)
 - [Spring的常用模块](docs/wait.md)
