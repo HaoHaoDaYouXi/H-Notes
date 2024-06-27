@@ -102,17 +102,37 @@ spring6.1.x版本：https://docs.spring.io/spring-framework/reference/6.1-SNAPSH
 `Spring`的核心要点就是支持不绑定到特定`J2EE`服务的可重用业务和数据的访问的对象，毫无疑问这样的对象可以在不同的`J2EE`环境，独立应用程序和测试环境之间重用。
 
 ## <div id="spring_sjms">Spring框架使用的设计模式</div>
-- 单例模式
-- 原型模式
-- 工厂模式
-- 适配器模式
-- 包装模式
-- 代理模式
-- 观察者模式
-- 策略模式
-- 模板模式
+- 简单工厂模式：`Spring`中的`BeanFactory`就是简单工厂模式的体现。
+根据传入一个唯一的标识来获得`Bean`对象，但是在传入参数后创建还是传入参数前创建，要根据具体情况来定。
 
-## <div id="spring_cyzj">Spring常用的注解</div>
+- 工厂模式：`Spring`中的`FactoryBean`就是典型的工厂方法模式，实现了`FactoryBean`接口的`bean`是一类叫做`factory`的`bean`。
+其特点是，`spring`在使用`getBean()`调用获得该`bean`时，会自动调用该`bean`的`getObject()`方法，
+所以返回的不是`factory`这个`bean`，而是这个`bean.getOjbect()`方法的返回值。
+
+- 单例模式：在`spring`中用到的单例模式有：`scope="singleton"`，注册式单例模式，`bean`存放于`Map`中。`bean name`当做`key`，`bean`当做`value`。
+
+- 原型模式：在`spring`中用到的原型模式有：`scope="prototype"`，每次获取的是通过克隆生成的新 实例，对其进行修改时对原有实例对象不造成任何影响。
+
+- 迭代器模式：在`Spring`中有个`CompositeIterator`实现了`Iterator`，`Iterable`接口和`Iterator`接口，这两个都是迭代相关的接口。
+可以这么认为，实现了`Iterable`接口，则表示某个对象是可被迭代的。
+  - `Iterator`接口相当于是一个迭代器，实现了`Iterator`接口，等于具体定义了这个可被迭代的对象时如何进行迭代的。
+
+- 代理模式：`Spring`中经典的`AOP`，就是使用动态代理实现的，分`JDK`和`CGlib`动态代理。
+
+- 适配器模式：`Spring`中的`AOP`中`AdvisorAdapter`类，
+  - 它有三个实现：`MethodBeforAdviceAdapter`、`AfterReturnningAdviceAdapter`、`ThrowsAdviceAdapter`。
+  `Spring`会根据不同的`AOP`配置来使用对应的`Advice`，与策略模式不同的是，一个方法可以同时拥有多个`Advice`。
+  `Spring`存在很多以`Adapter`结尾的，大多数都是适配器模式。
+
+- 观察者模式：`Spring`中的`Event`和`Listener`。
+  - `spring`事件：`ApplicationEvent`，该抽象类继承了`EventObject`类，`JDK`建议所有的事件都应该继承自`EventObject`。
+  - `spring`事件监听器：`ApplicationListener`，该接口继承了`EventListener`接口，`JDK`建议所有的事件监听器都应该继承`EventListener`。
+
+- 模板模式：`Spring`中的`org.springframework.jdbc.core.JdbcTemplate`就是非常经典的模板模式的应用，里面的`execute`方法，把整个算法步骤都定义好了。
+
+- 责任链模式：`DispatcherServlet`中的`doDispatch()`方法中获取与请求匹配的处理器`HandlerExecutionChain`，`this.getHandler()`方法的处理使用到了责任链模式。
+
+**注意：这里只是列举了部分设计模式，其实里面用到了还有享元模式、建造者模式等**
 
 
 
