@@ -117,7 +117,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     
 ### [Spring](docs/spring/spring.md)
 - [Spring的特点](docs/spring/spring.md#spring_td)
-- [Spring的核心组件](docs/wait.md)
+- [Spring的核心组件](docs/spring/spring.md#spring_hxzj)
 - [Spring的常用模块](docs/wait.md)
 - [Spring的主要的包](docs/wait.md)
 - [Spring常用的注解](docs/wait.md)
