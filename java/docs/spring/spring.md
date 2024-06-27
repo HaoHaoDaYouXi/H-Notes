@@ -32,7 +32,7 @@ spring5.2.25版本：https://docs.spring.io/spring-framework/docs/5.2.25.RELEASE
 
 ![spring_framework_doc_5.2.25.png](img/spring_framework_doc_5.2.25.png)
 
-spring6.1.10版本：https://docs.spring.io/spring-framework/reference/
+spring6.1.x版本：https://docs.spring.io/spring-framework/reference/6.1-SNAPSHOT/
 
 ![spring_framework_doc_6.1.10.png](img/spring_framework_doc_6.1.10.png)
 
