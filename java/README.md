@@ -130,8 +130,6 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [IOC的实现](docs/wait.md)
 - [Spring的AOP](docs/wait.md)
     - [AOP的代理方式和实现](docs/wait.md)
-- [Spring MVC](docs/wait.md)
-    - [MVC常用注解](docs/wait.md)
 
 ### [SpringBoot](docs/wait.md)
 - [为什么要用SpringBoot？](docs/wait.md)
