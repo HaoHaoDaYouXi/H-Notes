@@ -134,7 +134,72 @@ spring6.1.x版本：https://docs.spring.io/spring-framework/reference/6.1-SNAPSH
 
 **注意：这里只是列举了部分设计模式，其实里面用到了还有享元模式、建造者模式等**
 
+## <div id="spring_cyzj">Spring常用的注解</div>
 
+### `@Controller`注解
+是在`Spring`的`org.springframework.stereotype`包下，`org.springframework.stereotype.Controller`注解类型用于指示`Spring`类的实例是一个控制器
+使用`@Controller`注解的类不需要继承特定的父类或者实现特定的接口，相对之前的版本实现`Controller`接口变的更加简单。
+
+而`Controller`接口的实现类只能处理一个单一的请求动作，而`@Controller`注解注解的控制器可以同时支持处理多个请求动作，使程序开发变的更加灵活。
+`@Controller`用户标记一个类，使用它标记的类就是一个`Spring MVC Controller`对象，即：一个控制器类。
+`Spring`使用扫描机制查找应用程序中所有基于注 解的控制器类，分发处理器会扫描使用了该注解的方法，并检测该方法是否使用了`@RequestMapping`注解，而使用`@RequestMapping`注解的方法才是真正处理请求的处理器。
+
+### `@RestController`注解
+`@RestController`注解是`@Controller`和`@ResponseBody`注解的组合注解，
+
+### `@ResponseBody`
+注解实现将`controller`方法返回对象转化为`json`对象响应给客户。
+
+### `@RequestMapping`
+用于处理请求`url`映射的注解，可用于类或方法上。用于类上，则表示类中的所有响应请求的方法都是以该地址作为父路径。
+
+### `@RequestBody`
+注解实现接收`http`请求的`json`数据，将`json`转换为`java`对象。
+
+### `@RequestParam`
+该注解类型用于将指定的请求参数赋值给方法中的形参。
+
+它有4种属性
+- `name`属性该属性的类型是`String`类型，它可以指定请求头绑定的名称；
+- `value`属性该属性的类型是`String`类型，它可以设置是`name`属性的别名；
+- `required`属性该属性的类型是`boolean`类型，它可以设置指定参数是否必须绑定；
+- `defaultValue`属性该属性的类型是`String`类型，它可以设置如果没有传递参数可以使用默认值。
+
+### `@RequestHeader`
+该注解类型可以把`Request`请求中`Header`中的参数绑定到方法参数上。
+
+### `@PathVariable`
+该注解类型可以非常方便的获得请求`url`中的动态参数。
+
+`@PathVariable`注解只支持一个属性`value`，类型`String`，表示绑定的名称，如果省略则默认绑定同名参数。
+
+### `@Component`
+泛指某一个组件，当组件不好归类的时候，可以使用这个注解进行标注。
+
+### `@Service`
+用于标注业务层组件。
+
+### `@Repository`
+用于标注`dao`层组件，以便于Spring管理这些类的实例，并且可以方便地进行事务管理。
+
+现在基本不适用此注解，通常使用`mybatis`的`@Mapper`注解。
+
+### `@Valid`和`@Validated`
+参数前面加上`@Valid`注解，表示我们对这个对象属性需要进行验证。
+`@Validated`是在`@Valid`基础上，做的一个升级版。
+
+### `@Autowired`和`@Resource`
+`@Autowired`通过类型来实现自动注入`bean`。
+和`@Qualifier`注解配合使用可以实现根据`name`注入`bean`。
+
+`@Resource`根据`name`注入`bean`的，可以通过设置类型来实现通过类型来注入。
+
+| 对比项  | `@Autowire`       | `@Resource`   |
+|------|-------------------|---------------|
+| 注解来源 | `Spring`注解        | `JDK`注解       |
+| 装配方式 | 优先按类型             | 优先按名称         |
+| 属性   | `required`        | `name`、`type` |
+| 作用范围 | 字段、`setter`方法、构造器 | 字段、`setter`方法 |
 
 
 ----
