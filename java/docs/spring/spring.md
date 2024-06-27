@@ -120,7 +120,7 @@ spring6.1.x版本：https://docs.spring.io/spring-framework/reference/6.1-SNAPSH
 - 代理模式：`Spring`中经典的`AOP`，就是使用动态代理实现的，分`JDK`和`CGlib`动态代理。
 
 - 适配器模式：`Spring`中的`AOP`中`AdvisorAdapter`类，
-  - 它有三个实现：`MethodBeforAdviceAdapter`、`AfterReturnningAdviceAdapter`、`ThrowsAdviceAdapter`。
+  - 它有三个实现：`MethodBeforeAdviceAdapter`、`AfterReturningAdviceAdapter`、`ThrowsAdviceAdapter`。
   `Spring`会根据不同的`AOP`配置来使用对应的`Advice`，与策略模式不同的是，一个方法可以同时拥有多个`Advice`。
   `Spring`存在很多以`Adapter`结尾的，大多数都是适配器模式。
 
