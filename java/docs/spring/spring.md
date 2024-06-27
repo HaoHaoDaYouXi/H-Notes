@@ -101,5 +101,20 @@ spring6.1.x版本：https://docs.spring.io/spring-framework/reference/6.1-SNAPSH
 `Spring`框架的功能可以用在任何`J2EE`服务器当中，大多数功能也适用于不受管理的环境。
 `Spring`的核心要点就是支持不绑定到特定`J2EE`服务的可重用业务和数据的访问的对象，毫无疑问这样的对象可以在不同的`J2EE`环境，独立应用程序和测试环境之间重用。
 
+## <div id="spring_sjms">Spring框架使用的设计模式</div>
+- 单例模式
+- 原型模式
+- 工厂模式
+- 适配器模式
+- 包装模式
+- 代理模式
+- 观察者模式
+- 策略模式
+- 模板模式
+
+## <div id="spring_cyzj">Spring常用的注解</div>
+
+
+
 
 ----
