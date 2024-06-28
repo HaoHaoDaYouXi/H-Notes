@@ -182,4 +182,19 @@ xml配置
 
 [`@Autowired`和`@Resource`的区别](spring.md#autowired_resource)
 
+## <div id="zdzp">`5`种不同方式的自动装配</div>
+
+`Spring`装配包括手动装配和自动装配，手动装配是有基于`xml`装配、构造方法、`setter`方法等
+
+自动装配有五种自动装配的方式，可以用来指导`Spring`容器用自动装配方式来进行依赖注入。
+
+1. `no`：默认的方式是不进行自动装配，通过显式设置`ref`属性来进行装配。
+2. `byName`：通过参数名自动装配，`Spring`容器在配置文件中发现`bean`的`autowire`属性被设
+   置成`byName`，之后容器试图匹配、装配和该`bean`的属性具有相同名字的`bean`。
+3. `byType`：通过参数类型自动装配，`Spring`容器在配置文件中发现`bean`的`autowire`属性被
+   设置成`byType`，之后容器试图匹配、装配和该`bean`的属性具有相同类型的`bean`。如果有多个`bean`符合条件，则抛出错误。
+4. `constructor`：这个方式类似于`byType`，但是要提供给构造器参数，如果没有确定的带参数的构造器参数类型，将会抛出异常。
+5. `autodetect`：首先尝试使用`constructor`来自动装配，如果无法工作，则使用`byType`方式。
+
+
 ----
