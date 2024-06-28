@@ -121,7 +121,8 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [Spring的常用模块](docs/spring/spring.md#spring_cymk)
 - [Spring框架使用的设计模式](docs/spring/spring.md#spring_sjms)
 - [Spring常用的注解](docs/spring/spring.md#spring_cyzj)
-- [Bean](docs/wait.md)
+- [Bean](docs/spring/bean.md)
+  - [`@Component`](docs/spring/bean.md#component)
   - [Bean的作用域](docs/wait.md)
   - [Bean的生命周期](docs/wait.md)
   - [Bean注入的实现方式](docs/wait.md)
@@ -130,6 +131,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [IOC的实现](docs/wait.md)
 - [Spring的AOP](docs/wait.md)
     - [AOP的代理方式和实现](docs/wait.md)
+- [Spring加载过程](docs/spring/spring_jzgc.md)
 
 ### [SpringBoot](docs/wait.md)
 - [为什么要用SpringBoot？](docs/wait.md)
