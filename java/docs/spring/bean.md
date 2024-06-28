@@ -10,6 +10,21 @@
 注解则是通过在`Bean`类上添加特定的注解来定义`Bean`。
 无论是`XML`配置文件还是注解，都需要被`Spring IoC`容器加载和解析，以创建`Bean`的实例并放入容器中。
 
+## <div id="component">`@Component`</div>
+
+在运行时，`Spring`会找到所有使用`@Component`或其派生类进行注释的类，并将它们用作`bean`定义。
+查找带注释的类的过程称为组件扫描。
+
+`@Conpontent`衍生物是`Spring`构造型注释，它们本身用`@Component`注释。
+
+`@Component`衍生列表包括：
+- `@Service`
+- `@Repository`
+- `@Controller`
+
+注释之间的区别纯粹是信息性的。它们允许你根据通用职责轻松对`bean`进行分类。
+你可以使用这些注释将`bean`类标记为特定应用程序层的成员，`Spring`框架会将它们全部视为`@Components`。
+
 
 
 
