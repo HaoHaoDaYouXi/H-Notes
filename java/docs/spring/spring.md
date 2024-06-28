@@ -188,7 +188,7 @@ spring6.1.x版本：https://docs.spring.io/spring-framework/reference/6.1-SNAPSH
 参数前面加上`@Valid`注解，表示我们对这个对象属性需要进行验证。
 `@Validated`是在`@Valid`基础上，做的一个升级版。
 
-### `@Autowired`和`@Resource`
+### <div id="autowired_resource">`@Autowired`和`@Resource`</div>
 `@Autowired`通过类型来实现自动注入`bean`。
 和`@Qualifier`注解配合使用可以实现根据`name`注入`bean`。
 
