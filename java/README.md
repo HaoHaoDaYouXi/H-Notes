@@ -123,7 +123,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [Spring常用的注解](docs/spring/spring.md#spring_cyzj)
 - [Bean](docs/spring/bean.md)
   - [`@Component`](docs/spring/bean.md#component)
-  - [Bean的作用域](docs/wait.md)
+  - [Bean的作用域](docs/spring/bean.md#bean_zyy)
   - [Bean的生命周期](docs/wait.md)
   - [Bean注入的实现方式](docs/wait.md)
 - [Spring的IOC](docs/wait.md)
