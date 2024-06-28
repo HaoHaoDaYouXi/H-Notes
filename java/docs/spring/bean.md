@@ -58,7 +58,128 @@
 - `DisposableBean`：当`Bean`不再需要时，会经过清理阶段，如果`Bean`实现了`DisposableBean`这个接口，会调用其实现的`destroy()`方法；
 - `destroy-method`：如果这个`Bean`的`Spring`配置中配置了`destroy-method`属性，会自动调用其配置的销毁方法。
 
+## <div id="bean_zrfs">Bean注入的实现方式</div>
+早期的开发基本是基于`xml`的配置，目前大部分都是基于注解的配置
+
+### 基于`xml`注入`bean`
+
+**构造器注入**
+
+```java
+/*带参数，方便利用构造器进行注入*/
+public ADaoImpl(String msg){
+    this.msg = msg;
+}
+```
+xml配置
+```xml
+<bean id="ADaoImpl" class="com.ADaoImpl">
+    <constructor-arg value="msg"></constructor-arg>
+</bean>
+```
+
+**`setter`方法注入**
+
+```java
+public class AId {
+    private int id;
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+} 
+```
+xml配置
+```xml
+<bean id="AId" class="com.AId">
+    <property name="id" value="111"></property>
+</bean>
+```
+
+**静态工厂注入**
+
+静态工厂顾名思义，就是通过调用静态工厂的方法来获取自己需要的对象，为了让`spring`管理所有对象，
+我们不能直接通过`工程类.静态方法()`来获取对象，而是依然通过`spring`注入的形式获取：
+
+```java
+public class DaoFactory { //静态工厂
+    public static final FactoryDao getStaticFactoryDaoImpl(){
+        return new StaticFacotryDaoImpl();
+    }
+}
+public class SpringAction {
+    private FactoryDao staticFactoryDao; //注入对象
+    //注入对象的 set 方法
+    public void setStaticFactoryDao(FactoryDao staticFactoryDao) {
+        this.staticFactoryDao = staticFactoryDao;
+    }
+}
+```
+xml配置
+```xml
+<!--factory-method="getStaticFactoryDaoImpl"指定调用哪个工厂方法-->
+<bean name="springAction" class=" SpringAction" >
+    <!--使用静态工厂的方法注入对象,对应下面的配置文件-->
+    <property name="staticFactoryDao" ref="staticFactoryDao"></property>
+</bean>
+
+<!--此处获取对象的方式是从工厂类中获取静态方法-->
+<bean name="staticFactoryDao" class="DaoFactory" 
+      factory-method="getStaticFactoryDaoImpl"></bean>
+```
+
+**实例工厂**
+
+实例工厂的意思是获取对象实例的方法不是静态的，所以你需要首先`new`工厂类，再调用普通的实例方法：
+
+```java
+ public class DaoFactory { //实例工厂 
+    public FactoryDao getFactoryDaoImpl(){
+        return new FactoryDaoImpl();
+    }
+}
+public class SpringAction {
+    private FactoryDao factoryDao; //注入对象 
+    public void setFactoryDao(FactoryDao factoryDao) {
+        this.factoryDao = factoryDao;
+    }
+} 
+```
+xml配置
+```xml
+<bean name="springAction" class="SpringAction">
+    <!--使用实例工厂的方法注入对象,对应下面的配置文件-->
+    <property name="factoryDao" ref="factoryDao"></property>
+</bean>
+
+<!--此处获取对象的方式是从工厂类中获取实例方法-->
+<bean name="daoFactory" class="com.DaoFactory"></bean>
+<bean name="factoryDao" factory-bean="daoFactory"
+      factory-method="getFactoryDaoImpl"></bean>
+```
+
+### 基于注解注入`bean`
+
+#### **声明`bean`**
+
+- `@Component`：通⽤的注解，可标注任意类为`Spring`组件。如果⼀个`Bean`不清楚属于哪一层，可以使⽤`@Component`注解标注。
+- `@Repository`: 对应持久层即`Dao`层，主要⽤于数据库相关操作。
+- `@Service`: 对应服务层，主要涉及⼀些复杂的逻辑，需要⽤到`Dao`层。
+- `@Controller`: 对应`Spring MVC`控制层，主要⽤户接受⽤户请求并调⽤`Service`层返回数据给前端。
+
+##### `@Component`和`@Bean`的区别
+- `@Component`注解作⽤于类，⽽`@Bean`注解作⽤于⽅法。
+- `@Component`通常是通过类路径扫描来⾃动侦测以及⾃动装配到`Spring`容器中（我们可以使⽤
+`@ComponentScan`注解定义要扫描的路径从中找出标识了需要装配的类⾃动装配到`Spring`的`bean`容器中）。
+`@Bean`注解通常是我们在标有该注解的⽅法中定义产⽣这个`bean`, `@Bean`告诉了`Spring`这是某个类的实例，当我需要⽤它的时候还给我。
+- `@Bean`注解⽐`@Component`注解的⾃定义性更强，⽽且很多地⽅我们只能通过`@Bean`注解来注册`bean`。
+⽐如当我们引⽤第三⽅库中的类需要装配到`Spring`容器时，则只能通过`@Bean`来实现。
 
 
+#### **使用`Bean`**
+
+`Spring`内置的`@Autowired`以及`JDK`内置的`@Resource`和`@Inject`都可以⽤于注⼊`Bean`。
+
+一般都是使用`@Autowired`和`@Resource`
+
+[`@Autowired`和`@Resource`的区别](spring.md#autowired_resource)
 
 ----
