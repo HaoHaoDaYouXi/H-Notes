@@ -126,6 +126,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
   - [Bean的作用域](docs/spring/bean.md#bean_zyy)
   - [Bean的生命周期](docs/spring/bean.md#bean_smzq)
   - [Bean注入的实现方式](docs/spring/bean.md#bean_zrfs)
+  - [`5`种不同方式的自动装配](docs/spring/bean.md#zdzp)
 - [Spring的IOC](docs/wait.md)
     - [IOC的原理](docs/wait.md)
     - [IOC的实现](docs/wait.md)
