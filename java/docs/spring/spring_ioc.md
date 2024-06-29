@@ -9,5 +9,45 @@
 `IoC`让相互协作的组件保持松散的耦合，而AOP编程允许你把遍布于应用各层的功能分离出来
 形成可重用的功能组件。
 
+## <div id="ioc_rqsx">`IOC`容器实现</div>
+`IoC`的实现原理就是工厂模式加反射机制。
+```java
+interface A {
+    void a();
+}
+
+class B implements A {
+    @Override
+    public void a() {
+        System.out.println("B.a()");
+    }
+}
+
+class C implements A {
+    @Override
+    public void a() {
+        System.out.println("C.a()");
+    }
+}
+
+class Factory {
+    public static A getInstance(String className) {
+        A a=null;
+        try {
+            a=(A)Class.forName(className).newInstance();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return a;
+    }
+
+    public static void main(String[] args) {
+        // com.B 是B类的包路径
+        Factory.getInstance("com.B").a();
+        Factory.getInstance("com.C").a();
+    }
+}
+```
+
 
 ----
