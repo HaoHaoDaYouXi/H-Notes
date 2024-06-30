@@ -115,6 +115,59 @@
 
 3) 派发之前步骤产生的事件；
 
+### 初始化所有剩下的单实例`Bean`：`finishBeanFactoryInitialization(beanFactory);`
+
+- `beanFactory.preInstantiateSingletons();`初始化所有剩下的单实例`Bean`
+  - 获取容器中的所有`bean`, 依次进行初始化和创建对象
+  - 获取`Bean`的定义信息；`RootBeanDefinition`
+  - `Bean`不是抽象的，是单实例的，且不是懒加载的，
+    - 判断是不是`FactoryBean`；是否是实现`FactoryBean`接口的`Bean`
+    - 如果不是`FactoryBean`；使用`getBean(beanName)`创建对象
+      - `getBean(beanName)` -> `ioc.getBean();`
+      - `doGetBean(name, null, null, false)`
+      - 先获取缓存中保存的单实例`Bean`。如果能获取到，说明这个`Bean`之前被创建过（所有创建过的单实例`Bean`都会被缓存起来）从`singletonObjects`中获取
+      - 缓存中获取不到，开始`Bean`的创建对象流程；
+      - 标记当前`Bean`已经被创建
+      - 获取`Bean`的定义信息
+      - 获取当前`Bean`依赖的其它`Bean`；如果有，还是按照`getBean()`把依赖的`Bean`先创建出来
+      - 启动单实例`Bean`的创建流程
+        - `createBean(beanName, mbd, args);`
+        - `Object bean = resolveBeforeInstantiation(beanName, mbdToUse);` 
+          - 让`BeanPostProcessor`先拦截返回代理对象；
+          - `InstantiationAwareBeanPostProcessor`提前执行
+          - 先触发：`postProcessBeforeInstantiation();`
+          - 如果有返回值；再触发`postProcessAfterInstantiation()`
+        - 如果前面的`InstantiationAwareBeanPostProcessor`没有返回代理对象；调用`Object beanInstance = doCreateBean(beanName, mbdToUse, args)`创建`Bean`
+          - 创建`Bean`实例，`createBeanInstance(beanName, mbd, args)`利用工厂方法或者对象的构造器创建出`Bean`实例
+          - `applyMergedBeanDefinitionPostProcessors(mbd, beanType, beanName)`
+            调用`MergedBeanDefinitionPostProcessor``的postProcessMergedBeanDefinition(mbd, beanType, beanName)`
+          - 给`Bean`属性赋值，调用`populateBean(beanName, mbd, instanceWrapper)`
+            - 赋值之前：
+              - 拿到`InstantiationAwareBeanPostProcessor`后置处理器
+                - 执行`postProcessAfterInstantiation()`
+              - 拿到`InstantiationAwareBeanPostProcessor`后置处理器
+                - 执行`postProcessPropertyValues()`
+              - 应用`Bean`属性的值：为属性利用`setter`方法进行赋值（反射）
+                - `applyPropertyValues(beanName, mbd, bw, pvs)`
+          - 初始化`Bean`；`initializeBean(beanName, exposedObject, mbd);`
+            - 执行`Aware`接口方法：`invokeAwareMethods(beanName, bean);`执行`xxxAware`接口的方法
+              - `BeanNameAware`、`BeanClassLoaderAware`、`BeanFactoryAware`
+            - 执行后置处理器初始化之前：`applyBeanPostProcessorsBeforeInitialization(wrappedBean, beanName)`
+              - `BeanPostProcessor.postProcessBeforeInitialization()`
+            - 执行初始化方法：`invokeInitMethods(beanName, wrappedBean, mbd)`
+              - 是否是`InitializingBean`接口的实现：执行接口规定的初始化
+              - 是否自定义初始化方法
+            - 执行后置处理器初始化之后：`applyBeanPostProcessorsAfterInitialization`
+              - `BeanPostProcessor.postProcessAfterInitialization()`
+            - 注册`Bean`的销毁方法
+          - 将创建的`Bean`添加到缓存中 - `singletonObjects`（`Map`对象）
+
+`IOC`容器就是这些`Map`；很多的`Map`里保存了单实例`Bean`，环境信息、、、
+
+所有`Bean`都利用`getBean`创建完成以后；再来检查所有`Bean`是否是`SmartInitializingSingleton`接口的实现类，
+
+如果是，就执行`afterSingletonsInstantiated();`
+
 
 
 
