@@ -168,9 +168,17 @@
 
 如果是，就执行`afterSingletonsInstantiated();`
 
+### 完成`BeanFactory`的初始化创建工作；`IOC`容器就创建完成：`finishRefresh();`
 
-
-
-
+- `initLifecycleProcessor();` 初始化和生命周期相关的后置处理器；`LifecycleProcessor`
+  - 默认从容器中找是否有`lifecycleProcessor`的组件(`LifecycleProcessor`)
+  - 如果没有，创建/使用默认的生命周期组件`new DefaultLifecycleProcessor();`再加入到容器中；
+  - 写一个`LifecycleProcessor`的实现类，可以在`BeanFactory`的下面两个方法刷新和关闭前后进行拦截调用
+    - `onRefresh()`
+    - `onClose()`
+- `getLifecycleProcessor().onRefresh();`
+  - 拿到前面定义的生命周期处理器（`BeanFactory`）；`回调.onRefresh()`;
+- `publishEvent(new ContextRefreshedEvent(this));` 发布容器刷新完成时间；
+- `liveBeansView.registerApplicationContext();`
 
 ----
