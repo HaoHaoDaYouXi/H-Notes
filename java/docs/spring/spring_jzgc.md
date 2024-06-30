@@ -181,4 +181,20 @@
 - `publishEvent(new ContextRefreshedEvent(this));` 发布容器刷新完成时间；
 - `liveBeansView.registerApplicationContext();`
 
+## 总结
+
+- `spring`容器在启动的时候，先回保存所有注册进来的`Bean`的定义信息
+  - `xml`注册`bean`：`<bean>`
+  - 注解注册`Bean`：`@Service`、`@Repository`、`@Component`、`@Bean`、`xxx`
+- `Spring`容器会在合适的时机创建这些`Bean`
+  - 用到这个`bean`的时候，利用`getBean`创建`Bean`，创建好以后保存在容器中。
+  - 统一创建剩下的所有`bean`的时候：`finishBeanFactoryInitialization();`
+- 后置处理器：
+  - 每一个`bean`创建完成，都会使用各种后置处理器处理，来增强`bean`的功能；
+  - 例如：`AutoWiredAnnotationBeanPostProcessor`: 处理自动注入功能
+  - `AnnotationAwareAspectJAutoProxyCreator`: 来做`AOP`功能
+- 事件驱动模型：
+  - `ApplicationListener`: 事件监听
+  - `ApplicationEventMulticaster`: 事件派发
+
 ----
