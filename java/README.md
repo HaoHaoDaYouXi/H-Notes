@@ -138,7 +138,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
       - [`Spring AOP`和`AspectJ AOP`](docs/spring/spring_aop.md#aspectJ_spring)
       - [`AspectJ`定义的通知类型](docs/spring/spring_aop.md#aspectJ_tzlx)
       - [多个切面的执行顺序](docs/spring/spring_aop.md#dgqmdzxsx)
-- [Spring Bean加载过程](docs/spring/spring_jzgc.md)
+- [Spring 加载过程](docs/spring/spring_jzgc.md)
 
 ### [SpringBoot](docs/wait.md)
 - [为什么要用SpringBoot？](docs/wait.md)
