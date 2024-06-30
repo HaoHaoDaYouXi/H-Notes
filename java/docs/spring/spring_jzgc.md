@@ -29,3 +29,75 @@
 ### 以上是BeanFactory的创建和预准备工作
 
 ----
+
+### 执行`BeanFactoryPostProcessor`：`invokeBeanFactoryPostProcessor(beanFactory);`
+
+`BeanFactoryPostProcessor`：`BeanFactory`的后置处理器。在`BeanFactory`标准初始化之后执行的。
+
+两个接口：`BeanFactoryPostProcessor`、`BeanDefinitionRegistryPostProcessor`
+
+- 执行`BeanFactoryPostProcessor`的方法：
+  - 先执行`BeanDefinitionRegistryPostProcessor` 
+    - 获取所有的`BeanDefinitionRegistryPostProcessor`
+    - 先执行实现了`PriorityOrdered`优先级接口的`BeanDefinitionRegistryPostProcessor`
+      - 执行方法`postProcessor.postProcessBeanDefinitionRegistry(registry)`
+    - 再执行实现了`Ordered`顺序接口的`BeanDefinitionRegistryPostProcessor`
+      - 执行方法`postProcessor.postProcessBeanDefinitionRegistry(registry)`
+    - 最后执行没有实现任何优先级或者是顺序接口的`BeanDefinitionRegistryPostProcessor`
+      - 执行方法`postProcessor.postProcessBeanDefinitionRegistry(registry)`
+  - 再执行`BeanFactoryPostProcessor`的方法
+    - 获取所有的`BeanFactoryPostProcessor`
+    - 先执行实现了`PriorityOrdered`优先级接口的`BeanFactoryPostProcessor`
+      - 执行方法`postProcessor.postProcessBeanFactory(registry)`
+    - 再执行实现了`Ordered`顺序接口的`BeanFactoryPostProcessor`
+      - 执行方法`postProcessor.postProcessBeanFactory(registry)`
+    - 最后执行没有实现任何优先级或者是顺序接口的`BeanFactoryPostProcessor`
+      - 执行方法`postProcessor.postProcessBeanFactory(registry)`
+
+### 注册`BeanPostProcessor`（`Bean`的后置处理器）：`registerBeanPostProcessor(beanFactory);`
+   
+不同接口类型的`BeanPostProcessor`：在`Bean`创建前后的执行时机是不一样的
+
+- `BeanPostProcessor`
+- `DestructionAwareBeanPostProcessor`
+- `InstantiationAwareBeanPostProcessor`
+- `SmartInstantiationAwareBeanPostProcessor`
+- `MergedBeanDefinitionPostProcessor`
+
+1) 获取所有的`BeanPostProcessor`；后置处理器都默认可以通过`PriorityOrdered`、`Ordered`接口来指定优先级
+
+2) 先注册`PriorityOrdered`优先级接口的`BeanPostProcessor`
+
+   把每一个`BeanPostProcessor`添加到`BeanFactory`中
+   
+   `beanFactory.addBeanPostProcessor(postProcessor)`
+
+3) 再注册`Ordered`优先级接口的`BeanPostProcessor`
+
+4) 然后再注册没有任何优先级接口的`BeanPostProcessor`
+
+5) 最终注册`MergedBeanDefinitionPostProcessor`
+
+6) 注册一个`ApplicationListenerDetector`：再`Bean`创建完成后检查是否是`ApplicationListener`，如果是则执行
+
+   `applicationContext.addApplicationListener((ApplicationListener<?>) bean)`
+
+### 初始化`MessageSource`组件（做国际化功能；消息绑定，消息解析）：`InitMessageSource();`
+
+1) 获取`BeanFactory`
+
+2) 看容器中是否有`id`为`messageSource`，类型是`MessageSource`的组件
+
+   如果有就赋值给`messageSource`，如果没有就自己创建一个`DelegatingMessageSource`;
+   
+   `MessageSource`: 取出国际化配置文件中某个`key`的值；能按照区域信息获取；
+
+3) 把创建好的`messageSource`注册到容器中，以后获取国际化配置文件的时候，可以自动注入`MessageSource`，然后可以再调用它的`getMessage`方法　　　　
+   `beanFactory.registerSingleton(MESSAGE_SOURCE_BEAN_NAME, this.messageSource)`
+
+
+
+
+
+
+----
