@@ -95,6 +95,26 @@
 3) 把创建好的`messageSource`注册到容器中，以后获取国际化配置文件的时候，可以自动注入`MessageSource`，然后可以再调用它的`getMessage`方法　　　　
    `beanFactory.registerSingleton(MESSAGE_SOURCE_BEAN_NAME, this.messageSource)`
 
+### 初始化事件派发器：`initApplicationEventMulticaster();`
+
+1) 获取`BeanFactory`
+
+2) 从`BeanFactory`中获取`applicationEventMulticaster`的`ApplicationEventMulticaster`
+
+3) 如果上一步没有配置，那就会自己创建一个`SimpleApplicationEventMulticaster`，然后将创建的`ApplicationEventMulticaster`组件添加到`BeanFactory`中，以后其他组件可以直接注入
+
+### 留给子容器(子类)：`onRefresh();`
+
+子类重写这个方法，在容器刷新的时候可以自定义逻辑
+
+### 将项目中所有ApplicationListener注册进容器中：`registerListeners();`
+
+1) 从容器中拿到所有的`ApplicationListener`
+
+2) 将每个监听器添加到事件派发器中`getApplicationEventMulticaster().addApplicationListenerBean(listenerBeanName)`
+
+3) 派发之前步骤产生的事件；
+
 
 
 
