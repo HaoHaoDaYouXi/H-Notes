@@ -31,6 +31,41 @@
 - 其中一个方法`postProcessBeanDefinitionRegistry`会去调用`processConfigBeanDefinitions`解析`beanDefinitions`
 - 在`processConfigBeanDefinitions`中有一个`parse`方法，其中有`componentScanParser.parse`的方法，这个方法会扫描当前路径下所有`Component`组件
 
+### <div id="pzjzsx">`Spring Boot`配置加载顺序</div>
+使用`Spring Boot`会涉及到各种各样的配置，如开发、测试、线上就至少 3 套配置信息了。
+
+`Spring Boot`可以轻松的帮助我们使用相同的代码就能使开发、测试、线上环境使用不同的配置。
+
+在`Spring Boot`里面，可以使用以下几种方式来加载配置：
+
+- properties文件；
+- YAML文件；
+- 系统环境变量；
+- 命令行参数；
+- ……
+
+**配置属性加载的顺序如下：**
+
+- 开发者工具 `Devtools` 全局配置参数；
+- 单元测试上的 `@TestPropertySource` 注解指定的参数；
+- 单元测试上的 `@SpringBootTest` 注解指定的参数；
+- 命令行指定的参数，如 `java -jar springboot.jar --name="HaoHaoDaYouXi"`；
+- 命令行中的 `SPRING_APPLICATION_JSONJSON` 指定参数, 如 `java -Dspring.application.json='{"name":"HaoHaoDaYouXi"}' -jar springboot.jar`
+- `ServletConfig` 初始化参数；
+- `ServletContext` 初始化参数；
+- JNDI参数（如 `java:comp/env/spring.application.json`）；
+- Java系统参数（来源：`System.getProperties()`）；
+- 操作系统环境变量参数；
+- `RandomValuePropertySource` 随机数，仅匹配：`ramdom.*`；
+- JAR包外面的配置文件参数（`application-{profile}.properties（YAML）`）
+- JAR包里面的配置文件参数（`application-{profile}.properties（YAML）`）
+- JAR包外面的配置文件参数（`application.properties（YAML）`）
+- JAR包里面的配置文件参数（`application.properties（YAML）`）
+- `@Configuration`配置文件上 `@PropertySource` 注解加载的参数；
+- 默认参数（通过 `SpringApplication.setDefaultProperties` 指定）；
+
+**数字小的优先级越高，即数字小的会覆盖数字大的参数值**
+
 ----
 
 
