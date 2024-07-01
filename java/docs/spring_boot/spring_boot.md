@@ -75,6 +75,18 @@
 
 然后在`application.properties`文件中指定当前的环境`spring.profiles.active=test`,这时候读取的就是`application-test.properties`文件，`yaml`文件是同理。
 
+### <div id="hxpzwj">`Spring Boot`核心配置文件</div>
+`Spring Boot`的核心配置文件是`application`和`bootstrap`配置文件。
+- `application`配置文件主要用于`Spring Boot`项目的自动化配置。
+- `bootstrap`配置文件有以下几个应用场景。
+  - 使用`Spring Cloud Config`配置中心时，这时需要在`bootstrap`配置文件中添加连接到配置中心的配置属性来加载外部配置中心的配置信息；
+  - 一些固定的不能被覆盖的属性；
+  - 一些加密/解密的场景；
+
+
+
+
+
 ----
 
 
