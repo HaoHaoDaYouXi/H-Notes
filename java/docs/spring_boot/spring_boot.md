@@ -66,6 +66,15 @@
 
 **数字小的优先级越高，即数字小的会覆盖数字大的参数值**
 
+### <div id="pzjzsx">`Spring Boot`多套不同环境配置</div>
+
+- `application.properties`
+- `application-dev.properties`
+- `application-test.properties`
+- `application-prod.properties`
+
+然后在`application.properties`文件中指定当前的环境`spring.profiles.active=test`,这时候读取的就是`application-test.properties`文件，`yaml`文件是同理。
+
 ----
 
 

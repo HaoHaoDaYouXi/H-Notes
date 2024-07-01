@@ -146,10 +146,11 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [Spring Boot 初始化环境变量](docs/spring_boot/spring_boot.md#cshhjbl)
 - [Spring Boot 扫描流程](docs/spring_boot/spring_boot.md#smlc)
 - [Spring Boot 配置加载顺序](docs/spring_boot/spring_boot.md#pzjzsx)
+- [Spring Boot 多套不同环境配置](docs/spring_boot/spring_boot.md#pzjzsx)
 - [Spring Boot 核心配置](docs/wait.md)
 - [Spring Boot 核心注解](docs/wait.md)
-- [Spring Boot 自动配置原理](docs/wait.md)
 - [Spring Boot 实现热部署](docs/wait.md)
+- [Spring Boot 自动配置原理](docs/wait.md)
 - [Spring Boot+Netty](https://github.com/HaoHaoDaYouXi/springboot_netty)
 
 ### [JPA](docs/wait.md)
