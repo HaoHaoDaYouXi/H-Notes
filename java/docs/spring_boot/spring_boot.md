@@ -17,6 +17,12 @@
 都是通过**约定优于配置**的设计思路来设计的，`Spring Boot Starter`在启动的过程中会根据约定的信息对资源进行初始化；
 `Spring Boot Jpa`通过约定的方式来自动生成`Sql`，避免大量无效代码编写。
 
+### <div id="cshhjbl">`Spring Boot`初始化环境变量</div>
+- 调用`prepareEnvironment`方法去设置环境变量
+- `getOrCreateEnvironment`去初始化系统环境变量
+- `configureEnvironment`去初始化命令行参数
+- `environmentPrepared`当广播到来的时候调用`onApplicationEnvironmentPreparedEvent`方法
+  - 去使用`postProcessEnvironment`方法`load yml`和`properties`变量
 
 ----
 
