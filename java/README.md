@@ -144,6 +144,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [Spring Boot特点](docs/spring_boot/spring_boot.md#td)
 - [Spring Boot 约定优于配置](docs/spring_boot/spring_boot.md#ydyypz)
 - [Spring Boot 初始化环境变量](docs/spring_boot/spring_boot.md#cshhjbl)
+- [Spring Boot 扫描流程](docs/spring_boot/spring_boot.md#smlc)
 - [Spring Boot 核心配置](docs/wait.md)
 - [Spring Boot 核心注解](docs/wait.md)
 - [Spring Boot 自动配置原理](docs/wait.md)

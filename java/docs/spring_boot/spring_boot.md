@@ -24,6 +24,13 @@
 - `environmentPrepared`当广播到来的时候调用`onApplicationEnvironmentPreparedEvent`方法
   - 去使用`postProcessEnvironment`方法`load yml`和`properties`变量
 
+### <div id="smlc">`Spring Boot`扫描流程</div>
+- 调用`run`方法中的`refreshContext`方法
+- 调用`AbstractApplicationContext`中的`refresh`方法
+- 委托给`invokeBeanFactoryPostProcessors`去处理调用链
+- 其中一个方法`postProcessBeanDefinitionRegistry`会去调用`processConfigBeanDefinitions`解析`beanDefinitions`
+- 在`processConfigBeanDefinitions`中有一个`parse`方法，其中有`componentScanParser.parse`的方法，这个方法会扫描当前路径下所有`Component`组件
+
 ----
 
 
