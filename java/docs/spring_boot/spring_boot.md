@@ -91,6 +91,73 @@
 - `@EnableAutoConfiguration`：打开自动配置的功能，也可以关闭某个自动配置的选项，如关闭数据源自动配置功能：`@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })`。
 - `@ComponentScan`：`Spring`组件扫描。
 
+### <div id="sxlbs">`Spring Boot`实现热部署</div>
+主要有两种方式：
+- `Spring Loaded`
+- `Spring-boot-devtools`
+
+#### 热部署的实现原理
+深层原理是使用了两个`ClassLoader`，
+一个`Classloader`加载那些不会改变的类（第三方`Jar`包），
+另一个`ClassLoader`加载会更改的类，称为`restart ClassLoader`,
+
+这样在有代码更改的时候，原来的`restart ClassLoader`被丢弃，
+重新创建一个`restart ClassLoader`，由于需要加载的类相比较少，所以实现了较快的重启时间。
+
+#### `Spring Loaded`
+`Spring Loaded`是一个`JVM`的代理，用于运行时的加载类进行一个更新和修改，`Spring Loaded`是先运行已经改变的`Class`然后在适当的时候进行一个重新加载过程。
+
+`Spring Loaded`允许您添加/修改/删除方法/字段/构造函数。 类型/方法/字段/构造函数上的注释也可以修改，并且可以在枚举类型中添加/删除/更改值。
+
+`Spring Loaded`可用于可能在`JVM`上运行的任何字节码，实际上是`Grails 2`中使用的重新加载系统。
+
+在`Tomcat`运行参数添加：`-javaagent:springloaded-1.2.8.RELEASE.jar -noverify`
+
+#### `Spring-boot-devtools`
+
+**引入`devtools`依赖**
+
+在你的`pom.xml`配置文件中，引入`devtools`依赖包：
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-devtools</artifactId>
+    <version>3.3.0</version>
+    <optional>true</optional>
+</dependency>
+```
+**设置`optional`为`true`，是避免父子项目依赖继承冲突。**
+
+**`yml`文件`devtools`的配置**
+
+```yml
+spring:
+  devtools:
+    restart:
+      #是否开启DevTools自动重启功能，默认为true
+      enabled: true 
+      # 配置触发重启的文件路径，多个路径使用逗号分隔，默认为src/main/java,src/main/resources
+      additional-paths: 'src/main/java,src/main/resources'
+      # 配置触发重启的文件扩展名，默认为.trigger
+      trigger-file: '.trigger'
+      # 配置重启时需要排除的文件路径，多个路径使用逗号分隔，默认为META-INF/maven, META-INF/resources, resources, static, public, templates
+      exclude: 'WEB-INF/**,META-INF/**,resources/**,static/**,public/**,templates/**'
+```
+
+**`Intellij Idea`修改**
+
+如果你是使用的idea工具开发，那你还需要改以下两个地方：
+
+`IDEA`中开启自动编译的配置
+![IDEA中开启自动编译的配置](img/spring_devtools_restart_1.png)
+
+2021版之后的`IDEA`的`compiler.automake.allow.when.app.running`转移了
+
+打开 设置 -> 高级配置
+
+![spring_devtools_restart_2.png](img/spring_devtools_restart_2.png)
+
+2021版之前的`IDEA`的，打开`Idea`注册表`Shift + Ctrl + Alt + /`，找到`compiler.automake.allow.when.app.running`勾选配置。
 
 
 ----
