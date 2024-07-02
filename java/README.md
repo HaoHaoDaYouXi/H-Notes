@@ -150,7 +150,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [Spring Boot 核心配置](docs/spring_boot/spring_boot.md#hxpzwj)
 - [Spring Boot 核心注解](docs/spring_boot/spring_boot.md#hxzj)
 - [Spring Boot 实现热部署](docs/spring_boot/spring_boot.md#sxlbs)
-- [Spring Boot 自动配置原理](docs/wait.md)
+- [Spring Boot 自动配置原理](docs/spring_boot/spring_boot.md#zdpzyl)
 - [Spring Boot+Netty](https://github.com/HaoHaoDaYouXi/springboot_netty)
 
 ### [JPA](docs/wait.md)

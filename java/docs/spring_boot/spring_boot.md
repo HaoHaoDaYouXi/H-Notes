@@ -159,6 +159,8 @@ spring:
 
 2021版之前的`IDEA`的，打开`Idea`注册表`Shift + Ctrl + Alt + /`，找到`compiler.automake.allow.when.app.running`勾选配置。
 
+### <div id="zdpzyl">`Spring Boot`自动配置原理</div>
+
 
 ----
 
