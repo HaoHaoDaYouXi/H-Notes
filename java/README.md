@@ -154,10 +154,10 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [Spring Boot+Netty](https://github.com/HaoHaoDaYouXi/springboot_netty)
 
 ### [JPA](docs/jpa/jpa.md)
-- [事物的传播行为](docs/wait.md)
-- [事物的隔离级别](docs/wait.md)
-- [事物的实现方式](docs/wait.md)
-- [分布式事物](docs/wait.md)
+- [事物的传播行为](docs/jpa/jpa.md#cbxw)
+- [事物的隔离级别](docs/jpa/jpa.md#)
+- [事物的实现方式](docs/jpa/jpa.md#)
+- [分布式事物](docs/jpa/jpa.md#)
 
 ### [微服务系统](docs/wait.md)
 - [Dubbo](docs/wait.md)

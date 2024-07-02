@@ -17,8 +17,27 @@
 >> 持久性，是指一个事务一旦被提交了，那么对数据库中的数据的改变就是永久性的，即便是在数据库系统遇到故障的情况下也不会丢失提交事务的操作。</br>
 >> 例如我们在使用JDBC操作数据库时，在提交事务方法后，提示用户事务操作完成，当我们程序执行完成直到看到提示后，就可以认定事务以及正确提交，即使这时候数据库出现了问题，也必须要将我们的事务完全执行完成，否则就会造成我们看到提示事务处理完毕，但是数据库因为故障而没有执行事务的重大错误。
 
-
-
+## <div id="cbxw">事物的传播行为</div>
+事务的传播行为说的是，当多个事务同时存在的时候，`Spring`如何处理这些事务的行为。
+- `PROPAGATION_REQUIRED`：如果当前没有事务，就创建一个新事务，如果当前存在事务，就加入该事务，`Spring`默认事务级别。
+  - 执行`ServiceA.methodA`的时候，`ServiceA.methodA`已经起了事务，这时调用`ServiceB.methodB`，</br>
+    `ServiceB.methodB`看到自己已经运行在`ServiceA.methodA`的事务内部，就不再起新的事务。</br>
+    而假如`ServiceA.methodA`运行的时候发现自己没有在事务中，他就会为自己分配一个事务。</br>
+    这样，在`ServiceA.methodA`或者在`ServiceB.methodB`内的任何地方出现异常，事务都被回滚。</br>
+    即使`ServiceB.methodB`的事务已经被提交，但是`ServiceA.methodA`在接下来`error`要回滚，`ServiceB.methodB`也要回滚。
+- `PROPAGATION_SUPPORTS`：支持当前事务，如果当前存在事务，就加入该事务，如果当前不存在事务，就以非事务执行。
+- `PROPAGATION_MANDATORY`：支持当前事务，如果当前存在事务，就加入该事务，如果当前不存在事务，就抛出异常。
+- `PROPAGATION_REQUIRES_NEW`：创建新事务，无论当前存不存在事务，都创建新事务。
+  - `ServiceA.methodA`的事务级别为`PROPAGATION_REQUIRED`，`ServiceB.methodB`的事务级别为`PROPAGATION_REQUIRES_NEW`，</br>
+    那么当执行到`ServiceB.methodB`的时候，`ServiceA.methodA`所在的事务就会挂起，`ServiceB.methodB`会起一个新的事务，</br>
+    等待`ServiceB.methodB`的事务完成以后，`A`才继续执行。他与`PROPAGATION_REQUIRED`的事务区别在于事务的回滚程度了。</br>
+    因为`ServiceB.methodB`是新起一个事务，那么就是存在两个不同的事务。</br>
+    如果`ServiceB.methodB`已经提交，那么`ServiceA.methodA`失败回滚，`ServiceB.methodB`是不会回滚的。</br>
+    如果`ServiceB.methodB`失败回滚，如果他抛出的异常被`ServiceA.methodA`捕获，`ServiceA.methodA`事务仍然可能提交。
+- `PROPAGATION_NOT_SUPPORTED`：以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。
+- `PROPAGATION_NEVER`：以非事务方式执行，如果当前存在事务，则抛出异常。
+- `PROPAGATION_NESTED`：如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则按`PROPAGATION_REQUIRED`属性执行。
+  - 与`PROPAGATION_REQUIRES_NEW`的区别是`NESTED`的事务和他的父事务是相依的，它的提交是要等父事务一块提交。也就是说，如果父事务最后回滚，它也要回滚。
 
 
 
