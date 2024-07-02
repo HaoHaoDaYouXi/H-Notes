@@ -157,8 +157,9 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [Spring事物的传播行为](docs/jpa/jpa.md#cbxw)
 - [事物的隔离级别](docs/jpa/jpa.md#gljb)
 - [Spring管理事务](docs/jpa/jpa.md#glsw)
-- [事物的实现方式](docs/jpa/jpa.md#)
-- [分布式事物](docs/jpa/jpa.md#)
+- [事物的实现方式](docs/jpa/jpa.md#sxfs)
+  - [本地事务](docs/jpa/jpa.md#bdsw)
+  - [分布式事物](docs/jpa/jpa.md#)
 
 ### [微服务系统](docs/wait.md)
 - [Dubbo](docs/wait.md)

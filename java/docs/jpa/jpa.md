@@ -92,5 +92,39 @@ SELECT @@tx_isolation;
   - `isCompleted()`：返回该事务是否已完成，也就是说，是否已经提交或回滚。
   - `isNewTransaction()`：判断当前事务是否是一个新事务。
 
+## <div id="sxfs">事物的实现方式</div>
+
+### <div id="bdsw">本地事务</div>
+紧密依赖于底层资源管理器(例如数据库连接)，事务处理局限在当前事务资源内。</br>
+此种事务处理方式不存在对应用服务器的依赖，因而部署灵活却无法支持多数据源的分布式事务。</br>
+
+在数据库连接中使用本地事务示例如下：
+```java
+public void transferAccount() {  
+    Connection conn = null;  
+    Statement stmt = null;  
+    try{
+        conn = getDataSource().getConnection();  
+        // 将自动提交设置为 false，若设置为 true 则数据库将会把每一次数据更新认定为一个事务并自动提交
+        conn.setAutoCommit(false);
+        stmt = conn.createStatement();  
+        // 将 A 账户中的金额减少 100  
+        stmt.execute("update u_account set amount = amount - 100 where account_id = 'A'");
+        // 将 B 账户中的金额增加 100  
+        stmt.execute("update u_account set amount = amount + 100 where account_id = 'B'");
+        // 提交事务
+        conn.commit();
+        // 事务提交：转账的两步操作同时成功
+    } catch(SQLException sqle){     
+        // 发生异常，回滚在本事务中的操做
+        conn.rollback();
+        // 事务回滚：转账的两步操作完全撤销
+        stmt.close();  
+        conn.close();  
+    }  
+}
+```
+
+
 
 ----
