@@ -125,6 +125,42 @@ public void transferAccount() {
 }
 ```
 
+### <div id="fbssw">分布式事务</div>
+`Java`事务编程接口(`JTA`：`Java Transaction API`)和`Java`事务服务 (`JTS`：`Java Transaction Service`)为`J2EE`平台提供了分布式事务服务。
 
+分布式事务(`Distributed Transaction`)包括事务管理器(`Transaction Manager`)和一个或多个支持`XA`协议的资源管理器 (`Resource Manager`)。
+
+我们可以将资源管理器看做任意类型的持久化数据存储；事务管理器承担着所有事务参与单元的协调与控制。
+```java
+public void transferAccount() {  
+    UserTransaction userTx = null;  
+    Connection connA,connB = null; 
+    Statement stmtA,stmtB = null;   
+    try{  
+        // 获得 Transaction 管理对象
+        userTx = (UserTransaction)getContext().lookup("java:comp/UserTransaction");
+        // 从数据库 A 中取得数据库连接
+        connA = getDataSourceA().getConnection();
+        // 从数据库 B 中取得数据库连接
+        connB = getDataSourceB().getConnection();
+        // 启动事务
+        userTx.begin();   
+        stmtA = connA.createStatement();// 将 A 账户中的金额减少 100  
+        stmtA.execute("update u_account set amount = amount - 100 where account_id = 'A'");
+        // 将 B 账户中的金额增加 100  
+        stmtB = connB.createStatement();
+        stmtB.execute("update u_account set amount = amount + 100 where account_id = 'B'");
+        // 提交事务   
+        userTx.commit();
+        // 事务提交：转账的两步操作同时成功（数据库 A 和数据库 B 中的数据被同时更新）
+    } catch(SQLException sqlE){  
+        // 发生异常，回滚在本事务中的操纵
+        userTx.rollback();// 事务回滚：数据库 A 和数据库 B 中的数据更新被同时撤销
+    } catch(Exception ne){
+        // 发生异常，回滚在本事务中的操纵
+        userTx.rollback();// 事务回滚：数据库 A 和数据库 B 中的数据更新被同时撤销
+    }  
+}
+```
 
 ----

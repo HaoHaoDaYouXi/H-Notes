@@ -160,6 +160,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [事物的实现方式](docs/jpa/jpa.md#sxfs)
   - [本地事务](docs/jpa/jpa.md#bdsw)
   - [分布式事物](docs/jpa/jpa.md#)
+    - [两阶段提交](docs/jpa/jpa.md#)
 
 ### [微服务系统](docs/wait.md)
 - [Dubbo](docs/wait.md)
