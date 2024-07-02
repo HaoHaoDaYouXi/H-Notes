@@ -188,6 +188,24 @@ public String[] selectImports(AnnotationMetadata annotationMetadata) {
 }
 ```
 
+`getAutoConfigurationEntry`的主要逻辑：
+```java
+protected AutoConfigurationEntry getAutoConfigurationEntry(AutoConfigurationMetadata autoConfigurationMetadata, AnnotationMetadata annotationMetadata) {
+    // ....
+    // 获取候选配置类
+    List<String> configurations = getCandidateConfigurations(annotationMetadata, attributes);
+    // ... 过滤、去重、排除一些配置类
+    return new AutoConfigurationEntry(configurations, exclusions);
+}
+```
+
+
+
+
+
+
+
+
 ----
 
 
