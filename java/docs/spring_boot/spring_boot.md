@@ -205,6 +205,17 @@ protected AutoConfigurationEntry getAutoConfigurationEntry(AutoConfigurationMeta
 这个`Properties`格式的文件中的`key`是接口、注解、或抽象类的全名，`value`是以逗号`,`分隔的实现类。
 `SpringFactoriesLoader`能将相应的实现类注入`Spring`容器中。
 
+查看`spring-boot-autoconfigure`模块下的`META-INF/spring.factories`文件里的`Auto Configure`配置
+```properties
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.springframework.boot.autoconfigure.admin.SpringApplicationAdminJmxAutoConfiguration,\
+org.springframework.boot.autoconfigure.aop.AopAutoConfiguration,\
+org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration,\
+org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration,\
+...
+```
+可以知道它加载了哪些自动配置类
 
 
 
