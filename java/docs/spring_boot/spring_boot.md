@@ -227,6 +227,3 @@ com.xxx.XXXAutoConfiguration,\
 这样直接引入我们的模块就会加载配置的`XXXAutoConfiguration`类
 
 ----
-
-
-----
