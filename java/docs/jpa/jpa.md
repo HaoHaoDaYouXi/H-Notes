@@ -178,7 +178,7 @@ public void transferAccount() {
 
 **以上都是事务的实现原理，具体的实现有很多种，如`xml`、注解、tx-lcn、Seata、...**
 
-#### `xml`配置：
+### <div id="xmlpz">`xml`配置</div>
 ```xml
 <!-- 管理事务的类,指定我们用谁来管理我们的事务-->  
 <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  

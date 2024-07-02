@@ -161,6 +161,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
   - [本地事务](docs/jpa/jpa.md#bdsw)
   - [分布式事物](docs/jpa/jpa.md#fbssw)
     - [两阶段提交](docs/jpa/jpa.md#ljdtj)
+  - [`xml`配置](docs/jpa/jpa.md#xmlpz)
 
 ### [微服务系统](docs/wait.md)
 - [Dubbo](docs/wait.md)
