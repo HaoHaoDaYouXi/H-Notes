@@ -160,6 +160,18 @@ spring:
 2021版之前的`IDEA`的，打开`Idea`注册表`Shift + Ctrl + Alt + /`，找到`compiler.automake.allow.when.app.running`勾选配置。
 
 ### <div id="zdpzyl">`Spring Boot`自动配置原理</div>
+只要使用了`@EnableAutoConfiguration`注解就能实现自动配置。
+
+```java
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@AutoConfigurationPackage
+@Import(AutoConfigurationImportSelector.class)
+public @interface EnableAutoConfiguration {}
+```
+`@Import(AutoConfigurationImportSelector.class)`这个是自动配置的关键，它完成了自动配置的主要逻辑。
 
 
 ----
