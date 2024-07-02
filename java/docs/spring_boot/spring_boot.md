@@ -219,8 +219,12 @@ org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration,\
 
 通过这个机制我们可以自己写自动配置类并且在模块下的`META-INF/spring.factories`文件中写入
 
-
-
+```properties
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.xxx.XXXAutoConfiguration,\
+...
+```
+这样直接引入我们的模块就会加载配置的`XXXAutoConfiguration`类
 
 ----
 
