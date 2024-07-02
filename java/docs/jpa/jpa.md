@@ -178,7 +178,7 @@ public void transferAccount() {
 
 **以上都是事务的实现原理，具体的实现有很多种，如`xml`、注解、tx-lcn、Seata、...**
 
-`xml`配置：
+#### `xml`配置：
 ```xml
 <!-- 管理事务的类,指定我们用谁来管理我们的事务-->  
 <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
@@ -210,13 +210,83 @@ public void transferAccount() {
 </aop:config> 
 ```
 
+#### `@Transactional`注解
+这个注解还是有很多需要注意，如果使用不当会导致事务回滚失效
 
+`@Transactional`可以作用在接口、类、类方法
 
+- 作用于类：当把`@Transactional`注解放在类上时，表示所有该类的public方法都配置相同的事务属性信息。
 
+- 作用于方法：当类配置了`@Transactional`，方法也配置了`@Transactional`，方法的事务会覆盖类的事务配置信息。
 
-----
+- 作用于接口：不推荐这种使用方法，因为一旦标注在`Interface`上并且配置了`Spring AOP`使用`CGLib`动态代理，将会导致`@Transactional`注解失效。
 
+#### `@Transactional`属性
+- `propagation`属性
+  - `propagation`代表事务的传播行为，默认值为`Propagation.REQUIRED`
+- `isolation`属性
+  - `isolation`：事务的隔离级别，默认值为`Isolation.DEFAULT`
+    - `Isolation.DEFAULT`：使用底层数据库默认的隔离级别。
+    - `Isolation.READ_UNCOMMITTED`：读未提交
+    - `Isolation.READ_COMMITTED`：读已提交
+    - `Isolation.REPEATABLE_READ`：可重复读
+    - `Isolation.SERIALIZABLE`：串行化
+- `timeout`属性
+  - `timeout`：事务的超时时间，默认值为 -1。如果超过该时间限制但事务还没有完成，则自动回滚事务。
+- `readOnly`属性
+  - `readOnly`：指定事务是否为只读事务，默认值为`false`；为了忽略那些不需要事务的方法，比如读取数据，可以设置`read-only`为`true`。
+- `rollbackFor`属性
+  - `rollbackFor`：用于指定能够触发事务回滚的异常类型，可以指定多个异常类型。
+- `noRollbackFor`属性
+  - `noRollbackFor`：抛出指定的异常类型，不回滚事务，也可以指定多个异常类型。
 
+```java
+@Transactional(rollbackFor = Exception.class)
+public void transactionalTest(){
+    // 只用正常些业务代码就可以了，一切交给 Spring 来处理，这里 @Transactional 注解用到的知识就是 AOP
+    try {
+        User user = new User().setName("HaoHaoDaYouXi");
+        // 数据库操作
+        userService.insertUser(user);
+        // 手动设置异常
+        int i = 1 / 0;
+    } catch (Exception e) {
+        log.error("执行事务异常，需要回滚",e);
+        // 如果异常被 try 、 catch 吞了是不会回滚的，所有手动抛出去
+        throw e;
+    }
+}
+```
 
+#### `@Transactional`失效场景
+
+`@Transactional`应用在非`public`修饰的方法上
+
+首先`JDK`动态代理肯定只能是`public`，因为接口的权限修饰符只能是`public`，所以其他的修饰符不可以使用，`cglib`代理的方式是可以代理`protected`方法的如果支持`protected`，大概率会造成当切换代理的实现方式时表现不同，所以会出现很多的`bug`，然后造成一系列的问题
+
+`@Transactional`注解属性`propagation`设置错误
+
+这种失效是由于配置错误，若是错误的配置以下三种`propagation`，事务将不会发生回滚。
+
+`TransactionDefinition.PROPAGATION_SUPPORTS`：如果当前存在事务，则加入该事务；如果当前没有事务，则以非事务的方式继续运行。</br>
+`TransactionDefinition.PROPAGATION_NOT_SUPPORTED`：以非事务方式运行，如果当前存在事务，则把当前事务挂起。</br>
+`TransactionDefinition.PROPAGATION_NEVER`：以非事务方式运行，如果当前存在事务，则抛出异常。</br>
+
+`@Transactional`注解属性`rollbackFor`设置错误
+
+`rollbackFor`可以指定能够触发事务回滚的异常类型。</br>
+`Spring`默认抛出了未检查`unchecked`异常（继承自`RuntimeException`的异常）或者`Error`才回滚事务；其他异常不会触发回滚事务。</br>
+如果在事务中抛出其他类型的异常，但却期望`Spring`能够回滚事务，就需要指定`rollbackFor`属性。
+
+同一个类中方法调用，导致`@Transactional`失效
+
+开发中避免不了会对同一个类里面的方法调用，比如有一个类A，它的一个方法a，a再调用本类的方法b（不论方法b是用public还是private修饰），但方法a没有声明注解事务，而b方法有。
+则外部调用方法a之后，方法b的事务是不会起作用的。这也是经常犯错误的一个地方。
+
+这是由于使用`Spring AOP`代理造成的，因为只有当事务方法被当前类以外的代码调用时，才会由`Spring`生成的代理对象来管理。
+
+使用该类的Spring代理对象就可以避免此问题
+
+其他情况基本都是代码写法问题，多注意，按照标准写基本可以避免问题
 
 ----
