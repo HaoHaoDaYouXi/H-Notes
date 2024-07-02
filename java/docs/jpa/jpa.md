@@ -74,6 +74,23 @@
 SELECT @@tx_isolation;
 ```
 
+## <div id="glsw">`Spring`管理事务</div>
+
+`Spring`事务管理主要包括3个接口：
+
+- `PlatformTransactionManager`：事务管理器，主要用于平台相关事务的管理。主要包括三个方法：
+  - `commit`：事务提交。
+  - `rollback`：事务回滚。
+  - `getTransaction`：获取事务状态。
+- `TransactionDefinition`：事务定义信息，用来定义事务相关属性，给事务管理器`PlatformTransactionManager`使用这个接口有下面四个主要方法：
+  - `getIsolationLevel`：获取隔离级别。
+  - `getPropagationBehavior`：获取传播行为。
+  - `getTimeout`获取超时时间。
+  - `isReadOnly`：是否只读（保存、更新、删除时属性变为`false`--可读写，查询时为`true`--只读）事务管理器能够根据这个返回值进行优化，这些事务的配置信息，都可以通过配置文件进行配置。
+- `TransactionStatus`：事务具体运行状态，事务管理过程中，每个时间点事务的状态信息。例如：
+  - `hasSavepoint()`：返回这个事务内部是否包含一个保存点。
+  - `isCompleted()`：返回该事务是否已完成，也就是说，是否已经提交或回滚。
+  - `isNewTransaction()`：判断当前事务是否是一个新事务。
 
 
 ----
