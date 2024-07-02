@@ -153,9 +153,9 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [Spring Boot 自动配置原理](docs/spring_boot/spring_boot.md#zdpzyl)
 - [Spring Boot+Netty](https://github.com/HaoHaoDaYouXi/springboot_netty)
 
-### [JPA](docs/jpa/jpa.md)
-- [事物的传播行为](docs/jpa/jpa.md#cbxw)
-- [事物的隔离级别](docs/jpa/jpa.md#)
+### [Spring Data JPA](docs/jpa/jpa.md)
+- [Spring事物的传播行为](docs/jpa/jpa.md#cbxw)
+- [事物的隔离级别](docs/jpa/jpa.md#gljb)
 - [事物的实现方式](docs/jpa/jpa.md#)
 - [分布式事物](docs/jpa/jpa.md#)
 
