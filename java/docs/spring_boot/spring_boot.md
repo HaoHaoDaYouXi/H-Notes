@@ -217,6 +217,7 @@ org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration,\
 ```
 可以知道它加载了哪些自动配置类
 
+通过这个机制我们可以自己写自动配置类并且在模块下的`META-INF/spring.factories`文件中写入
 
 
 
