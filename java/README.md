@@ -162,6 +162,9 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
   - [分布式事物](docs/jpa/jpa.md#fbssw)
     - [两阶段提交](docs/jpa/jpa.md#ljdtj)
   - [`xml`配置](docs/jpa/jpa.md#xmlpz)
+  - [`@Transactional`注解](docs/jpa/jpa.md#transactional)
+  - [`@Transactional`属性](docs/jpa/jpa.md#transactional_sx)
+  - [`@Transactional`失效场景](docs/jpa/jpa.md#transactional_sxcj)
 
 ### [微服务系统](docs/wait.md)
 - [Dubbo](docs/wait.md)
