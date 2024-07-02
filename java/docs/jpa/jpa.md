@@ -176,7 +176,45 @@ public void transferAccount() {
 > 将提交分成两阶段进行的目的很明确，就是尽可能晚地提交事务，让事务在提交前尽可能地完成所有能完成的工作。</br>
 >> ![提交阶段](img/jpa_swglq_2.png)
 
+**以上都是事务的实现原理，具体的实现有很多种，如`xml`、注解、tx-lcn、Seata、...**
 
+`xml`配置：
+```xml
+<!-- 管理事务的类,指定我们用谁来管理我们的事务-->  
+<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+  <!-- 对应自己数据源配置的名称 -->  
+  <property name="dataSource" ref="dataSource"/>  
+</bean>
+
+<!-- 首先我们要把服务对象声明成一个 bean 例如 AService -->  
+<bean id="AService" class="com.xxx.service.AService"/>  
+
+<!-- 然后是声明一个事物建议tx:advice,spring为我们提供了事物的封装，这个就是封装在了<tx:advice/>中 -->
+<!-- <tx:advice/>有一个transaction-manager属性，我们可以用它来指定我们的事物由谁来管理。默认：事务传播设置是 REQUIRED，隔离级别是DEFAULT -->
+<tx:advice id="txAdvice" transaction-manager="txManager">  
+    <!-- 配置这个事务建议的属性 -->  
+    <tx:attributes>  
+      <!-- 指定所有get开头的方法执行在只读事务上下文中 -->  
+      <tx:method name="get*" read-only="true"/>  
+      <!-- 其余方法执行在默认的读写上下文中 -->  
+      <tx:method name="*"/>  
+    </tx:attributes>
+</tx:advice>  
+
+<!-- 我们定义一个切面，它匹配FooService接口定义的所有操作 -->  
+<aop:config>  
+    <!-- <aop:pointcut/>元素定义AspectJ的切面表示法，这里是表示com.xxx.service.AService包下的任意方法。 -->
+    <aop:pointcut id="AServiceOperation" expression="execution(* com.xxx.service.AService.*(..))"/>  
+    <!-- 然后我们用一个通知器：<aop:advisor/>把这个切面和tx:advice绑定在一起，表示当这个切面：advice定义的通知逻辑将被执行 -->
+    <aop:advisor advice-ref="txAdvice" pointcut-ref="AServiceOperation"/>  
+</aop:config> 
+```
+
+
+
+
+
+----
 
 
 
