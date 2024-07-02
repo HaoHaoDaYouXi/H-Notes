@@ -160,6 +160,7 @@ spring:
 2021版之前的`IDEA`的，打开`Idea`注册表`Shift + Ctrl + Alt + /`，找到`compiler.automake.allow.when.app.running`勾选配置。
 
 ### <div id="zdpzyl">`Spring Boot`自动配置原理</div>
+#### `@EnableAutoConfiguration`
 只要使用了`@EnableAutoConfiguration`注解就能实现自动配置。
 
 ```java
@@ -199,7 +200,10 @@ protected AutoConfigurationEntry getAutoConfigurationEntry(AutoConfigurationMeta
 }
 ```
 
-
+#### `SpringFactoriesLoader`
+`SpringFactoriesLoader`是`Spring`提供的一个扩展机制，它能加载模块下的`META-INF/sring.factories`文件，
+这个`Properties`格式的文件中的`key`是接口、注解、或抽象类的全名，`value`是以逗号`,`分隔的实现类。
+`SpringFactoriesLoader`能将相应的实现类注入`Spring`容器中。
 
 
 
