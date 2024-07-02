@@ -173,6 +173,20 @@ public @interface EnableAutoConfiguration {}
 ```
 `@Import(AutoConfigurationImportSelector.class)`这个是自动配置的关键，它完成了自动配置的主要逻辑。
 
+代码的主要片段：
+```java
+@Override
+public String[] selectImports(AnnotationMetadata annotationMetadata) {
+    if (!isEnabled(annotationMetadata)) {
+        return NO_IMPORTS;
+    }
+    // 获取配置的元数据
+    AutoConfigurationMetadata autoConfigurationMetadata = AutoConfigurationMetadataLoader.loadMetadata(this.beanClassLoader);
+    // 这个方法包含了加载的主要逻辑，它能找到所有自动注入的类
+    AutoConfigurationEntry autoConfigurationEntry = getAutoConfigurationEntry(autoConfigurationMetadata, annotationMetadata);
+    return StringUtils.toStringArray(autoConfigurationEntry.getConfigurations());
+}
+```
 
 ----
 
