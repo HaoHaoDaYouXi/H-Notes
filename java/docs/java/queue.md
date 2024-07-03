@@ -1,4 +1,4 @@
-# <div id="queue">`Queue`</div>
+# <a id="queue">`Queue`</a>
 `Queue`是单端队列，只能从一端插入元素，另一端删除元素，遵循先进先出(`FIFO`)规则。
 
 `Queue`扩展了`Collection`的接口，**因为容量问题而导致操作失败后处理方式的不同**可以分为两类方法：一种在操作失败后会抛出异常，另一种则会返回特殊值。
@@ -9,7 +9,7 @@
 | 删除队首      | `remove()`  | `poll()`     |
 | 查询队首元素    | `element()` | `peek()`     |
 
-# <div id="deque">`Deque`</div>
+# <a id="deque">`Deque`</a>
 `Deque`是双端队列，在队列的两端均可以插入或删除元素。
 
 `Deque`扩展了`Queue`的接口, 增加了在队首和队尾进行插入和删除的方法，同样根据失败后处理方式的不同分为两类：
@@ -35,14 +35,14 @@
 
 **从性能的角度上，选用`ArrayDeque`来实现队列要比`LinkedList`更好。`ArrayDeque`也可以用于实现栈。**
 
-# <div id="priorityqueue">`PriorityQueue`</div>
+# <a id="priorityqueue">`PriorityQueue`</a>
 `PriorityQueue`是在`JDK1.5`中被引入的, 其与`Queue`的区别在于元素出队顺序是与优先级相关的，即总是优先级最高的元素先出队。
 
 - `PriorityQueue`利用了二叉堆的数据结构来实现的，底层使用可变长的数组来存储数据`PriorityQueue`通过堆元素的上浮和下沉，实现了在`O(logn)`的时间复杂度内插入元素和删除堆顶元素。
 - `PriorityQueue`是非线程安全的，且不支持存储`NULL`和`non-comparable`的对象。
 - `PriorityQueue`默认是小顶堆，但可以接收一个`Comparator`作为构造参数，从而来自定义元素优先级的先后。
 
-# <div id="blockingqueue">`BlockingQueue`</div>
+# <a id="blockingqueue">`BlockingQueue`</a>
 `BlockingQueue`（阻塞队列）是一个接口，继承自`Queue`。
 
 阻塞队列，关键字是阻塞，先理解阻塞的含义，在阻塞队列中，线程阻塞有这样的两种情况：
@@ -103,7 +103,7 @@
 - `LinkedTransferQueue`：由链表结构组成的无界阻塞队列。
 - `LinkedBlockingDeque`：由链表结构组成的双向阻塞队列
 
-## <div id="arrayblockingqueue">`ArrayBlockingQueue`（公平、非公平）</div>
+## <a id="arrayblockingqueue">`ArrayBlockingQueue`（公平、非公平）</a>
 用数组实现的有界阻塞队列。此队列按照先进先出（`FIFO`）的原则对元素进行排序。
 
 默认情况下不保证访问者公平的访问队列，所谓公平访问队列是指阻塞的所有生产者线程或消费者线程，当队列可用时，可以按照阻塞的先后顺序访问队列，
@@ -114,7 +114,7 @@
 ArrayBlockingQueue fairQueue = new ArrayBlockingQueue(1000,true);
 ```
 
-## <div id="linkedblockingqueue">`LinkedBlockingQueue`（两个独立锁提高并发）</div>
+## <a id="linkedblockingqueue">`LinkedBlockingQueue`（两个独立锁提高并发）</a>
 基于链表的阻塞队列，同`ArrayListBlockingQueue`类似，此队列按照先进先出（`FIFO`）的原则对元素进行排序。
 
 `LinkedBlockingQueue`之所以能够高效的处理并发数据，还因为其对于生产者端和消费者端分别采用了独立的锁来控制数据同步，
@@ -122,14 +122,14 @@ ArrayBlockingQueue fairQueue = new ArrayBlockingQueue(1000,true);
 
 `LinkedBlockingQueue`会默认一个类似无限大小的容量（`Integer.MAX_VALUE`）。
 
-## <div id="priorityblockingqueue">`PriorityBlockingQueue`（`compareTo`排序实现优先）</div>
+## <a id="priorityblockingqueue">`PriorityBlockingQueue`（`compareTo`排序实现优先）</a>
 是一个支持优先级的无界队列。默认情况下元素采取自然顺序升序排列。
 
 可以自定义实现`compareTo()`方法来指定元素进行排序规则，或者初始化`PriorityBlockingQueue`时，指定构造参数`Comparator`来对元素进行排序。
 
 需要注意的是不能保证同优先级元素的顺序。
 
-## <div id="delayqueue">`DelayQueue`（缓存失效、定时任务 ）</div>
+## <a id="delayqueue">`DelayQueue`（缓存失效、定时任务 ）</a>
 是一个支持延时获取元素的无界阻塞队列。队列使用`PriorityQueue`来实现。
 
 队列中的元素必须实现`Delayed`接口，在创建元素时可以指定多久才能从队列中获取当前元素。
@@ -139,7 +139,7 @@ ArrayBlockingQueue fairQueue = new ArrayBlockingQueue(1000,true);
 - 缓存系统的设计：可以用`DelayQueue`保存缓存元素的有效期，使用一个线程循环查询`DelayQueue`，一旦能从`DelayQueue`中获取元素时，表示缓存有效期到了。
 - 定时任务调度：使用`DelayQueue`保存当天将会执行的任务和执行时间，一旦从`DelayQueue`中获取到任务就开始执行，比如`TimerQueue`就是使用`DelayQueue`实现的。
 
-## <div id="synchronousqueue">`SynchronousQueue`（不存储数据、可用于传递数据）</div>
+## <a id="synchronousqueue">`SynchronousQueue`（不存储数据、可用于传递数据）</a>
 是一个不存储元素的阻塞队列。每一个`put`操作必须等待一个`take`操作，否则不能继续添加元素。
 
 `SynchronousQueue`可以看成是一个传球手，负责把生产者线程处理的数据直接传递给消费者线程。
@@ -147,7 +147,7 @@ ArrayBlockingQueue fairQueue = new ArrayBlockingQueue(1000,true);
 
 `SynchronousQueue`的吞吐量高于`LinkedBlockingQueue`和`ArrayBlockingQueue`。
 
-## <div id="linkedtransferqueue">`LinkedTransferQueue`</div>
+## <a id="linkedtransferqueue">`LinkedTransferQueue`</a>
 是一个由链表结构组成的无界阻塞`TransferQueue`队列。
 
 相对于其他阻塞队列，`LinkedTransferQueue`多了`tryTransfer`和`transfer`方法。
@@ -160,7 +160,7 @@ ArrayBlockingQueue fairQueue = new ArrayBlockingQueue(1000,true);
   对于带有时间限制的`tryTransfer(E e, long timeout, TimeUnit unit)`方法，则是试图把生产者传入的元素直接传给消费者，
   但是如果没有消费者消费该元素则等待指定的时间再返回，如果超时还没消费元素，则返回`false`，如果在超时时间内消费了元素，则返回`true`。
 
-## <div id="linkedblockingdeque">`LinkedBlockingDeque`</div>
+## <a id="linkedblockingdeque">`LinkedBlockingDeque`</a>
 是一个由链表结构组成的双向阻塞队列。所谓双向队列指的你可以从队列的两端插入和移出元素。
 
 双端队列因为多了一个操作队列的入口，在多线程同时入队时，也就减少了一半的竞争。

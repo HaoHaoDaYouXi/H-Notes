@@ -8,7 +8,7 @@
 
 ![collection.png](img/collection.png)
 
-## <div id="jh_szdqb">`List`，`Set`，`Queue`，`Map`四者的区别？</div>
+## <a id="jh_szdqb">`List`，`Set`，`Queue`，`Map`四者的区别？</a>
 
 - `List`(对付顺序的好帮⼿): 存储的元素是有序的、可重复的。
   - `ArrayList`
@@ -63,7 +63,7 @@
     - 红⿊树(⾃平衡的排序⼆叉树)
     - `key`不可以重复，`value`可以重复
 
-## <div id="jh_hashmap">`HashMap`(数组+链表+红黑树)</div>
+## <a id="jh_hashmap">`HashMap`(数组+链表+红黑树)</a>
 
 `HashMap`根据键的`hashCode`值存储数据，大多数情况下可以直接定位到它的值，因而具有很快的访问速度，但遍历顺序却是不确定的。
 
@@ -93,7 +93,7 @@
 
 ![hashMap_java8.png](img/hashMap_java8.png)
 
-### <div id="fzyz">负载因子为什么是`0.75`？</div>
+### <a id="fzyz">负载因子为什么是`0.75`？</a>
 `HashMap`的加载因子(`load factor`，直译为加载因子，意译为负载因子)是指哈希表中填充元素的个数与桶的数量的比值，当元素个数达到负载因子与桶的数量的乘积时，就需要进行扩容。
 
 这个值一般选择`0.75`，是因为这个值可以在时间和空间成本之间做到一个折中，使得哈希表的性能达到较好的表现。
@@ -106,10 +106,10 @@
 
 总之，选择`0.75`这个值是为了在时间和空间成本之间达到一个较好的平衡点，既可以保证哈希表的性能表现，又能够充分利用空间。
 
-## <div id="jh_concurrenthashmap">`ConcurrentHashMap`</div>
+## <a id="jh_concurrenthashmap">`ConcurrentHashMap`</a>
 `ConcurrentHashMap`和`HashMap`思路是差不多的，但是因为它支持并发操作，所以要复杂一些。
 
-### <div id="segment">`Segment`段</div>
+### <a id="segment">`Segment`段</a>
 整个`ConcurrentHashMap`由一个个`Segment`组成，`Segment`代表”部分“或”一段“的意思，所以很多地方都会将其描述为分段锁。
 
 ### 线程安全(`Segment`继承`ReentrantLock`加锁)
@@ -124,11 +124,11 @@
 
 #### `Java8`对`ConcurrentHashMap`进行了比较大的改动,`Java8`也引入了红黑树。
 
-### <div id="java8_before">`Java8`之前</div>
+### <a id="java8_before">`Java8`之前</a>
 
 ![concurrentHashMap_java7.png](img/concurrentHashMap_java7.png)
 
-### <div id="java8_after">`Java8`之后</div>
+### <a id="java8_after">`Java8`之后</a>
 
 ![concurrentHashMap_java8.png](img/concurrentHashMap_java8.png)
 

@@ -1,6 +1,6 @@
 # 线程
 
-## <div id="xc_jc">线程和进程</div>
+## <a id="xc_jc">线程和进程</a>
 ### 进程
 进程是程序的⼀次执⾏过程，是系统运⾏程序的基本单位，因此进程是动态的。系统运⾏⼀个程序即
 是⼀个进程从创建，运⾏到消亡的过程。
@@ -34,7 +34,7 @@ for (ThreadInfo threadInfo : threadInfos) {
 ```
 从上⾯的输出内容可以看出：**⼀个 Java 程序的运⾏是 main 线程和多个其他线程同时运⾏。**
 
-## <div id="xc_smzq">线程的生命周期</div>
+## <a id="xc_smzq">线程的生命周期</a>
 当线程被创建并启动以后，它既不是一启动就进入了执行状态，也不是一直处于执行状态。
 在线程的生命周期中，它要经过新建(`New`)、就绪(`Runnable`)、运行(`Running`)、阻塞(`Blocked`)和死亡(`Dead`)5 种状态。
 尤其是当线程启动以后，它不可能一直"霸占"着`CPU`独自运行，所以`CPU`需要在多条线程之间切换，于是线程状态也会多次在运行、阻塞之间切换。
@@ -63,7 +63,7 @@ for (ThreadInfo threadInfo : threadInfos) {
 
 ![thread_life.png](img/thread_life.png)
 
-## <div id="xc_zt">线程的状态</div>
+## <a id="xc_zt">线程的状态</a>
 `Java`线程在运⾏的⽣命周期中的指定时刻只可能处于下⾯ 6 种不同状态的其中⼀个状态：
 
 - `NEW`：初始状态，线程被创建出来但没有被调⽤`start()`。
@@ -75,7 +75,7 @@ for (ThreadInfo threadInfo : threadInfos) {
 
 - ![thread_status.png](img/thread_status.png)
 
-## <div id="xc_sx">线程实现</div>
+## <a id="xc_sx">线程实现</a>
 
 ### 继承`Thread`类
 `Thread`类本质上是实现了`Runnable`接口的一个实例，代表一个线程的实例。启动线程的唯一方
@@ -161,7 +161,7 @@ while(true) {
 }
 ```
 
-## <div id="xc_xcc">线程池</div>
+## <a id="xc_xcc">线程池</a>
 线程池就是管理一系列线程的资源池，其提供了一种限制和管理线程资源的方式。
 每个线程池还维护一些基本统计信息，例如已完成任务的数量。
 
@@ -211,7 +211,7 @@ scheduledThreadPool.scheduleAtFixedRate(newRunnable(){
 `Executors.newSingleThreadExecutor()`返回一个线程池(这个线程池只有一个线程)，
 这个线程池可以在线程死后(或发生异常时)重新启动一个线程来替代原来的线程继续执行下去！
 
-## <div id="xc_start_run">`start`和`run`的区别</div>
+## <a id="xc_start_run">`start`和`run`的区别</a>
 
 `start()`方法来启动线程，真正实现了多线程运行。
 这时无需等待`run`方法体代码执行完毕，可以直接继续执行后续的代码。
@@ -220,7 +220,7 @@ scheduledThreadPool.scheduleAtFixedRate(newRunnable(){
 
 方法`run()`称为线程体，它包含了要执行的这个线程的内容，线程就进入了运行状态，开始运行`run`函数当中的代码。`Run`方法运行结束，此线程终止。然后`CPU`再调度其它线程。
 
-## <div id="xc_sleep_wait">`sleep`和`wait`的区别</div>
+## <a id="xc_sleep_wait">`sleep`和`wait`的区别</a>
 
 对于`sleep()`方法，我们首先要知道该方法是属于`Thread`类中的。而`wait()`方法，则是属于`Object`类中的。
 
@@ -230,7 +230,7 @@ scheduledThreadPool.scheduleAtFixedRate(newRunnable(){
 
 而当调用`wait()`方法的时候，线程会放弃对象锁，进入等待此对象的等待锁定池，只有针对此对象调用`notify()`方法后本线程才进入对象锁定池准备获取对象锁进入运行状态。
 
-## <div id="xc_htxc">后台线程</div>
+## <a id="xc_htxc">后台线程</a>
 1. 定义：守护线程--也称“服务线程”，他是后台线程，它有一个特性，即为用户线程提供公共服务，在没有用户线程可服务时会自动离开。
 2. 优先级：守护线程的优先级比较低，用于为系统中的其它对象和线程提供服务。
 3. 设置：通过`setDaemon(true)`来设置线程为“守护线程”；将一个用户线程设置为守护线程的方式是在 线程对象创建 之前 用线程对象的`setDaemon`方法。
@@ -245,7 +245,7 @@ scheduledThreadPool.scheduleAtFixedRate(newRunnable(){
    也就是说守护线程不依赖于终端，但是依赖于系统，与系统“同生共死”。
    当`JVM`中所有的线程都是守护线程的时候，`JVM`就可以退出了；如果还有一个或以上的非守护线程则`JVM`不会退出。
 
-## <div id="xc_gxsj">线程共享数据</div>
+## <a id="xc_gxsj">线程共享数据</a>
 
 `Java`里面进行多线程通信的主要方式就是共享内存的方式，共享内存主要的关注点有两个：可见性和有序性原子性。
 `Java`内存模型(`JMM`)解决了可见性和有序性的问题，而锁解决了原子性的问题，理想情况下我们希望做到“同步”和“互斥”。
@@ -348,7 +348,7 @@ public class TestThread {
 }
 ```
 
-## <div id="xc_xcdd_ddsf">线程调度和调度算法</div>
+## <a id="xc_xcdd_ddsf">线程调度和调度算法</a>
 
 ### `Java`中用到的线程调度
 - 抢占式调度：
@@ -446,13 +446,13 @@ public class TestThread {
    则此时新进程将抢占正在运行进程的处理机，即由调度程序把正在运行的进程放回到第 i 队列的末尾，把处理机分配给新到的高优先权进程。
    在多级反馈队列调度算法中，如果规定第一个队列的时间片略大于多数人机交互所需之处理时间时，便能够较好的满足各种类型用户的需要。
 
-## <div id="threadlocal">`ThreadLocal`</div>
+## <a id="threadlocal">`ThreadLocal`</a>
 `ThreadLocal`，叫做线程本地变量，也叫做线程本地存储，`ThreadLocal`的作用是提供线程内的局部变量，
 这种变量在线程的生命周期内起作用，减少同一个线程内多个函数或者组件之间一些公共变量的传递的复杂度。
 
 `ThreadLocal`类主要解决的就是让每个线程绑定⾃⼰的值，可以将`ThreadLocal`类形象的⽐喻成存放数据的盒⼦，盒⼦中可以存储每个线程的私有数据。
 
-### <div id="threadlocal_map">`ThreadLocalMap`（线程的一个属性）</div>
+### <a id="threadlocal_map">`ThreadLocalMap`（线程的一个属性）</a>
 每个线程中都有一个自己的`ThreadLocalMap`类对象，可以将线程自己的对象保持到其中，各管各的，线程可以正确的访问到自己的对象。
 
 将一个共用的`ThreadLocal`静态实例作为`key`，将不同对象的引用保存到不同线程的`ThreadLocalMap`中，
@@ -463,7 +463,7 @@ public class TestThread {
 ThreadLocal.ThreadLocalMap threadLocals = null;
 ```
 
-### <div id="threadlocal_sycj">使用场景</div>
+### <a id="threadlocal_sycj">使用场景</a>
 最常见的`ThreadLocal`使用场景：数据库连接、Session 管理等。
 ```java
 private static final ThreadLocal threadLocal = new ThreadLocal();

@@ -17,7 +17,7 @@
 >> 持久性，是指一个事务一旦被提交了，那么对数据库中的数据的改变就是永久性的，即便是在数据库系统遇到故障的情况下也不会丢失提交事务的操作。</br>
 >> 例如我们在使用JDBC操作数据库时，在提交事务方法后，提示用户事务操作完成，当我们程序执行完成直到看到提示后，就可以认定事务以及正确提交，即使这时候数据库出现了问题，也必须要将我们的事务完全执行完成，否则就会造成我们看到提示事务处理完毕，但是数据库因为故障而没有执行事务的重大错误。
 
-## <div id="cbxw">Spring事物的传播行为</div>
+## <a id="cbxw">Spring事物的传播行为</a>
 事务的传播行为说的是，当多个事务同时存在的时候，`Spring`如何处理这些事务的行为。
 - `PROPAGATION_REQUIRED`：如果当前没有事务，就创建一个新事务，如果当前存在事务，就加入该事务，`Spring`默认事务级别。
   - 执行`ServiceA.methodA`的时候，`ServiceA.methodA`已经起了事务，这时调用`ServiceB.methodB`，</br>
@@ -39,7 +39,7 @@
 - `PROPAGATION_NESTED`：如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则按`PROPAGATION_REQUIRED`属性执行。
   - 与`PROPAGATION_REQUIRES_NEW`的区别是`NESTED`的事务和他的父事务是相依的，它的提交是要等父事务一块提交。也就是说，如果父事务最后回滚，它也要回滚。
 
-## <div id="gljb">事物的隔离级别</div>
+## <a id="gljb">事物的隔离级别</a>
 在介绍数据库提供的各种隔离级别之前，先看看如果不考虑事务的隔离性，会发生的几种问题：
 > 脏读
 >> 脏读是指在一个事务处理过程里读取了另一个未提交的事务中的数据。</br>
@@ -74,7 +74,7 @@
 SELECT @@tx_isolation;
 ```
 
-## <div id="glsw">`Spring`管理事务</div>
+## <a id="glsw">`Spring`管理事务</a>
 
 `Spring`事务管理主要包括3个接口：
 
@@ -92,9 +92,9 @@ SELECT @@tx_isolation;
   - `isCompleted()`：返回该事务是否已完成，也就是说，是否已经提交或回滚。
   - `isNewTransaction()`：判断当前事务是否是一个新事务。
 
-## <div id="sxfs">事物的实现方式</div>
+## <a id="sxfs">事物的实现方式</a>
 
-### <div id="bdsw">本地事务</div>
+### <a id="bdsw">本地事务</a>
 紧密依赖于底层资源管理器(例如数据库连接)，事务处理局限在当前事务资源内。</br>
 此种事务处理方式不存在对应用服务器的依赖，因而部署灵活却无法支持多数据源的分布式事务。</br>
 
@@ -125,7 +125,7 @@ public void transferAccount() {
 }
 ```
 
-### <div id="fbssw">分布式事务</div>
+### <a id="fbssw">分布式事务</a>
 `Java`事务编程接口(`JTA`：`Java Transaction API`)和`Java`事务服务 (`JTS`：`Java Transaction Service`)为`J2EE`平台提供了分布式事务服务。
 
 分布式事务(`Distributed Transaction`)包括事务管理器(`Transaction Manager`)和一个或多个支持`XA`协议的资源管理器 (`Resource Manager`)。
@@ -163,7 +163,7 @@ public void transferAccount() {
 }
 ```
 
-#### <div id="ljdtj">两阶段提交</div>
+#### <a id="ljdtj">两阶段提交</a>
 两阶段提交主要保证了分布式事务的原子性：即所有结点要么全做要么全不做，所谓的两个阶段是指：
 > 第一阶段：准备阶段；
 >> 事务协调者(事务管理器)给每个参与者(资源管理器)发送 Prepare 消息，</br>
@@ -178,7 +178,7 @@ public void transferAccount() {
 
 **以上都是事务的实现原理，具体的实现有很多种，如`xml`、注解、tx-lcn、Seata、...**
 
-### <div id="xmlpz">`xml`配置</div>
+### <a id="xmlpz">`xml`配置</a>
 ```xml
 <!-- 管理事务的类,指定我们用谁来管理我们的事务-->  
 <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
@@ -210,7 +210,7 @@ public void transferAccount() {
 </aop:config> 
 ```
 
-### <div id="transactional">`@Transactional`注解</div>
+### <a id="transactional">`@Transactional`注解</a>
 这个注解还是有很多需要注意，如果使用不当会导致事务回滚失效
 
 `@Transactional`可以作用在接口、类、类方法
@@ -221,7 +221,7 @@ public void transferAccount() {
 
 - 作用于接口：不推荐这种使用方法，因为一旦标注在`Interface`上并且配置了`Spring AOP`使用`CGLib`动态代理，将会导致`@Transactional`注解失效。
 
-#### <div id="transactional_sx">`@Transactional`属性</div>
+#### <a id="transactional_sx">`@Transactional`属性</a>
 - `propagation`属性
   - `propagation`代表事务的传播行为，默认值为`Propagation.REQUIRED`
 - `isolation`属性
@@ -258,7 +258,7 @@ public void transactionalTest(){
 }
 ```
 
-#### <div id="transactional_sxcj">`@Transactional`失效场景</div>
+#### <a id="transactional_sxcj">`@Transactional`失效场景</a>
 
 `@Transactional`应用在非`public`修饰的方法上
 

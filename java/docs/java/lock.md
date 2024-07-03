@@ -22,20 +22,20 @@
 - `tryLock()`：尝试获得锁，仅在调用时锁未被线程占用，获得锁。
 - `tryLock(long timeout, TimeUnit unit)`：如果锁在给定等待时间内没有被另一个线程保持， 则获取该锁。
 
-## <div id="lgs">乐观锁</div>
+## <a id="lgs">乐观锁</a>
 乐观锁是一种乐观思想，即认为读多写少，遇到并发写的可能性低，每次去拿数据的时候都认为别人不会修改，所以不会上锁，
 但是在更新的时候会判断一下在此期间别人有没有去更新这个数据，采取在写时先读出当前版本号。
 
 然后加锁操作(比较跟上一次的版本号，如果一样则更新)，如果失败则要重复读-比较-写的操作。
 `Java`中的乐观锁基本都是通过`CAS`操作实现的，`CAS`是一种更新的原子操作，比较当前值跟传入值是否一样，一样则更新，否则失败。
 
-## <div id="bgs">悲观锁</div>
+## <a id="bgs">悲观锁</a>
 悲观锁是就是悲观思想，即认为写多，遇到并发写的可能性高，每次去拿数据的时候都认为别人会修改，
 所以每次在读写数据的时候都会上锁，这样别人想读写这个数据就会`block`直到拿到锁。
 
 `Java`中的悲观锁就是`Synchronized`，`AQS`框架下的锁则是先尝试`CAS`乐观锁去获取锁，获取不到，才会转换为悲观锁，如`RetreenLock`。
 
-## <div id="zxs">自旋锁</div>
+## <a id="zxs">自旋锁</a>
 自旋锁原理非常简单，如果持有锁的线程能在很短时间内释放锁资源，那么那些等待竞争锁的线程就不需要做内核态和用户态之间的切换进入阻塞挂起状态，
 它们只需要等一等(自旋)，等持有锁的线程释放锁后即可立即获取锁，这样就避免用户线程和内核的切换的消耗。
 
@@ -72,7 +72,7 @@
 - `-XX:PreBlockSpin=10`为自旋次数
 - `JDK1.7`后，去掉此参数，由`jvm`控制
 
-## <div id="tbs">`Synchronized`同步锁</div>
+## <a id="tbs">`Synchronized`同步锁</a>
 `Synchronized`它可以把任意一个非`NULL`的对象当作锁。他属于独占式的悲观锁，同时属于可重
 入锁。
 
@@ -91,7 +91,7 @@
 - `Owner`：当前已经获取到所资源的线程被称为`Owner`。
 - `!Owner`：当前释放锁的线程。
 
-## <div id="reentrantlock">`ReentrantLock`</div>
+## <a id="reentrantlock">`ReentrantLock`</a>
 `ReentrantLock`继承接口`Lock`并实现了接口中定义的方法，他是一种可重入锁，除了能完成`synchronized`所能完成的所有工作外，
 还提供了诸如可响应中断锁、可轮询锁请求、定时锁等避免多线程死锁的方法。
 
@@ -114,7 +114,7 @@
 - `lock`能获得锁就返回`true`，不能的话一直等待获得锁
 - `lock`和`lockInterruptibly`，如果两个线程分别执行这两个方法，但此时中断这两个线程，`lock`不会抛出异常，而`lockInterruptibly`会抛出异常。
 
-## <div id="atomicInteger">`AtomicInteger`</div>
+## <a id="atomicInteger">`AtomicInteger`</a>
 `AtomicInteger`，一个提供原子操作的`Integer`的类，
 常见的还有：`AtomicBoolean`、`AtomicInteger`、`AtomicLong`、`AtomicReference`等
 
@@ -126,7 +126,7 @@
 
 通过相关资料显示，通常`AtomicInteger`的性能是`ReentrantLock`的好几倍。
 
-## <div id="semaphore">`Semaphore`信号量</div>
+## <a id="semaphore">`Semaphore`信号量</a>
 `Semaphore`是一种基于计数的信号量。它可以设定一个阈值，基于此，多个线程竞争获取许可信号，做完自己的申请后归还，超过阈值后，线程申请许可信号将会被阻塞。
 
 `Semaphore`可以用来构建一些对象池，资源池之类的，比如数据库连接池实现互斥锁(计数器为`1`)
@@ -140,12 +140,12 @@
 - `Semaphore`也提供了公平与非公平锁的机制，也可在构造函数中进行设定。
 - `Semaphore`的锁释放操作也由手动进行，因此与`ReentrantLock`一样，为避免线程因抛出异常而无法正常释放锁的情况发生，释放锁的操作也必须在`finally`代码块中完成。
 
-## <div id="kcrs">可重入锁</div>
+## <a id="kcrs">可重入锁</a>
 可重入锁，也叫做递归锁，指的是同一线程外层函数获得锁之后，内层递归函数仍然有获取该锁的代码，但不受影响。
 
 在`JAVA`环境下`ReentrantLock`和`Synchronized`都是 可重入锁。
 
-## <div id="gps_fgps">公平锁与非公平锁</div>
+## <a id="gps_fgps">公平锁与非公平锁</a>
 - 公平锁
   - 加锁前检查是否有排队等待的线程，优先排队等待的线程，先来先得
 - 非公平锁
@@ -156,7 +156,7 @@
 `Java`中的`Synchronized`是非公平锁，`ReentrantLock`默认的`lock()`方法采用的是非公平锁。
 
 
-## <div id="dxs">`ReadWriteLock`读写锁</div>
+## <a id="dxs">`ReadWriteLock`读写锁</a>
 为了提高性能，`Java`提供了读写锁，在读的地方使用读锁，在写的地方使用写锁，灵活控制，
 如果没有写锁的情况下，读是无阻塞的,在一定程度上提高了程序的执行效率。
 读写锁分为读锁和写锁，多个读锁不互斥，读锁与写锁互斥，这是由`jvm`自己控制的，你只要上好相应的锁即可。
@@ -168,7 +168,7 @@
 `Java`中读写锁有个接口`java.util.concurrent.locks.ReadWriteLock`，也有具体的实现`ReentrantReadWriteLock`。
 
 
-## <div id="gxs_dzs">共享锁和独占锁</div>
+## <a id="gxs_dzs">共享锁和独占锁</a>
 `Java`并发包提供的加锁模式分为共享锁和独占锁。
 - 共享锁
   - 共享锁则允许多个线程同时获取锁，并发访问 共享资源，如：`ReadWriteLock`。
@@ -181,14 +181,14 @@
 
 `Java`的并发包中提供了`ReadWriteLock`，读-写锁。它允许一个资源可以被多个读操作访问，或者被一个写操作访问，但两者不能同时进行。
 
-## <div id="sdzt">锁的状态</div>
+## <a id="sdzt">锁的状态</a>
 锁的状态总共有四种：无锁状态、偏向锁、轻量级锁和重量级锁。
 
 随着锁的竞争，锁可以升级：偏向锁 -> 轻量级锁 -> 重量级锁 
 
 但是锁的升级是单向的，也就是说只能从低到高升级，不会出现锁的降级。
 
-### <div id="pxs">偏向锁</div>
+### <a id="pxs">偏向锁</a>
 `Hotspot`的作者经过以往的研究发现大多数情况下锁不仅不存在多线程竞争，而且总是由同一线程多次获得。
 
 偏向锁的目的是在某个线程获得锁之后，消除这个线程锁重入(`CAS`)的开销，看起来让这个线程得到了偏护。
@@ -199,14 +199,14 @@
 
 轻量级锁是为了在线程交替执行同步块时提高性能，而偏向锁则是在只有一个线程执行同步块时进一步提高性能。
 
-### <div id="qljs">轻量级锁</div>
+### <a id="qljs">轻量级锁</a>
 "轻量级"是相对于使用操作系统互斥量来实现的传统锁而言的。
 
 轻量级锁并不是用来代替重量级锁的，它的本意是在没有多线程竞争的前提下，减少传统的重量级锁使用产生的性能消耗。
 
 轻量级锁所适应的场景是线程交替执行同步块的情况，如果存在同一时间访问同一锁的情况，就会导致轻量级锁膨胀为重量级锁。
 
-### <div id="zljs">重量级锁</div>
+### <a id="zljs">重量级锁</a>
 `Synchronized`是通过对象内部的一个叫做监视器锁(`monitor`)来实现的。
 
 但是监视器锁本质又是依赖于底层的操作系统的`Mutex Lock`来实现的。
@@ -220,12 +220,12 @@
 `JDK1.6`以后，为了减少获得锁和释放锁所带来的性能消耗，提高性能，引入了“轻量级锁”和"偏向锁"。
 
 
-## <div id="fds">分段锁</div>
+## <a id="fds">分段锁</a>
 分段锁也并非一种实际的锁，而是一种设计
 
 [`ConcurrentHashMap`](collection.md#jh_concurrenthashmap)是学习分段锁的最好实践
 
-## <div id="fbss">分布式锁</div>
+## <a id="fbss">分布式锁</a>
 
 对于单机多线程，在`Java`中，我们通常使⽤`ReentrantLock`这类`JDK`⾃带的`本地锁`来控制本地多个线程对本地共享资源的访问。
 
@@ -237,7 +237,7 @@
 
 ⼀般会选择基于`Redis`实现分布式锁。
 
-## <div id="sdyh">锁的优化</div>
+## <a id="sdyh">锁的优化</a>
 - 减少锁持有时间
   - 只用在有线程安全要求的程序上加锁
 - 减小锁粒度
@@ -254,7 +254,7 @@
 - 锁消除
   - 锁消除是在编译器级别的事情。在即时编译器时，如果发现不可能被共享的对象，则可以消除这些对象的锁操作，多数是因为程序员编码不规范引起。
 
-## <div id="cas">`CAS`（比较并交换-乐观锁机制-锁自旋）</div>
+## <a id="cas">`CAS`（比较并交换-乐观锁机制-锁自旋）</a>
 `CAS`（Compare And Swap/Set）比较并交换，`CAS`算法的过程是这样：
 
 它包含`3`个参数`CAS`(`V`,`E`,`N`)。
@@ -273,7 +273,7 @@
 失败的线程不会被挂起，仅是被告知失败，并且允许再次尝试，当然也允许失败的线程放弃操作。
 基于这样的原理，`CAS`操作即使没有锁，也可以发现其他线程对当前线程的干扰，并进行恰当的处理。
 
-### <div id="atomic">原子包`java.util.concurrent.atomic`（锁自旋）</div>
+### <a id="atomic">原子包`java.util.concurrent.atomic`（锁自旋）</a>
 `JDK1.5`的原子包：`java.util.concurrent.atomic`这个包里面提供了一组原子类。
 
 其基本的特性就是在多线程环境下，当有多个线程同时执行这些类的实例包含的方法时，具有排他性，即当某个线程进入方法，
@@ -308,7 +308,7 @@ public class AtomicInteger extends Number implements java.io.Serializable {
 `getAndIncrement`采用了`CAS`操作，每次从内存中读取数据然后将此数据和`+1`后的结果进行`CAS`操作，如果成功就返回结果，否则重试直到成功为止。
 而`compareAndSet`利用`JNI`来完成`CPU`指令的操作。
 
-### <div id="aba">`ABA`问题</div>
+### <a id="aba">`ABA`问题</a>
 `CAS`会导致"`ABA`问题"。`CAS`算法实现一个重要前提需要取出内存中某时刻的数据，而在下时刻比较并替换，那么在这个时间差类会导致数据的变化。
 
 比如说一个线程`one`从内存位置`V`中取出`A`，这时候另一个线程`two`也从内存中取出`A`，
@@ -324,7 +324,7 @@ public class AtomicInteger extends Number implements java.io.Serializable {
 
 因为每次操作的版本号都会随之增加，所以不会出现`ABA`问题，因为版本号只会增加不会减少。
 
-## <div id="aqs">`AQS`（抽象的队列同步器）</div>
+## <a id="aqs">`AQS`（抽象的队列同步器）</a>
 `AbstractQueuedSynchronizer`类如其名，抽象的队列式的同步器，
 `AQS`定义了一套多线程访问共享资源的同步器框架，许多同步类实现都依赖于它，如常用的`ReentrantLock`、`Semaphore`、`CountDownLatch`。
 

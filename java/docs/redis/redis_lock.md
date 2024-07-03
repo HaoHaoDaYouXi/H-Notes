@@ -12,7 +12,7 @@
 
 分布式锁的实现有很多，比如基于数据库、memcached、Redis、系统文件、zookeeper等。它们的核心的理念跟上面的过程大致相同。
 
-# <div id="redis">二、Redis实现</div>
+# <a id="redis">二、Redis实现</a>
 我们先来看如何通过单节点Redis实现一个简单的分布式锁。
 
 ## 1、加锁
@@ -168,7 +168,7 @@ public class IndexController {
 ```
 至此，单节点Redis的分布式锁的实现就已经完成了。比较简单，但是问题也比较大，最重要的一点是，锁不具有可重入性。
 
-# <div id="redisson">三、Redisson实现</div>
+# <a id="redisson">三、Redisson实现</a>
 
 Redisson是架设在Redis基础上的一个Java驻内存数据网格（In-Memory Data Grid）。充分的利用了Redis键值数据库提供的一系列优势，基于Java实用工具包中常用接口，为使用者提供了一系列具有分布式特性的常用工具类。使得原本作为协调单机多线程并发程序的工具包获得了协调分布式多机多线程并发系统的能力，大大降低了设计和研发大规模分布式系统的难度。同时结合各富特色的分布式服务，更进一步简化了分布式环境中程序相互之间的协作。
 

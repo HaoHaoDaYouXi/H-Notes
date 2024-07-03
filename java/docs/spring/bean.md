@@ -10,7 +10,7 @@
 注解则是通过在`Bean`类上添加特定的注解来定义`Bean`。
 无论是`XML`配置文件还是注解，都需要被`Spring IoC`容器加载和解析，以创建`Bean`的实例并放入容器中。
 
-## <div id="component">`@Component`</div>
+## <a id="component">`@Component`</a>
 
 在运行时，`Spring`会找到所有使用`@Component`或其派生类进行注释的类，并将它们用作`bean`定义。
 查找带注释的类的过程称为组件扫描。
@@ -25,7 +25,7 @@
 注释之间的区别纯粹是信息性的。它们允许你根据通用职责轻松对`bean`进行分类。
 你可以使用这些注释将`bean`类标记为特定应用程序层的成员，`Spring`框架会将它们全部视为`@Components`。
 
-## <div id="bean_zyy">Bean的作用域</div>
+## <a id="bean_zyy">Bean的作用域</a>
 `Spring`中`Bean`的作⽤域通常有：
 - `singleton`：单例，这种`bean`范围是默认的，这种范围确保不管接受到多少个请求，每个容器中只有一个`bean`的实例，单例的模式由`BeanFactory`自身来维护。
 - `prototype`：原形，范围与单例范围相反，每次获取都会创建⼀个新的`bean`实例，连续`getBean()`两次，是不同的`Bean`实例。
@@ -34,7 +34,7 @@
 - `application/global-session`(`Web`应⽤使⽤)：全局会话，在一个全局的`Http Session`中，容器会返回该`bean`的同一个实例，仅在使用`portlet context`时有效。
 - `websocket`(`Web`应⽤使⽤)：网络通信，在`WebSocket`会话范围内会创建⼀个新的`bean`。
 
-## <div id="bean_smzq">Bean的生命周期</div>
+## <a id="bean_smzq">Bean的生命周期</a>
 
 `Spring`上下文中的`Bean`生命周期如下：
 
@@ -58,7 +58,7 @@
 - `DisposableBean`：当`Bean`不再需要时，会经过清理阶段，如果`Bean`实现了`DisposableBean`这个接口，会调用其实现的`destroy()`方法；
 - `destroy-method`：如果这个`Bean`的`Spring`配置中配置了`destroy-method`属性，会自动调用其配置的销毁方法。
 
-## <div id="bean_zrfs">Bean注入的实现方式</div>
+## <a id="bean_zrfs">Bean注入的实现方式</a>
 早期的开发基本是基于`xml`的配置，目前大部分都是基于注解的配置
 
 ### 基于`xml`注入`bean`
@@ -182,7 +182,7 @@ xml配置
 
 [`@Autowired`和`@Resource`的区别](spring.md#autowired_resource)
 
-## <div id="zdzp">`5`种不同方式的自动装配</div>
+## <a id="zdzp">`5`种不同方式的自动装配</a>
 
 `Spring`装配包括手动装配和自动装配，手动装配是有基于`xml`装配、构造方法、`setter`方法等
 
