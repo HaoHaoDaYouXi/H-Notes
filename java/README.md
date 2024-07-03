@@ -32,7 +32,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [标记清除算法](docs/jvm/gc/algorithm.md#标记清除算法-mark-sweep)
     - [复制算法](docs/jvm/gc/algorithm.md#复制算法-copying)
     - [标记整理算法](docs/jvm/gc/algorithm.md#标记整理算法-mark-compact)
-    - [分代回收算法](docs/jvm/gc/algorithm.md#分代回收算法)
+    - [分代回收算法](docs/jvm/gc/algorithm.md#fdhssf)
   - [垃圾收集器都有哪些？](docs/jvm/gc/collector.md)
     - [Serial](docs/jvm/gc/collector.md#serial)
     - [ParNew](docs/jvm/gc/collector.md#parnew)
