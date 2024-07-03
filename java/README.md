@@ -29,7 +29,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [Java垃圾回收机制(GC)？](docs/jvm/gc/gc.md)
   - [如何确定哪些是垃圾](docs/jvm/gc/which_garbage.md)
   - [垃圾回收算法](docs/jvm/gc/algorithm.md)
-    - [标记清除算法](docs/jvm/gc/algorithm.md#标记清除算法 Mark-Sweep)
+    - [标记清除算法](docs/jvm/gc/algorithm.md#"标记清除算法 Mark-Sweep")
     - [复制算法](docs/jvm/gc/algorithm.md#fzsf)
     - [标记整理算法](docs/jvm/gc/algorithm.md#bjzlsf)
     - [分代回收算法](docs/jvm/gc/algorithm.md#fdhssf)
