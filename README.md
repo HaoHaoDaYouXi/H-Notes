@@ -2,7 +2,6 @@
 
 我的笔记仓库
 
-## [仓颉](cang_jie/README.md)
 ## [java](java/README.md)
 ## [linux](linux/README.md)
 ## [go](go/README.md)
