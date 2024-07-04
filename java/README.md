@@ -203,7 +203,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 
 ### [Gradle](docs/gradle/gradle.md)
 - [Gradle安装](docs/gradle/gradle_install.md)
-- [Gradle常用命令](docs/wait.md)
+- [Gradle常用命令](docs/gradle/gradle_ml.md)
 - [Groovy](docs/groovy/groovy.md)
   - [`Groovy`环境变量的配置](docs/groovy/groovy.md#hjpz)
 
