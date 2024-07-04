@@ -166,8 +166,6 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
   - [`@Transactional`属性](docs/jpa/jpa.md#transactional_sx)
   - [`@Transactional`失效场景](docs/jpa/jpa.md#transactional_sxcj)
 
-### [SpringSocial](docs/social/social.md)
-
 ### [微服务系统](docs/wait.md)
 - [Dubbo](docs/wait.md)
     - [Dubbo 的服务治理](docs/wait.md)
@@ -194,18 +192,21 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [SpringCloudBus](docs/wait.md)
 - [SpringCloudAlibaba](docs/wait.md)
 
+### [SpringSocial](docs/social/social.md)
+
+### [Mybatis](docs/wait.md)
+- [Mybatis的优缺点](docs/wait.md)
+- [Mybatis和Hibernate的区别](docs/wait.md)
+- [Mybatis常用标签](docs/wait.md)
+- [Mybatis $()和#()的区别](docs/wait.md)
+- [Mybatis 模糊查询的实现方式](docs/wait.md)
+
 ### [Shiro](docs/wait.md)
 - [Shiro的核心概念](docs/wait.md)
 - [Shiro工作流程](docs/wait.md)
 - [Shiro有哪些组件？](docs/wait.md)
 - [Shiro注解](docs/wait.md)
 - [Shiro优点](docs/wait.md)
-
-### [Gradle](docs/gradle/gradle.md)
-- [Gradle安装](docs/gradle/gradle_install.md)
-- [Gradle常用命令](docs/gradle/gradle_ml.md)
-- [Groovy](docs/groovy/groovy.md)
-  - [`Groovy`环境变量的配置](docs/groovy/groovy.md#hjpz)
 
 ### [Maven](docs/wait.md)
 - [Maven常用命令](docs/wait.md)
@@ -222,6 +223,12 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [如何设置本地仓库和远程仓库](docs/wait.md)
 - [Maven私服的仓库类型](docs/wait.md)
 
+### [Gradle](docs/gradle/gradle.md)
+- [Gradle安装](docs/gradle/gradle_install.md)
+- [Gradle常用命令](docs/gradle/gradle_ml.md)
+- [Groovy](docs/groovy/groovy.md)
+  - [`Groovy`环境变量的配置](docs/groovy/groovy.md#hjpz)
+
 ### [Mysql](docs/wait.md)
 - [Mysql存储引擎](docs/wait.md)
 - [索引](docs/wait.md)
@@ -232,13 +239,6 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [服务器优化](docs/wait.md)
 - [高可用](docs/wait.md)
 - [备份和恢复](docs/wait.md)
-
-### [Mybatis](docs/wait.md)
-- [Mybatis的优缺点](docs/wait.md)
-- [Mybatis和Hibernate的区别](docs/wait.md)
-- [Mybatis常用标签](docs/wait.md)
-- [Mybatis $()和#()的区别](docs/wait.md)
-- [Mybatis 模糊查询的实现方式](docs/wait.md)
 
 ### [Redis](docs/redis/redis.md)
 - [redis安装](docs/redis/redisInstall.md)
