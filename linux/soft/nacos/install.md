@@ -1,4 +1,4 @@
-# 安装
+# nacos 安装
 需要安装JDK
 
 1、下载并上传[安装包](https://github.com/alibaba/nacos/releases)
