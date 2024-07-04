@@ -166,6 +166,8 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
   - [`@Transactional`属性](docs/jpa/jpa.md#transactional_sx)
   - [`@Transactional`失效场景](docs/jpa/jpa.md#transactional_sxcj)
 
+### [SpringSocial](docs/social/social.md)
+
 ### [微服务系统](docs/wait.md)
 - [Dubbo](docs/wait.md)
     - [Dubbo 的服务治理](docs/wait.md)
@@ -191,8 +193,6 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [Zuul](docs/wait.md)
     - [SpringCloudBus](docs/wait.md)
 - [SpringCloudAlibaba](docs/wait.md)
-
-### [SpringSocial](docs/social/social.md)
 
 ### [Shiro](docs/wait.md)
 - [Shiro的核心概念](docs/wait.md)
