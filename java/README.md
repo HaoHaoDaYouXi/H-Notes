@@ -202,9 +202,10 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [Shiro优点](docs/wait.md)
 
 ### [Gradle](docs/gradle/gradle.md)
+- [Gradle安装](docs/gradle/gradle_install.md)
 - [Gradle常用命令](docs/wait.md)
-
-### [Groovy](docs/groovy/groovy.md)
+- [Groovy](docs/groovy/groovy.md)
+  - [`Groovy`环境变量的配置](docs/groovy/groovy.md#hjpz)
 
 ### [Maven](docs/wait.md)
 - [Maven常用命令](docs/wait.md)
