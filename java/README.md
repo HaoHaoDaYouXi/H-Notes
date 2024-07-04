@@ -195,7 +195,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 ### [SpringSocial](docs/social/social.md)
 
 ### [Mybatis](docs/mybatis/mybatis.md)
-- [Mybatis的优缺点](docs/wait.md)
+- [Mybatis的优缺点](docs/mybatis/mybatis.md#yqd)
 - [Mybatis和Hibernate的区别](docs/wait.md)
 - [Mybatis常用标签](docs/wait.md)
 - [Mybatis $()和#()的区别](docs/wait.md)
