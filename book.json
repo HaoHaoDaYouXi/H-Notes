@@ -1,0 +1,12 @@
+{
+  "title": "我的笔记仓库",
+  "author": "HaoHaoDaYouXi",
+  "description": "个人的一些知识笔记和各类学习资料",
+  "language": "zh-hans",
+  "gitbook": "3.2.3",
+  "links": {
+    "sidebar": {
+      "GitHub": "https://github.com/HaoHaoDaYouXi/MyNotes"
+    }
+  }
+}
