@@ -3,7 +3,7 @@
 此处记录一些杂七杂八相关内容
 
 - [仓颉](../cang_jie/README.md)
-    - [仓颉编程语言语言规约](../cang_jie/仓颉编程语言语言规约.pdf)
+    - [仓颉编程语言语言规约](../cang_jie/cangjie_lang.md)
 - [git](git/git.md)
     - [删除原分支并重新创建一个](git/git.md#scyfz)
     - [git 提交和更新脚本命令](git/git.md#tjgxml)
