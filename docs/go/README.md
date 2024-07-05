@@ -4,4 +4,4 @@
 
 例如：环境的安装，配置，常用库，常用工具等
 
-- [scan_file](scan_file)
+- [扫描文件](scan_file/scan_file.md)
