@@ -90,4 +90,8 @@ gitbook -V
 
 `gitbook build`，默认生成文件存放在`_book/`目录，当然输出目录是可配置的
 
+`gitbook serve ./ ./docs` or `gitbook build ./ ./docs`
+
+`./`是源文件目录，`./docs` 是输出目录
+
 ----
