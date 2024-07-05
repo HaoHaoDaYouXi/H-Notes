@@ -1,6 +1,6 @@
 # MyNotes
 
-我的笔记仓库，个人的一些知识笔记和各类学习资料
+我的笔记仓库，个人的一些知识笔记和各类学习资料 
 
 ## [java](java/README.md)
 ## [linux](linux/README.md)
