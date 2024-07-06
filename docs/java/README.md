@@ -166,7 +166,10 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
   - [`@Transactional`属性](docs/jpa/jpa.md#transactional_sx)
   - [`@Transactional`失效场景](docs/jpa/jpa.md#transactional_sxcj)
 
-### [微服务系统](../wait.md)
+### [微服务](docs/spring_cloud/wfw.md)
+- [微服务架构](docs/spring_cloud/wfw.md#微服务架构)
+- [微服务的优缺点](docs/spring_cloud/wfw.md#微服务的优缺点)
+- [微服务的技术栈](docs/spring_cloud/wfw.md#微服务的技术栈)
 - [Dubbo](../wait.md)
     - [Dubbo 的服务治理](../wait.md)
     - [Dubbo 支持哪些协议？支持哪些序列化协议？](../wait.md)
