@@ -49,16 +49,16 @@
 | 服务开发        | SpringBoot、Spring、SpringMVC                                  |
 | 服务注册与发现     | Nacos、Eurka、Consul、Zookeeper等                                |
 | 服务配置与管理     | Nacos、阿里的Dlamond、SpringCloudConfig、Apollo、Netfix公司的Archaius等 |
-| 服务路由（API网关） | Gateway、Zuul等                                                |
-| 服务调用        | Rest（Fegin）、RPC（Dubbo）、GRpc等                                 |
-| 服务熔断器       | Hystrix、Envoy等                                               |
-| 负载均衡        | Nginx、Ribbon等                                                |
-| 消息队列        | Kafka、RabbitMQ、ActiveMQ等                                     |
-| 服务监控        | Zabbix，Nagios，Metrics，Spectator等                             |
+| 服务路由（API网关） | Gateway、Zuul、Apache APISIX等                                  |
+| 服务调用        | Rest（OpenFeign）、RPC（Dubbo）、GRpc等                             |
+| 服务熔断器       | Sentinel、Hystrix、Resilience4j等                               |
+| 负载均衡        | Nginx、LoadBalancer、Ribbon等                                   |
+| 消息队列        | RocketMQ、Kafka、RabbitMQ、ActiveMQ等                            |
+| 服务监控        | Prometheus、Zabbix、Nagios、Metrics、Spectator等                  |
 | 全链路追踪       | Zipkin，Brave，Dapper等                                         |
 | 服务部署        | Docker，OpenStack，Kubernetes等                                 |
 | 数据流操作开发包    | SpringCloud Stream（封装与Redis，Rabbit，kafka等发送接收消息）             |
-| 事件消息总线      | Spring Cloud Bus                                             |
+| 事件消息总线      | Nacos、Spring Cloud Bus                                       |
 
 
 
