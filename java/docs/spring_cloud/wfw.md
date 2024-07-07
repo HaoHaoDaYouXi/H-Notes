@@ -74,7 +74,7 @@
 
 两大主流框架的一些区别，其他的基本都是按照各自使用搭配，并无太大区别。
 
-目前更多使用的还是`Spring Cloud Alibaba`。
+目前使用多的还是`Spring Cloud Alibaba`体系的。
 
 
 
