@@ -70,11 +70,12 @@
 | API调用  | OpenFeign            | Dubbo、OpenFeign、GRpc   |
 | 熔断器    | Hystrix、Resilience4j | Sentinel               |
 | 事件消息总线 | Spring Cloud Bus     | Nacos                  |
-| 消息队列   | 无                    | RocketMQ               |
+| 消息队列   | 随意搭配                 | RocketMQ               |
 
 两大主流框架的一些区别，其他的基本都是按照各自使用搭配，并无太大区别。
 
 目前更多使用的还是`Spring Cloud Alibaba`。
+
 
 
 
