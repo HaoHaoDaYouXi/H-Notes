@@ -44,11 +44,6 @@
 
 ## 微服务的技术栈
 
-目前主流的微服务开发整体框架方案主要分为2种，`Spring Cloud`和`Spring Cloud Alibaba`。
-
-
-
-
 | 微服务组件       | 技术方案                                                         |
 |-------------|--------------------------------------------------------------|
 | 服务开发        | SpringBoot、Spring、SpringMVC                                  |
@@ -64,6 +59,23 @@
 | 服务部署        | Docker，OpenStack，Kubernetes等                                 |
 | 数据流操作开发包    | SpringCloud Stream（封装与Redis，Rabbit，kafka等发送接收消息）             |
 | 事件消息总线      | Nacos、Spring Cloud Bus                                       |
+
+目前主流的微服务开发整体框架方案主要分为2种，`Spring Cloud`和`Spring Cloud Alibaba`。
+
+| 微服务组件  | `Spring Cloud`       | `Spring Cloud Alibaba` |
+|--------|----------------------|------------------------|
+| 注册与发现  | Eurka、Zookeeper      | Nacos                  |
+| 配置与管理  | SpringCloudConfig    | Nacos                  |
+| API网关  | Gateway              | Gateway                |
+| API调用  | OpenFeign            | Dubbo、OpenFeign、GRpc   |
+| 熔断器    | Hystrix、Resilience4j | Sentinel               |
+| 事件消息总线 | Spring Cloud Bus     | Nacos                  |
+| 消息队列   | 无                    | RocketMQ               |
+
+两大主流框架的一些区别，其他的基本都是按照各自使用搭配，并无太大区别。
+
+目前更多使用的还是`Spring Cloud Alibaba`。
+
 
 
 
