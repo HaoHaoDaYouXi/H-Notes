@@ -11,14 +11,4 @@
 同时也可参考Alibaba和cloud的[版本说明文档](https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E)，自行搭配
 
 
-
-
-
-
-
-
-
-
-
-
 ----
