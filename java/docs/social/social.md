@@ -1,4 +1,8 @@
 # SpringSocial简介
+`SpringSocial`是基于`SpringSecurity`框架的，
+它是在`SpringSecurity`的过滤器链中添加了`SocialAuthenticationFilter`过滤器，并使其生效，
+`SpringSecurity`的基本原理在`SpringSocial`中也适用，只不过`SpringSocial`中有一些特定的实现。
+
 ## ⒈常用的pom依赖
 ```
 <dependency>
