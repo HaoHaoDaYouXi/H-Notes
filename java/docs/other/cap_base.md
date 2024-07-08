@@ -41,6 +41,7 @@
 **需要补充说明的一点是：如果网络分区正常的话（系统在绝大部分时候所处的状态），也就说不需要保证`P`的时候，`C`和`A`能够同时保证。**
 
 # <a id="cap">`BASE`理论</a>
+`BASE`是`Basically Available`（基本可用） 、`Soft-state`（软状态） 和`Eventually Consistent`（最终一致性） 三个的缩写。
 
 
 
