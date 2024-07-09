@@ -175,7 +175,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [SpringCloud](docs/spring_cloud/spring_cloud.md)
   - [SpringBoot和SpringCloud的区别](docs/spring_cloud/spring_cloud.md#springboot和springcloud的区别)
 - [SpringCloudAlibaba](docs/spring_cloud/spring_cloud_alibaba.md)
-- [服务注册发现](../wait.md)
+- [服务注册发现](docs/spring_cloud/service_register_find.md)
   - [Eureka](../wait.md)
   - [Zookeeper](../wait.md)
   - [Nacos](../wait.md)
