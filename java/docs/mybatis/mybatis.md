@@ -233,3 +233,85 @@ public class Clazz {
 - `type`：就是指定拦截器类型（`Executor`、`StatementHandler`、`ParameterHandler`、`ResultSetHandler`）
 - `method`：是拦截器类型中的方法，不是自己写的方法
 - `args`：是`method`中方法的入参
+
+### `MyBatis`插件示例：
+```java
+import org.apache.ibatis.executor.Executor;
+import org.apache.ibatis.mapping.MappedStatement;
+import org.apache.ibatis.plugin.*;
+ 
+import java.util.Properties;
+ 
+@Intercepts({
+    @Signature(
+        type = Executor.class,
+        method = "update",
+        args = {MappedStatement.class, Object.class}
+    )
+})
+public class ExamplePlugin implements Interceptor {
+    @Override
+    public Object intercept(Invocation invocation) throws Throwable {
+        // 在原始方法执行前执行的逻辑
+        System.out.println("Before method execution");
+        
+        StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
+        MetaObject metaStatementHandler = SystemMetaObject.forObject(statementHandler);
+
+        // 分离代理对象链
+        // (由于目标类可能被多个拦截器拦截，从而形成多次代理，通过下面的两次操作可以分离出最原始的的目标类)
+        while (metaStatementHandler.hasGetter("h")) {
+          Object object = metaStatementHandler.getValue("h");
+          metaStatementHandler = SystemMetaObject.forObject(object);
+        }
+  
+        // 获取到当前的映射语句对象（MappedStatement）
+        MappedStatement mappedStatement = (MappedStatement) metaStatementHandler.getValue("delegate.mappedStatement");
+  
+        // 只对需要拦截的语句进行处理
+        if (mappedStatement.getId().endsWith("ById")) {
+            
+        }
+        
+        // 执行原始方法
+        Object result = invocation.proceed();
+        
+        // 在原始方法执行后执行的逻辑
+        System.out.println("After method execution");
+        
+        // 返回原始方法的执行结果
+        return result;
+    }
+ 
+    @Override
+    public Object plugin(Object target) {
+        // 生成代理对象
+        return Plugin.wrap(target, this);
+    }
+ 
+    @Override
+    public void setProperties(Properties properties) {
+        // 设置插件属性，可以通过配置文件配置
+    }
+}
+```
+在`MyBatis`配置文件中注册这个插件：
+```xml
+<configuration>
+  <!-- 其他配置... -->
+  <plugins>
+    <plugin interceptor="com.xxx.ExamplePlugin">
+      <!-- 如果插件需要配置属性，可以在这里添加 -->
+      <!-- <property name="someProperty" value="someValue"/> -->
+      <!-- 插件属性配置 -->
+    </plugin>
+  </plugins>
+  <!-- 其他配置... -->
+</configuration>
+```
+当执行`Executor`的`update`方法时，插件中定义的`intercept`方法会被调用，
+并且会在原始方法的执行前后打印出相应的日志信息。
+
+
+
+----
