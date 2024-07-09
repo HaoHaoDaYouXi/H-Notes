@@ -60,12 +60,12 @@
 - `parameterMap`：参数映射
 - `resultType`：结果类型
 - `parameterType`：参数类型
-- `<sql>`：sql片段
-- `<include>`：引用sql片段
-- `<selectKey>`：主键生成策略，获取自增主键id的值并进行设置
-- `<association>`：一对一关联
-- `<collection>`：一对多关联
-- `<discriminator>`：多表继承
+- `sql`：sql片段
+- `include`：引用sql片段
+- `selectKey`：主键生成策略，获取自增主键id的值并进行设置
+- `association`：一对一关联
+- `collection`：一对多关联
+- `discriminator`：多表继承
 - `set`、`where`、`if`、`foreach`、`trim`、`choose`、`when`、`otherwise`、`bind`：一般写动态`sql`涉及到的标签
 - 等等
 
