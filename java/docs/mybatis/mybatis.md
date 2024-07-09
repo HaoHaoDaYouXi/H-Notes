@@ -91,7 +91,57 @@ select * from user where name like CONCAT('%', #{name}, '%')
 - `likeLeft`：使用`%`作为通配符，只能用在字符串的开头。如：`name likeLeft '%T'`，表示查询`name`字段以`T`结尾的记录。
 - `likeRight`：使用`%`作为通配符，只能用在字符串的末尾。如：`name likeRight 'T%'`，表示查询`name`字段以`T`开头的记录
 
+## <a id="qtcx">Mybatis 嵌套查询</a>
 
+`MyBatis`嵌套查询通常指的是在一个查询中嵌套另一个查询的结果。
+
+这可以通过使用`<select>`标签嵌套来实现，也可以通过在映射文件中使用`<collection>`、`<association>`等复杂类型的属性来实现。
+
+以下是一个使用`<collection>`进行嵌套查询的例子：
+
+假设我们有两个表：学生表`student`、班级表`clazz`
+
+现在，我们查询一个班级和它的所有学生的信息。
+
+在班级类中定义一个集合类型的`allStudents`属性来放所有学生：
+```java
+public class Clazz {
+    private Long id;
+    private String name;
+    // 其他字段...
+    private List<Student> allStudents;
+    // getters、setters...
+}
+```
+然后，在映射文件中定义查询并使用`<collection>`进行嵌套查询：
+```xml
+<mapper namespace="com.xxx.mapper.ClazzMapper">
+  <!-- 结果映射 -->
+  <resultMap id="ClazzMap" type="Clazz">
+    <id property="id" column="id"/>
+    <result property="title" column="title"/>
+    <!-- 其他字段映射... -->
+    <collection property="allStudents"
+                ofType="Student"
+                select="selectStudentByClazzId"
+                column="id"/>
+  </resultMap>
+ 
+  <!-- 查询班级 -->
+  <select id="selectById" resultType="Clazz">
+      SELECT * FROM clazz WHERE id = #{id}
+  </select>
+
+  <!-- 查询学生，并嵌套在帖子查询中 -->
+  <select id="selectStudentByClazzId" resultType="Student">
+      SELECT * FROM student WHERE clazz_id = #{id}
+  </select>
+ 
+</mapper>
+```
+在`<collection>`标签中，`property`属性指定了嵌套查询的属性名，`ofType`属性指定了集合中元素的类型，`select`属性指定了用于查询集合的嵌套查询的`ID`，`column`属性指定了嵌套查询使用的外键列。
+
+最后调用`selectById`方法来查询班级信息，同时会自动执行嵌套查询`selectStudentByClazzId`，并将结果映射到`Clazz`对象的`allStudents`属性中。
 
 
 
