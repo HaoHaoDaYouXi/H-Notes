@@ -70,10 +70,27 @@
 - 等等
 
 ## <a id="fhqb">Mybatis `$()`和`#()`的区别</a>
+
 - `${}`是字符串替换，是`Properties`⽂件中的变量占位符，它可以⽤于标签属性值和`sql`内部，属于静态⽂本替换
   - `Mybatis`在处理`${}`时，就是把`${}`直接替换成变量的值，这种会出现`sql`注入的风险。
 - `#{}`是预编译处理，是`sql`的参数占位符，
   - `Mybatis`在处理`#{}`时，会将`sql`中的`#{}`替换为`?`号，调用`PreparedStatement`的`set`方法来赋值
+
+## <a id="mhcx">Mybatis 模糊查询</a>
+
+`Mybatis`的模糊查询一般存在两种写法，一种是使用`${}`，另一种是使用`#{}`。
+
+使用`${}`的存在`sql`注入的风险，一般不推荐使用
+
+一般的写法：
+```sql
+select * from user where name like CONCAT('%', #{name}, '%')
+```
+
+`like`也可以根据使用情况替换成`likeLeft`、`likeRight`
+- `likeLeft`：使用`%`作为通配符，只能用在字符串的开头。如：`name likeLeft '%T'`，表示查询`name`字段以`T`结尾的记录。
+- `likeRight`：使用`%`作为通配符，只能用在字符串的末尾。如：`name likeRight 'T%'`，表示查询`name`字段以`T`开头的记录
+
 
 
 
