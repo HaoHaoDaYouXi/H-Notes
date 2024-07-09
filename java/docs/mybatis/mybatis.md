@@ -221,3 +221,15 @@ public class Clazz {
 - 在`intercept`方法中，开发者可以实现自定义的拦截逻辑。通常，这里会包含对原始方法调用的修改或增强。
 - 执行完拦截逻辑后，可以选择是否继续执行原始方法。如果继续执行，则通过反射调用原始对象的方法；否则，直接返回自定义的结果。
 - 需要注意的是，由于`MyBatis`插件是基于方法签名进行拦截的，因此开发者在编写插件时需要谨慎选择需要拦截的方法签名，以避免不必要的性能开销和潜在问题。
+
+### `MyBatis`插件注解
+
+`@Intercepts`注解的作用是，标记需要拦截的方法列表。
+- `Mybatis`通过该注解去判断当前方法是否需要被拦截。
+- `@Intercepts`其实就是一个数组，用来添加复数个`@Signature`。
+- 每个`@Signature`都指定了一个需要拦截的方法。
+
+`@Signature`注解参数说明:
+- `type`：就是指定拦截器类型（`Executor`、`StatementHandler`、`ParameterHandler`、`ResultSetHandler`）
+- `method`：是拦截器类型中的方法，不是自己写的方法
+- `args`：是`method`中方法的入参
