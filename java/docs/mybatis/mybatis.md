@@ -177,5 +177,11 @@ public class Clazz {
 - 在对应的`select`查询节点中添加`useCache=true`
 - 属性类需要实现`Serializable`序列化接口
 
+## <a id="gzyl">Mybatis 工作原理</a>
+
+
+
+
+
 
 ----
