@@ -179,6 +179,19 @@ public class Clazz {
 
 ## <a id="gzyl">Mybatis 工作原理</a>
 
+- 读取`MyBatis`配置文件：`mybatis-config.xml`为`MyBatis`的全局配置文件，配置了`MyBatis`的运行环境等信息，例如数据库连接信息。
+- 加载`sql`映射文件。文件中包含了操作数据库的`sql`语句，需要在`MyBatis`配置文件`mybatis-config.xml`中加载。
+  - `mybatis-config.xml`文件可以加载多个映射文件，每个文件对应数据库中的一张表。
+- 构造会话工厂：通过`MyBatis`的环境等配置信息构建会话工厂`SqlSessionFactory`。
+- 创建会话对象：由会话工厂创建`SqlSession`对象，该对象中包含了执行`sql`语句的所有方法。
+- `Executor`执行器：`MyBatis`底层定义了一个`Executor`接口来操作数据库，
+  根据`SqlSession`传递的参数动态地生成需要执行的`sql`语句，同时负责查询缓存的维护。
+- `MappedStatement`对象：在`Executor`接口的执行方法中有一个`MappedStatement`类型的参数，
+  是对映射信息的封装，用于存储要映射的`sql`语句的`id`、`参数`等信息。
+- 输入参数映射：输入参数类型可以是`Map`、`List`等集合类型，也可以是基本数据类型和`POJO`类型。
+  输入参数映射过程类似于`JDBC`对`preparedStatement`对象设置参数的过程。
+- 输出结果映射：输出结果类型可以是`Map`、`List`等集合类型，也可以是基本数据类型和`POJO`类型。
+  输出结果映射过程类似于`JDBC`对结果集的解析过程。
 
 
 
