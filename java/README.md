@@ -221,7 +221,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [Mybatis 嵌套查询](docs/mybatis/mybatis.md#qtcx)
 - [Mybatis 缓存](docs/mybatis/mybatis.md#hc)
 - [Mybatis 工作原理](docs/mybatis/mybatis.md#gzyl)
-- [Mybatis 插件](../wait.md)
+- [Mybatis 插件](docs/mybatis/mybatis.md#cj)
 
 ### [Shiro](../wait.md)
 - [Shiro的核心概念](../wait.md)
