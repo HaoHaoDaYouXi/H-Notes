@@ -193,8 +193,13 @@ public class Clazz {
 - 输出结果映射：输出结果类型可以是`Map`、`List`等集合类型，也可以是基本数据类型和`POJO`类型。
   输出结果映射过程类似于`JDBC`对结果集的解析过程。
 
+## <a id="cj">Mybatis 插件</a>
 
+`MyBatis`可以拦截以下四大核心组件的方法调用：
 
+- `Executor`：执行器，负责`sql`语句的执行和事务管理（`update`、`query`、`commit`、`rollback`等方法）。
+- `StatementHandler`：语句处理器，处理具体的`sql`语句，包括预编译和参数设置等（`prepare`、`parameterize`、`batch`、`updates query`等方法）。
+- `ParameterHandler`：参数处理器，负责将用户传递的参数转换成`JDBC`可识别的参数（`getParameterObject`、`setParameters`等方法）。
+- `ResultSetHandler`：结果集处理器，负责将`JDBC`返回的结果集转换成用户所需的对象或集合（`handlerResultSet`、`handleOutputParameters`等方法）。
 
-
-----
+通过拦截这些方法调用，`MyBatis`插件可以实现：`sql`重写、日志记录、性能监控、事务管理增强等等功能。
