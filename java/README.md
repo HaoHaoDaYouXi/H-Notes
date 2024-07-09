@@ -213,11 +213,15 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 ### [SpringSocial](docs/social/social.md)
 
 ### [Mybatis](docs/mybatis/mybatis.md)
-- [Mybatis的优缺点](docs/mybatis/mybatis.md#yqd)
-- [Mybatis和Hibernate的区别](../wait.md)
-- [Mybatis常用标签](../wait.md)
+- [Mybatis 优缺点](docs/mybatis/mybatis.md#yqd)
+- [Mybatis和Hibernate的区别](docs/mybatis/mybatis.md#qb)
+- [Mybatis 常用标签](../wait.md)
 - [Mybatis $()和#()的区别](../wait.md)
-- [Mybatis 模糊查询的实现方式](../wait.md)
+- [Mybatis 模糊查询](../wait.md)
+- [Mybatis 嵌套查询](../wait.md)
+- [Mybatis 缓存](../wait.md)
+- [Mybatis 工作原理](../wait.md)
+- [Mybatis 插件](../wait.md)
 
 ### [Shiro](../wait.md)
 - [Shiro的核心概念](../wait.md)
@@ -283,6 +287,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [保证消息的顺序性](../wait.md)
 - [消息的过期失效问题，满了以后该怎么处理？](../wait.md)
 - [rocketmq](docs/mq/rocketmq/rocketmq.md)
+
 ### [搜索引擎](../wait.md)
 - Elasticsearch
     - [Elasticsearch是如何实现Master选举的？](../wait.md)
