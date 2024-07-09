@@ -215,7 +215,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 ### [Mybatis](docs/mybatis/mybatis.md)
 - [Mybatis 优缺点](docs/mybatis/mybatis.md#yqd)
 - [Mybatis和Hibernate的区别](docs/mybatis/mybatis.md#qb)
-- [Mybatis 常用标签](../wait.md)
+- [Mybatis 常用标签](docs/mybatis/mybatis.md#cybq)
 - [Mybatis $()和#()的区别](../wait.md)
 - [Mybatis 模糊查询](../wait.md)
 - [Mybatis 嵌套查询](../wait.md)
