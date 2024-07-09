@@ -45,6 +45,29 @@
 - `MyBatis`需要手动编写`sql`，支持动态`sql`、处理列表、动态生成表名、支持存储过程。</br>
   开发工作量相对大些。直接使用`sql`语句操作数据库，不支持数据库无关性，但`sql`语句优化容易。
 
+## <a id="cybq">Mybatis 常用标签</a>
+
+最常见的无非就是`crud`（增删改查）此类标签：
+
+- `insert`：新增
+- `update`：修改
+- `delete`：删除
+- `select`：查询
+
+除了以上还有很多：
+
+- `resultMap`：结果映射
+- `parameterMap`：参数映射
+- `resultType`：结果类型
+- `parameterType`：参数类型
+- `<sql>`：sql片段
+- `<include>`：引用sql片段
+- `<selectKey>`：主键生成策略，获取自增主键id的值并进行设置
+- `<association>`：一对一关联
+- `<collection>`：一对多关联
+- `<discriminator>`：多表继承
+- `set`、`where`、`if`、`foreach`、`trim`、`choose`、`when`、`otherwise`、`bind`：一般写动态`sql`涉及到的标签
+- 等等
 
 
 ----
