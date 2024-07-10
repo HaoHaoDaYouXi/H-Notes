@@ -6,17 +6,16 @@
 
 推荐几本书：
 
-《深入理解Java虚拟机---周志明》<br/>
-
+- 《深入理解Java虚拟机---周志明》<br/>
 
 
 ### 知识点范围：
-jvm，java(基础、IO、线程、集合、锁、队列)
-spring，springBoot，JPA
-微服务系统(dubbo，springCloud，等组件)(待整理)
+jvm，java(基础、IO、线程、集合、锁、队列等)
+spring，springBoot，Spring Data JPA
+微服务系统(dubbo，springCloud，等组件)
 shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 网络，日志，负责均衡，算法
-
+等等
 
 ### [JVM](docs/jvm/jvm.md)
 - [jvm内存区域都有哪些？](docs/jvm/jvm_memory.md)
@@ -167,42 +166,62 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
   - [`@Transactional`失效场景](docs/jpa/jpa.md#transactional_sxcj)
 
 ### [微服务](docs/spring_cloud/wfw.md)
+- [分布式](docs/spring_cloud/wfw.md#分布式)
+  - [`CAP`理论](docs/other/cap_base.md#cap)
+  - [`BASE`理论](docs/other/cap_base.md#base)
 - [微服务架构](docs/spring_cloud/wfw.md#微服务架构)
 - [微服务的优缺点](docs/spring_cloud/wfw.md#微服务的优缺点)
 - [微服务的技术栈](docs/spring_cloud/wfw.md#微服务的技术栈)
-- [Dubbo](../wait.md)
-    - [Dubbo 的服务治理](../wait.md)
-    - [Dubbo 支持哪些协议？支持哪些序列化协议？](../wait.md)
-        - [说一下 Hessian 的数据结构？PB 知道吗？为什么 PB 的效率是最高的？](../wait.md)
-    - [Dubbo 需要 Web 容器吗？内置了哪几种服务容器？](../wait.md)
-    - [Dubbo里面有哪几种节点角色？](../wait.md)
-    - [Dubbo默认使用什么注册中心，还有别的选择吗？](../wait.md)
-    - [Dubbo有哪几种配置方式？核心的配置有哪些？](../wait.md)
-    - [Dubbo负载均衡策略、集群容错策略和动态代理策略](../wait.md)
-- [SpringCloud](../wait.md)
-    - [Dubbo和Spring Cloud有什么区别？](../wait.md)
-    - [SpringBoot和SpringCloud的区别？](../wait.md)
-    - [注册中心](../wait.md)
-        - [Zookeeper](../wait.md)
-        - [Eureka](../wait.md)
-        - [Eureka和Zookeeper区别](../wait.md)
-    - [Rest、RPC和gRpc](../wait.md)
-    - [Ribbon](../wait.md)
-    - [Fegin](../wait.md)
-    - [Hystrix](../wait.md)
-    - [SpringCloudConfig](../wait.md)
-    - [Zuul](../wait.md)
-    - [SpringCloudBus](../wait.md)
-- [SpringCloudAlibaba](../wait.md)
+- [SpringCloud](docs/spring_cloud/spring_cloud.md)
+  - [SpringBoot和SpringCloud的区别](docs/spring_cloud/spring_cloud.md#springboot和springcloud的区别)
+- [SpringCloudAlibaba](docs/spring_cloud/spring_cloud_alibaba.md)
+- [服务注册发现](docs/spring_cloud/service_register_find.md)
+  - [Eureka](../wait.md)
+  - [Zookeeper](../wait.md)
+  - [Nacos](../wait.md)
+  - [Eureka、Zookeeper、Nacos区别](../wait.md)
+- [服务配置与管理](../wait.md)
+  - [SpringCloudConfig](../wait.md)
+  - [Archaius](../wait.md)
+  - [Apollo](../wait.md)
+  - [Nacos](../wait.md)
+- [服务调用](../wait.md)
+  - [Rest、RPC和gRpc](../wait.md)
+  - [OpenFegin](../wait.md)
+  - [Dubbo](../wait.md)
+      - [Dubbo 的服务治理](../wait.md)
+      - [Dubbo 支持哪些协议？支持哪些序列化协议？](../wait.md)
+          - [说一下 Hessian 的数据结构？PB 知道吗？为什么 PB 的效率是最高的？](../wait.md)
+      - [Dubbo 需要 Web 容器吗？内置了哪几种服务容器？](../wait.md)
+      - [Dubbo里面有哪几种节点角色？](../wait.md)
+      - [Dubbo默认使用什么注册中心，还有别的选择吗？](../wait.md)
+      - [Dubbo有哪几种配置方式？核心的配置有哪些？](../wait.md)
+      - [Dubbo负载均衡策略、集群容错策略和动态代理策略](../wait.md)
+- [负载均衡](../wait.md)
+  - [Ribbon](../wait.md)
+  - [LoadBalancer](../wait.md)
+  - [Nginx](../wait.md)
+- [熔断器](../wait.md)
+  - [Hystrix](../wait.md)
+  - [Resilience4j](../wait.md)
+  - [Sentinel](../wait.md)
+- [API网关](../wait.md)
+  - [Zuul](../wait.md)
+  - [Gateway](../wait.md)
+- [Spring Cloud Demo空业务模板项目](../wait.md)
 
 ### [SpringSocial](docs/social/social.md)
 
 ### [Mybatis](docs/mybatis/mybatis.md)
-- [Mybatis的优缺点](docs/mybatis/mybatis.md#yqd)
-- [Mybatis和Hibernate的区别](../wait.md)
-- [Mybatis常用标签](../wait.md)
-- [Mybatis $()和#()的区别](../wait.md)
-- [Mybatis 模糊查询的实现方式](../wait.md)
+- [Mybatis 优缺点](docs/mybatis/mybatis.md#yqd)
+- [Mybatis和Hibernate的区别](docs/mybatis/mybatis.md#qb)
+- [Mybatis 常用标签](docs/mybatis/mybatis.md#cybq)
+- [Mybatis $()和#()的区别](docs/mybatis/mybatis.md#fhqb)
+- [Mybatis 模糊查询](docs/mybatis/mybatis.md#mhcx)
+- [Mybatis 嵌套查询](docs/mybatis/mybatis.md#qtcx)
+- [Mybatis 缓存](docs/mybatis/mybatis.md#hc)
+- [Mybatis 工作原理](docs/mybatis/mybatis.md#gzyl)
+- [Mybatis 插件](docs/mybatis/mybatis.md#cj)
 
 ### [Shiro](../wait.md)
 - [Shiro的核心概念](../wait.md)
@@ -218,10 +237,10 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [Maven坐标的含义](../wait.md)
 - [Maven常见的依赖范围](../wait.md)
 - [Maven的生命周期](../wait.md)
-- [“Mvn Clean Package”命令做了什么](../wait.md)
+- [`Mvn Clean Package`命令做了什么](../wait.md)
 - [依赖、插件的解析机制](../wait.md)
 - [多模块如何聚合](../wait.md)
-- [dependencyManagement和dependencie](../wait.md)
+- [dependencyManagement、dependencies、dependency](../wait.md)
 - [repositories、distributionManagement、pluginRepositories](../wait.md)
 - [如何设置本地仓库和远程仓库](../wait.md)
 - [Maven私服的仓库类型](../wait.md)
@@ -268,6 +287,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [保证消息的顺序性](../wait.md)
 - [消息的过期失效问题，满了以后该怎么处理？](../wait.md)
 - [rocketmq](docs/mq/rocketmq/rocketmq.md)
+
 ### [搜索引擎](../wait.md)
 - Elasticsearch
     - [Elasticsearch是如何实现Master选举的？](../wait.md)
@@ -281,8 +301,6 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [solr和Elasticsearch的区别](../wait.md)
     - [分词器](../wait.md)
     - [什么是solrCloud?](../wait.md)
-
-### [Social](../wait.md)
 
 ### [网络](../wait.md)
 - [UDP](../wait.md)
