@@ -7,7 +7,7 @@
 - `Eureka Server`：注册中心服务端，用于维护和管理注册服务列表。
 - `Eureka Client`：注册中心客户端，向注册中心注册服务的应用都可以叫做`Eureka Client`（包括`Eureka Server`本身）。
 
-## Eureka Server
+## <a id="server">Eureka Server</a>
 - 依赖
   - `spring-cloud-starter-netflix-eureka-server` `Eureka`服务端的标识，标志着此服务是做为注册中心
 - 配置（`application.properties`）
@@ -27,7 +27,7 @@
 - 运行服务`eureka-server`
 - 运行成功后访问`localhost:8080`，会显示`eureka`提供的服务页面
 
-## Eureka Client
+## <a id="client">Eureka Client</a>
 - 依赖
   - `spring-cloud-starter-netflix-eureka-client` `eureka`客户端所需依赖。
   - `spring-boot-starter-web`等等其他`web`项目需要的依赖
