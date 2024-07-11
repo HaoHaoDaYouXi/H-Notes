@@ -136,5 +136,23 @@
     - `Observers`接受客户端的连接，并将写请求转发给`leader`节点
     - 加入更多`Observer`节点，提高伸缩性，同时不影响吞吐率。
 
+## Zookeeper集群中Server工作状态
+- `LOOKING`
+  - 寻找`Leader`状态；当服务器处于该状态时，它会认为当前集群中没有`Leader`，因此需要进入`Leader`选举状态
+- `FOLLOWING`
+  - 跟随者状态；表明当前服务器角色是`Follower`
+- `LEADING`
+  - 领导者状态；表明当前服务器角色是`Leader`
+- `OBSERVING`
+  - 观察者状态；表明当前服务器角色是`Observer`
+
+## ZooKeeper集群中服务器之间通信
+`Leader`服务器会和每一个`Follower/Observer`服务器都建立`TCP`连接，
+同时为每个`Follower/Observer`都创建一个叫做`LearnerHandler`的实体。
+
+`LearnerHandler`主要负责`Leader`和`Follower/Observer`之间的网络通讯，包括数据同步，请求转发和`proposal`提议的投票等。
+
+`Leader`服务器保存了所有`Follower/Observer`的`LearnerHandler`。
+
 
 ----
