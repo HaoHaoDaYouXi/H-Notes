@@ -60,16 +60,25 @@
 **总结**：客户端会对某个`znode`建立一个`watcher`事件，当该`znode`发生变化时，
 这些客户端会收到`Zookeeper`的通知，然后客户端可以根据`znode`变化来做出业务上的改变等。
 
+### Zookeeper 通知机制的特点
 
-
-
-
-
-
-
-
-
-
+- 一次性触发数据发生改变时，一个`watcher event`会被发送到客户端，但是客户端只会收到一次这样的信息。
+- `watcher event`异步发送`watcher`的通知事件从服务端发送到客户端是异步的，这就存在一个问题，
+  - 不同的客户端和服务器之间通过`socket`进行通信，由于网络延迟或其他因素导致客户端在不通的时刻监听到事件，
+  - 由于`Zookeeper`本身提供了`ordering guarantee`，即客户端监听事件后，才会感知它所监视`znode`发生了变化。
+  - 所以我们使用`Zookeeper`不能期望能够监控到节点每次的变化。
+  - `Zookeeper`只能保证最终的一致性，而无法保证强一致性。
+- 数据监视`Zookeeper`有数据监视和子数据监视`getData()`、`exists()`设置数据监视，`getchildren()`设置了子节点监视。
+- 注册`watcher`，`getData`、`exists`、`getChildren`
+- 触发`watcher`，`create`、`delete`、`setData`
+- `setData()`会触发`znode`上设置的`data watch`（如果`set`成功的话）。
+  - 一个成功的`create()`操作会触发被创建的`znode`上的数据`watch`，以及其父节点上的`child watch`。
+  - 一个成功的`delete()`操作将会同时触发一个`znode`的`data watch`和`child watch`（因为这样就没有子节点了），同时也会触发其父节点的`child watch`。
+- 当一个客户端连接到一个新的服务器上时，`watch`将会被以任意会话事件触发。
+  - 当与一个服务器失去连接的时候，是无法接收到`watch`的。而当客户端重新连接时，如果需要的话，所有先前注册过的`watch`，都会被重新注册。通常这是完全透明的。
+  - 有在一个特殊情况下，`watch`可能会丢失：对于一个未创建 的`znode`的`exist watch`，如果在客户端断开连接期间被创建了，
+    并且随后在客户端连接上之前又删除了，这种情况下，这个`watch`事件可能会被丢失。
+- `watch`是轻量级的，其实就是本地`JVM`的`Callback`，服务器端只是存了是否有设置了`watcher`的布尔类型。
 
 
 ----
