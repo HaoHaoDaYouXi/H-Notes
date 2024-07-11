@@ -154,5 +154,61 @@
 
 `Leader`服务器保存了所有`Follower/Observer`的`LearnerHandler`。
 
+## ZAB 协议
+
+### 事务编号`Zxid`（事务请求计数器 + epoch）
+在`ZAB`(`ZooKeeper Atomic Broadcast`，`ZooKeeper`原子消息广播协议）协议的事务编号`Zxid`设计中，
+`Zxid`是一个`64`位的数字，其中低`32`位是一个简单的单调递增的计数器，针对客户端每一个事务请求，计数器加`1`。
+而高`32`位则代表`Leader`周期`epoch`的编号，每个当选产生一个新的`Leader`服务器，
+就会从这个`Leader`服务器上取出其本地日志中最大事务的`Zxid`，并从中读取`epoch`值，然后加`1`，
+以此作为新的`epoch`，并将低`32`位从`0`开始计数。
+
+`Zxid`（`Transaction id`）类似于`RDBMS`中的事务`ID`，用于标识一次更新操作的`Proposal`（提议）`ID`。
+为了保证顺序性，该`id`必须单调递增。
+
+### epoch
+`epoch`：可以理解为当前集群所处的年代或者周期，每个`Leader`就像皇帝，都有自己的年号，
+所以每次改朝换代，`leader`变更之后，都会在前一个年代的基础上加`1`。
+这样就算旧的`Leader`崩溃恢复之后，也没有人听他的了，因为`Follower`只听从当前年代的`Leader`的命令。
+
+### Zab 协议有两种模式-恢复模式（选主）、广播模式（同步）
+`Zab`协议有两种模式，它们分别是`恢复模式（选主）`和`广播模式（同步）`。
+当服务启动或者在领导者崩溃后，`Zab`就进入了恢复模式，当领导者被选举出来，
+且大多数`Server`完成了和`Leader`的状态同步以后，恢复模式就结束了。
+状态同步保证了`Leader`和`Server`具有相同的系统状态。
+
+### ZAB协议4阶段
+- `Leader election`（选举阶段-选出准`Leader`）
+  - 节点在一开始都处于选举阶段，只要有一个节点得到超半数节点的票数，它就可以当选准`Leader`。
+  - 只有到达广播阶段（`broadcast`）准`leader`才会成为真正的`leader`。
+  - 这一阶段的目的是就是为了选出一个准`leader`，然后进入下一个阶段。
+- `Discovery`（发现阶段-接受提议、生成`epoch`、接受`epoch`）
+  - 在这个阶段，`Followers`跟准`Leader`进行通信，同步`Followers`最近接收的事务提议。
+  - 这个一阶段的主要目的是发现当前大多数节点接收的最新提议，并且准`Leader`生成新的`epoch`，
+    让`Followers`接受，更新它们的`accepted Epoch`
+  - 一个`Follower`只会连接一个`Leader`，如果有一个节点`f`认为另一个`Follower p`是`Leader`，
+    `f`在尝试连接`p`时会被拒绝，`f`被拒绝之后，就会进入重新选举阶段。
+- `Synchronization`（同步阶段-同步`Follower`副本）
+  - 同步阶段主要是利用`Leader`前一阶段获得的最新提议历史，同步集群中所有的副本。
+  - 只有当大多数节点都同步完成，准`Leader`才会成为真正的`Leader`。
+  - `Follower`只会接收`Zxid`比自己的`lastZxid`大的提议。
+- `Broadcast`（广播阶段-`Leader`消息广播）
+  - 到了这个阶段，`Zookeeper`集群才能正式对外提供事务服务，并且`Leader`可以进行消息广播。
+  - 同时如果有新的节点加入，还需要对新节点进行同步。
+
+`ZAB`提交事务并不像`2PC`一样需要全部`Follower`都`ACK`，只需要得到超过半数的节点的`ACK`就可以了。
+
+### `ZAB`协议`JAVA`实现（FLE-发现阶段和同步合并为`Recovery Phase`（恢复阶段））
+
+协议的`Java`版本实现跟上面的定义有些不同，选举阶段使用的是`Fast Leader Election`（FLE），它包含了选举的发现职责。
+
+因为`FLE`会选举拥有最新提议历史的节点作为`Leader`，这样就省去了发现最新提议的步骤。
+
+实际的实现将`发现阶段`和`同步`合并为`Recovery Phase`（恢复阶段）。
+
+所以，`ZAB`的实现只有三个阶段：`Fast Leader Election`、`Recovery Phase`、`Broadcast Phase`。
+
+
+#
 
 ----
