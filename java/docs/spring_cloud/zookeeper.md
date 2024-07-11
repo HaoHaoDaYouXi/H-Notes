@@ -117,5 +117,24 @@
 | dataLength     | 当前节点所存储的数据长度                                          |
 | numChildren    | 当前节点下子节点的个数                                           |
 
+## Zookeeper 集群中的角色
+`Zookeeper`集群是一个基于主从复制的高可用集群，每个服务器承担如下三种角色中的一种
+
+- `Leader`
+  - 一个`Zookeeper`集群同一时间只会有一个实际工作的`Leader`，它会发起并维护与各`Follower`及`Observer`间的心跳。
+  - 所有的写操作必须要通过`Leader`完成再由`Leader`将写操作广播给其它服务器。
+    只要有超过半数节点（不包括`observer`节点）写入成功，该写请求就会被提交（类`2PC`协议）。
+- `Follower`
+  - 一个`Zookeeper`集群可能同时存在多个`Follower`，它会响应`Leader`的心跳，
+  - `Follower`可直接处理并返回客户端的读请求，同时会将写请求转发给`Leader`处理，并且负责在`Leader`处理写请求时对请求进行投票。
+
+- `Observer`
+  - 与`Follower`类似，但是无投票权。
+  - `Zookeeper`需保证高可用和强一致性，为了支持更多的客户端，需要增加更多`Server`
+    - `Server`增多，投票阶段延迟增大，影响性能
+  - 引入`Observer`，`Observer`不参与投票
+    - `Observers`接受客户端的连接，并将写请求转发给`leader`节点
+    - 加入更多`Observer`节点，提高伸缩性，同时不影响吞吐率。
+
 
 ----
