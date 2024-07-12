@@ -205,6 +205,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [`NacosServiceRegistry`实现](docs/spring_cloud/nacos.md#nacosserviceregistry)
     - [心跳机制](docs/spring_cloud/nacos.md#xtjc)
       - [服务的健康检查分为两种模式](docs/spring_cloud/nacos.md#jkcjlzms)
+      - [自我保护](docs/spring_cloud/nacos.md#zwbh)
     - [实现注册](docs/spring_cloud/nacos.md#sxzc)
     - [总结](docs/spring_cloud/nacos.md#zj)
     - [服务提供者地址查询](docs/spring_cloud/nacos.md#dzcx)
