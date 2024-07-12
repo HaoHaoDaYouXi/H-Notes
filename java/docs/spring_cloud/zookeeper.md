@@ -32,13 +32,13 @@
 这个时间戳称为`zxid`（Zookeeper Transaction Id）。
 而读请求只会相对于更新有序，也就是读请求的返回结果中会带有这个`zookeeper`最新的`zxid`。
 
-## Zookeeper 文件系统
+## <a id="wjxt>Zookeeper 文件系统</a>
 `Zookeeper`提供一个多层级的节点命名空间（节点称为`znode`）。与文件系统不同的是，这些节点都可
 以设置关联的数据，而文件系统中只有文件节点可以存放数据而目录节点不行。
 `Zookeeper`为了保证高吞吐和低延迟，在内存中维护了这个树状的目录结构，这种特性使得`Zookeeper`
 不能用于存放大量的数据，每个节点的存放数据上限为`1M`。
 
-## Zookeeper 通知机制
+## <a id="tzjz>Zookeeper 通知机制</a>
 `Zookeeper`允许客户端对服务端的某个`znode`注册一个`watcher`监听事件，当服务端的一些指定事件触发了这个`watcher`，
 服务端会向指定客户端发送一个事件通知来实现分布式的通知功能，然后客户端根据`watcher`通知状态和事件类型做出业务上的改变。
 
@@ -60,7 +60,7 @@
 **总结**：客户端会对某个`znode`建立一个`watcher`事件，当该`znode`发生变化时，
 这些客户端会收到`Zookeeper`的通知，然后客户端可以根据`znode`变化来做出业务上的改变等。
 
-### Zookeeper 通知机制的特点
+### <a id="tzjztd>Zookeeper 通知机制的特点</a>
 
 - 一次性触发数据发生改变时，一个`watcher event`会被发送到客户端，但是客户端只会收到一次这样的信息。
 - `watcher event`异步发送`watcher`的通知事件从服务端发送到客户端是异步的，这就存在一个问题，
@@ -80,7 +80,7 @@
     并且随后在客户端连接上之前又删除了，这种情况下，这个`watch`事件可能会被丢失。
 - `watch`是轻量级的，其实就是本地`JVM`的`Callback`，服务器端只是存了是否有设置了`watcher`的布尔类型。
 
-## Zookeeper节点ZNode和相关属性
+## <a id="znode>Zookeeper节点ZNode和相关属性</a>
 
 `ZNode`有两种类型 ：
 - 持久的（PERSISTENT）：客户端和服务器端断开连接后，创建的节点不删除（默认）。
@@ -117,7 +117,7 @@
 | dataLength     | 当前节点所存储的数据长度                                          |
 | numChildren    | 当前节点下子节点的个数                                           |
 
-## Zookeeper 集群中的角色
+## <a id="jqjs>Zookeeper 集群中的角色</a>
 `Zookeeper`集群是一个基于主从复制的高可用集群，每个服务器承担如下三种角色中的一种
 
 - `Leader`
@@ -136,7 +136,7 @@
     - `Observers`接受客户端的连接，并将写请求转发给`leader`节点
     - 加入更多`Observer`节点，提高伸缩性，同时不影响吞吐率。
 
-## Zookeeper集群中Server工作状态
+## <a id="gzzt>Zookeeper 集群中Server工作状态</a>
 - `LOOKING`
   - 寻找`Leader`状态；当服务器处于该状态时，它会认为当前集群中没有`Leader`，因此需要进入`Leader`选举状态
 - `FOLLOWING`
@@ -146,7 +146,7 @@
 - `OBSERVING`
   - 观察者状态；表明当前服务器角色是`Observer`
 
-## ZooKeeper集群中服务器之间通信
+## <a id="fwqtx>Zookeeper 集群中服务器之间通信</a>
 `Leader`服务器会和每一个`Follower/Observer`服务器都建立`TCP`连接，
 同时为每个`Follower/Observer`都创建一个叫做`LearnerHandler`的实体。
 
@@ -154,13 +154,13 @@
 
 `Leader`服务器保存了所有`Follower/Observer`的`LearnerHandler`。
 
-## ZAB 协议
+## <a id="zab>ZAB 协议</a>
 `Zookeeper`的核心是`原子广播`，这个机制保证了各个`Server`之间的同步。
 实现这个机制的协议叫做`ZAB`协议。
 
 `ZAB`协议有两种模式，它们分别是恢复模式和广播模式。
 
-### 事务编号`Zxid`（事务请求计数器 + epoch）
+### <a id="zxid>事务编号`Zxid`（事务请求计数器 + epoch）</a>
 在`ZAB`(`ZooKeeper Atomic Broadcast`，`ZooKeeper`原子消息广播协议）协议的事务编号`Zxid`设计中，
 `Zxid`是一个`64`位的数字，其中低`32`位是一个简单的单调递增的计数器，针对客户端每一个事务请求，计数器加`1`。
 而高`32`位则代表`Leader`周期`epoch`的编号，每个当选产生一个新的`Leader`服务器，
@@ -170,18 +170,18 @@
 `Zxid`（`Transaction id`）类似于`RDBMS`中的事务`ID`，用于标识一次更新操作的`Proposal`（提议）`ID`。
 为了保证顺序性，该`id`必须单调递增。
 
-### epoch
+### <a id="epoch>epoch</a>
 `epoch`：可以理解为当前集群所处的年代或者周期，每个`Leader`就像皇帝，都有自己的年号，
 所以每次改朝换代，`leader`变更之后，都会在前一个年代的基础上加`1`。
 这样就算旧的`Leader`崩溃恢复之后，也没有人听他的了，因为`Follower`只听从当前年代的`Leader`的命令。
 
-### ZAB 协议有两种模式-恢复模式（选主）、广播模式（同步）
+### <a id="lzms>ZAB 协议有两种模式-恢复模式（选主）、广播模式（同步）</a>
 `ZAB`协议有两种模式，它们分别是`恢复模式（选主）`和`广播模式（同步）`。
 当服务启动或者在领导者崩溃后，`ZAB`就进入了恢复模式，当领导者被选举出来，
 且大多数`Server`完成了和`Leader`的状态同步以后，恢复模式就结束了。
 状态同步保证了`Leader`和`Server`具有相同的系统状态。
 
-### ZAB协议4阶段
+### <a id="xyjd>ZAB协议4阶段</a>
 - `Leader election`（选举阶段-选出准`Leader`）
   - 节点在一开始都处于选举阶段，只要有一个节点得到超半数节点的票数，它就可以当选准`Leader`。
   - 只有到达广播阶段（`broadcast`）准`leader`才会成为真正的`leader`。
@@ -202,7 +202,7 @@
 
 `ZAB`提交事务并不像`2PC`一样需要全部`Follower`都`ACK`，只需要得到超过半数的节点的`ACK`就可以了。
 
-### `ZAB`协议`JAVA`实现（FLE-发现阶段和同步合并为`Recovery Phase`（恢复阶段））
+### <a id="javasx>`ZAB`协议`JAVA`实现（FLE-发现阶段和同步合并为`Recovery Phase`（恢复阶段））</a>
 
 协议的`Java`版本实现跟上面的定义有些不同，选举阶段使用的是`Fast Leader Election`（FLE），它包含了选举的发现职责。
 
@@ -212,7 +212,7 @@
 
 所以，`ZAB`的实现只有三个阶段：`Fast Leader Election`、`Recovery Phase`、`Broadcast Phase`。
 
-### 投票机制
+### <a id="tpjz>投票机制</a>
 每个`Server`首先给自己投票，然后用自己的选票和其他`Server`选票对比，权重大的胜出，使用权重较大的更新自身选票箱。
 
 选举过程如下：
