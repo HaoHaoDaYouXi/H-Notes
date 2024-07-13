@@ -212,6 +212,8 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [服务地址动态感知原理](docs/spring_cloud/nacos.md#dtgz)
     - [服务地址动态感知原理](docs/spring_cloud/nacos.md#dtgz)
   - [配置中心原理](docs/spring_cloud/nacos.md#pzzx)
+    - [Nacos 客户端](docs/spring_cloud/nacos.md#khd)
+    - [Nacos 服务端](docs/spring_cloud/nacos.md#fwd)
   - [Nacos和其他注册中心的区别](docs/spring_cloud/nacos.md#qb)
 - [SpringCloudConfig](../wait.md)
 - [Archaius](../wait.md)
