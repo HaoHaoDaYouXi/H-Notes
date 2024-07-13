@@ -659,6 +659,59 @@ public String doGetConfig(HttpServletRequest request, HttpServletResponse respon
 }
 ```
 
+#### 服务端将配置存储磁盘
+
+在`DumpService`抽象类，有从内存中将全部配置文件存入到磁盘里面。
+抽象类有两个实现类，分别是`EmbeddedDumpService`和`ExternalDumpService`。
+
+实现类里面有一个初始化方法，通过`bean`的前置处理器去初始化实例。
+通过`dumpOperate`方法来实现具体的配置文件的存储。
+```java
+@PostConstruct
+@Override
+protected void init() throws Throwable {
+    // 存储配置文件
+    dumpOperate(processor, dumpAllProcessor, dumpAllBetaProcessor, dumpAllTagProcessor);
+}
+```
+在`dumpOperate`方法里面，来实现存储，其主要是一些全量加载和一些增量加载。
+```java
+protected void dumpOperate(){
+    TimerContext.start(dumpFileContext);
+    try{
+        Runnable dumpAll = () -> dumpAllTaskMgr.addTask(DumpAllTask.TASK_ID, new DumpAllTask());
+        Runnable dumpAllBeta = () -> dumpAllTaskMgr.addTask(DumpAllBetaTask.TASK_ID, new DumpAllBetaTask());
+        Runnable dumpAllTag = () -> dumpAllTaskMgr.addTask(DumpAllTagTask.TASK_ID, new DumpAllTagTask());
+    } catch (Throwable e) {
+    }
+    Runnable clearConfigHistory = () -> {
+        LOGGER.warn("clearConfigHistory start");
+        if (canExecute()) {
+            try {
+                Timestamp startTime = getBeforeStamp(TimeUtils.getCurrentTime(), 24 * getRetentionDays());
+                // 用于分页，每次获取磁盘里的1000行数据
+                int totalCount = persistService.findConfigHistoryCountByTime(startTime);
+                if (totalCount > 0) {
+                    int pageSize = 1000;
+                    int removeTime = (totalCount + pageSize - 1) / pageSize;
+                    while (removeTime > 0) {
+                        persistService.removeConfigHistory(startTime, pageSize);
+                        removeTime--;
+                    }
+                }
+            } catch (Throwable e) {     
+            }
+        }
+    };
+    // 加载配置信息
+    try {
+        // 判断是增量获取还是全量获取，主要是通过时间是否大于6小时
+        dumpConfigInfo(dumpAllProcessor);
+    } catch (Throwable e) {
+    }          
+}
+```
+
 # <a id="qb">Nacos和其他注册中心的区别</a>
 
 | 区别项           | Nacos                 | Eureka      | Consul            | CoreDNS    | Zookeeper  |
