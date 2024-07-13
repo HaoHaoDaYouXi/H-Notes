@@ -113,7 +113,11 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
   - [ThreadLocal](docs/java/thread.md#threadlocal)
     - [ThreadLocalMap](docs/java/thread.md#threadlocal_map)
     - [使用场景](docs/java/thread.md#threadlocal_sycj)
-    
+
+### [设计模式和原则](docs/devise/devise.md)
+- [设计模式](docs/devise/devise.md#sjms)
+- [设计原则](docs/devise/devise.md#sjyz)
+
 ### [Spring](docs/spring/spring.md)
 - [Spring的特点](docs/spring/spring.md#spring_td)
 - [Spring的核心组件](docs/spring/spring.md#spring_hxzj)
@@ -344,7 +348,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [排序算法](../wait.md)
 - [加密算法](../wait.md)
     - [RSA](../wait.md)
-    
+
 ### [插件](../wait.md)
 - [Generator](../wait.md)
 - [Lombok](../wait.md)
