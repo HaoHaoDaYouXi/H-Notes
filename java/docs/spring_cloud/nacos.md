@@ -622,14 +622,42 @@ public synchronized Set<String> refresh() {
 - 当服务端的配置文件出现更新时，可以通过监听器进行到感知，客户端也会对对应的配置文件进行更新
 - 每一次更新的配置都会存储在`Nacos`配置文件里面，作为一个历史文件保留
 
+### `Nacos` 服务端
 
+#### 服务端获取全部配置
+是在`ConfigController`类，在服务端`nacos-config`模块。
 
-
-
-
-
-
-
+`getConfig`方法
+```java
+@GetMapping
+@Secured(action = ActionTypes.READ, parser = ConfigResourceParser.class)
+public void getConfig(HttpServletRequest request, HttpServletResponse response,
+@RequestParam("dataId") String dataId, @RequestParam("group") String group,
+@RequestParam(value = "tenant", required = false, defaultValue = StringUtils.EMPTY) String tenant,
+@RequestParam(value = "tag", required = false) String tag)
+throws IOException, ServletException, NacosException {
+    // check tenant
+    ParamUtils.checkTenant(tenant);
+    tenant = NamespaceUtil.processNamespaceParameter(tenant);
+    // check params
+    ParamUtils.checkParam(dataId, group, "datumId", "content");
+    ParamUtils.checkParam(tag);
+    final String clientIp = RequestUtil.getRemoteIp(request);
+    // 获取配置信息
+    inner.doGetConfig(request, response, dataId, group, tenant, tag, clientIp);
+}
+```
+`doGetConfig`方法从本地文件读取配置，而不是读取数据库的配置。
+文件主要存储在这个`Nacos`的`data`的文件目录下
+```java
+public String doGetConfig(HttpServletRequest request, HttpServletResponse response, String dataId, String group, String tenant, String tag, String clientIp) throws IOException, ServletException{
+    File file = null;
+    // md5 加密
+    md5 = cacheItem.getMd54Beta();
+    // 从磁盘获取文件
+    file = DiskUtil.targetBetaFile(dataId, group, tenant);
+}
+```
 
 # <a id="qb">Nacos和其他注册中心的区别</a>
 
