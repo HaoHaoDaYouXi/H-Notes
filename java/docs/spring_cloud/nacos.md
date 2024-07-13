@@ -465,6 +465,171 @@ public List<Instance> selectInstances(String serviceName, List<String> clusters,
 它总是会考虑非常多的业务场景，在性能与好用性方面做一个取舍
 - 它也许不是纯粹的，也许不是性能最好的，但是一定是最适合拿来做业务的。
 
+### Nacos 客户端
+
+`Nacos`客户端所有的这个文件配置实现主要在`NacosNamingService`的类下面，这个配置中心主要在`NacosConfigService`的类下面。
+
+该接口下面主要有一些获取配置，发布配置，增加监听器，删除配置，删除监听器等操作。
+```java
+public interface ConfigService {
+    //获取配置
+    String getConfig();
+    //删除配置
+    boolean removeConfig(String dataId, String group);
+    //发布
+    boolean publishConfig();
+    //监听
+    void addListener();
+    //删除监听器
+    void removeListener();
+}
+```
+
+**`Nacos`客户端获取服务配置**
+
+在加载完所有的`context`上下文之后，客户端就回去拉取这个注册中心里面的这个全部配置文件
+```java
+@Override
+public String getConfig(String dataId, String group, long timeoutMs) throws NacosException {
+    return getConfigInner(namespace, dataId, group, timeoutMs);
+}
+```
+
+`getConfigInner`方法里面，就是具体的拉取配置这个实现
+```java
+private String getConfigInner(String tenant, String dataId, String group, long timeoutMs) throws NacosException{
+    // 先使用本地配置
+    String content = LocalConfigInfoProcessor.getFailover(agent.getName(), dataId, group, tenant);
+    // 本地配置不为空，则直接返回
+    if (content != null) {
+        return content;
+    }
+    // 本地配置为空，去服务端拉取 全部的配置文件
+    // 通过这个HTTP请求进行远程调用
+    try{
+        // 拉取需要的配置
+        String[] ct = worker.getServerConfig(dataId, group, tenant, timeoutMs);
+        // 保存结果到本地
+        cr.setContent(ct[0]);
+    }
+}
+```
+
+通过`getFailover`方法实现读取本地配置
+```java
+public static String getFailover(String serverName, String dataId, String group, String tenant) {
+    // 获取本地文件
+    File localPath = getFailoverFile(serverName, dataId, group, tenant);
+    // 如果本地文件为空，则直接return返回
+    if (!localPath.exists() || !localPath.isFile()) {
+        return null;
+    }
+    // 本地文件不为空，则读取
+    return readFile(localPath);
+}
+```
+
+`getServerConfig`的方法
+```java
+public String[] getServerConfig(String dataId, String group, String tenant, long readTimeout) throws NacosException {
+    HttpRestResult<String> result = null;
+    // HTTP请求
+    result = agent.httpGet(Constants.CONFIG_CONTROLLER_PATH, null, params, agent.getEncode(), readTimeout);
+    switch (result.getCode()) {
+        case HttpURLConnection.HTTP_OK: // ...
+        case HttpURLConnection.HTTP_NOT_FOUND:
+        case HttpURLConnection.HTTP_CONFLICT:
+        case HttpURLConnection.HTTP_FORBIDDEN:
+        default:
+    }
+}
+```
+
+`Nacos`的服务配置监听
+在整个容器启动完成之后，就会去调用这个监听器。
+`Nacos`主要在`NacosContextRefresher`类实现监听，`ApplicationListener`接口是`Nacos`的上下文的刷新流。
+
+构造方法如下：
+```java
+public NacosContextRefresher(NacosRefreshProperties refreshProperties, NacosRefreshHistory refreshHistory, ConfigService configService) {
+    //刷新配置文件
+    this.refreshProperties = refreshProperties;
+    //刷新历史文件
+    this.refreshHistory = refreshHistory;
+    this.configService = configService;
+}
+```
+
+类里面会调用一个`onApplicationEvent`的事件方法，里面会进行`Nacos`的监听注册。
+```java
+@Override
+public void onApplicationEvent(ApplicationReadyEvent event) {
+    // many Spring context
+    if (this.ready.compareAndSet(false, true)) {
+        // 监听注册
+        this.registerNacosListenersForApplications();
+    }
+}
+```
+
+注册`Nacos`的监听器方法如下：
+- 获取`Nacos`的全部的配置文件
+- 获取id之后，通过id对服务进行一个监听。
+```java
+private void registerNacosListenersForApplications() {
+    if (refreshProperties.isEnabled()) {
+        for (NacosPropertySource nacosPropertySource : NacosPropertySourceRepository.getAll()) {
+            // 获取id
+            String dataId = nacosPropertySource.getDataId();
+            registerNacosListener(nacosPropertySource.getGroup(), dataId);
+        }
+    }
+}
+```
+
+监听`Nacos`的主要方法`registerNacosListener`的具体实现如下：
+- 当配置发生变化时，监听方法就会发起一个调用，对应的配置进行更新和替换。
+- 每一次更新都会有一个历史版本
+```java
+private void registerNacosListener(final String group, final String dataId) {
+    Listener listener = listenerMap.computeIfAbsent(dataId, i -> new Listener() {
+        // 当配置发生变化时，监听方法就会发起一个调用
+        @Override
+        public void receiveConfigInfo(String configInfo) {
+            // 记录历史版本
+            refreshHistory.add(dataId, md5);
+            // 发布监听事件
+            applicationContext.publishEvent(new RefreshEvent(this, null, "Refresh Nacos config"));
+        }
+    });
+}
+```
+
+最后调用一个`refresh`方法，进行环境的刷新，会将新的参数和原来的参数进行比较，通过发布环境变更事件，对做出改变的值进行更新操作。
+```java
+public synchronized Set<String> refresh() {
+    Set<String> keys = refreshEnvironment();
+    this.scope.refreshAll();
+    return keys;
+}
+```
+如果感知对应的配置有改变的操作后，会清除当前的配置实例，并将新的实例重新通过这个`bean`工厂重新`getBean`。
+
+#### 客户端总结
+- 客户端启动的时候，会优先拉取本地配置
+- 如果本地配置不存在，就和服务端建立`HTTP`请求，拉取服务端的全部配置，就是配置中心的全部配置
+- 拉取到全部配置之后，会获取每一个配置文件的`dataId`，通过`dataId`对服务端的每一个配置文件进行监听
+- 当服务端的配置文件出现更新时，可以通过监听器进行到感知，客户端也会对对应的配置文件进行更新
+- 每一次更新的配置都会存储在`Nacos`配置文件里面，作为一个历史文件保留
+
+
+
+
+
+
+
+
+
 
 # <a id="qb">Nacos和其他注册中心的区别</a>
 
