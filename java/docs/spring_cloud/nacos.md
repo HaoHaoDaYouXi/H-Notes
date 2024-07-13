@@ -712,6 +712,11 @@ protected void dumpOperate(){
 }
 ```
 
+#### 服务端总结
+
+- 每个配置文件在注册之后，都会存在`Nacos`的数据库里，最后会将数据库的数据存入到磁盘里面，
+- 客户端来拉取这个配置信息的时候，就会直接去读这个本地磁盘里面的数据。
+
 # <a id="qb">Nacos和其他注册中心的区别</a>
 
 | 区别项           | Nacos                 | Eureka      | Consul            | CoreDNS    | Zookeeper  |
