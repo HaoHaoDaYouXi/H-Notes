@@ -92,3 +92,24 @@ public class Singleton {
 因此返回`singleton`，但此时`singleton`还未被初始化。
 
 使用`volatile`可以禁止`JVM`的指令重排，保证在多线程环境下也能正常运行。
+
+### 静态内部类实现
+```java
+public class Singleton {
+
+    private Singleton() {}
+
+    private static class SingletonHolder {
+        private static final Singleton singleton = new Singleton();
+    }
+
+    public static Singleton getSingleton() {
+        return SingletonHolder.singleton;
+    }
+}
+```
+当`Singleton`类被加载时，静态内部类`SingletonHolder`没有被加载进内存。
+只有当调用`getSingleton()`方法从而触发`SingletonHolder.singleton`时`SingletonHolder`才会被加载，
+此时初始化`singleton`实例，并且`JVM`能确保`singleton`只被实例化一次。
+
+这种方式不仅具有延迟初始化的好处，而且由`JVM`提供了对线程安全的支持。
