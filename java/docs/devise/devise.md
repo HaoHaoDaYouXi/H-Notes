@@ -27,13 +27,13 @@
 - 增强软件的可维护性和可扩展性：通过清晰的结构和职责分离，使得代码更易于修改和扩展。
 
 ### 创建型模式
-- [单例](singleton.md)
-- [工厂](factory.md)
-  - [简单工厂](factory.md#jdgc)
-  - [工厂方法](factory.md#gcff)
-  - [抽象工厂](factory.md#cxgc)
-- [建造者](builder.md)
-- 原型模式
+- [单例](create/singleton.md)
+- [工厂](create/factory.md)
+  - [简单工厂](create/factory.md#jdgc)
+  - [工厂方法](create/factory.md#gcff)
+  - [抽象工厂](create/factory.md#cxgc)
+- [建造者](create/builder.md)
+- [原型模式](create/prototype.md)
 
 ### 结构型模式
 - 适配器
