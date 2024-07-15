@@ -100,16 +100,75 @@ public class Singleton {
     private Singleton() {}
 
     private static class SingletonHolder {
-        private static final Singleton singleton = new Singleton();
+        private static final Singleton SINGLETON = new Singleton();
     }
 
     public static Singleton getSingleton() {
-        return SingletonHolder.singleton;
+        return SingletonHolder.SINGLETON;
     }
 }
 ```
 当`Singleton`类被加载时，静态内部类`SingletonHolder`没有被加载进内存。
-只有当调用`getSingleton()`方法从而触发`SingletonHolder.singleton`时`SingletonHolder`才会被加载，
-此时初始化`singleton`实例，并且`JVM`能确保`singleton`只被实例化一次。
+只有当调用`getSingleton()`方法从而触发`SingletonHolder.SINGLETON`时`SingletonHolder`才会被加载，
+此时初始化`SINGLETON`实例，并且`JVM`能确保`SINGLETON`只被实例化一次。
 
 这种方式不仅具有延迟初始化的好处，而且由`JVM`提供了对线程安全的支持。
+
+### 枚举实现
+```java
+public enum Singleton {
+    SINGLETON;
+
+    private String name;
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public static void main(String[] args) {
+        // 测试
+        Singleton firstSingleton = Singleton.SINGLETON;
+        firstSingleton.setName("firstName");
+        System.out.println(firstSingleton.getName());
+        Singleton secondSingleton = Singleton.SINGLETON;
+        secondSingleton.setName("secondName");
+        System.out.println(firstSingleton.getName());
+        System.out.println(secondSingleton.getName());
+
+        // 反射获取实例测试
+        try {
+            
+            Singleton[] enumConstants = Singleton.class.getEnumConstants();
+            for (Singleton enumConstant : enumConstants) {
+                System.out.println(enumConstant.getName());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+输出结果：
+```log
+firstName
+secondName
+secondName
+secondName
+```
+
+该实现可以防止反射攻击。
+
+在其它实现中，通过`setAccessible()`方法可以将私有构造函数的访问级别设置为`public`，
+然后调用构造函数从而实例化对象，如果要防止这种攻击，需要在构造函数中添加防止多次实例化的代码。
+
+该实现是由`JVM`保证只会实例化一次，因此不会出现上述的反射攻击。
+
+该实现在多次序列化和序列化之后，不会得到多个实例。
+而其它实现需要使用`transient`修饰所有字段，并且实现序列化和反序列化的方法。
+
+----
