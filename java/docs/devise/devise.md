@@ -32,7 +32,7 @@
   - [简单工厂](factory.md#jdgc)
   - [工厂方法](factory.md#gcff)
   - [抽象工厂](factory.md#cxgc)
-- 建造者
+- [建造者](builder.md)
 - 原型模式
 
 ### 结构型模式
