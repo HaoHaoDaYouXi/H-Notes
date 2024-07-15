@@ -116,6 +116,9 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 
 ### [设计模式和原则](docs/devise/devise.md)
 - [设计模式](docs/devise/devise.md#sjms)
+  - [创建型模式](docs/devise/devise.md#cjx)
+  - [结构型模式](docs/devise/devise.md#jgx)
+  - [行为型模式](docs/devise/devise.md#xwx)
 - [设计原则](docs/devise/devise.md#sjyz)
 
 ### [Spring](docs/spring/spring.md)
