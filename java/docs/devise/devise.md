@@ -41,7 +41,7 @@
 - [桥接](structure/bridge.md)
 - [组合](structure/composite.md)
 - [装饰](structure/decorator.md)
-- 外观
+- [外观](structure/facade.md)
 - 享元
 
 ### <a id="xwx">行为型模式</a>
