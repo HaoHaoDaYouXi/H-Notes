@@ -40,7 +40,7 @@
 - [适配器](structure/adapter.md)
 - [桥接](structure/bridge.md)
 - [组合](structure/composite.md)
-- 装饰
+- [装饰](structure/decorator.md)
 - 外观
 - 享元
 
