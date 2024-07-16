@@ -42,7 +42,7 @@
 - [组合](structure/composite.md)
 - [装饰](structure/decorator.md)
 - [外观](structure/facade.md)
-- 享元
+- [享元](structure/flyweight.md)
 
 ### <a id="xwx">行为型模式</a>
 - 责任链
