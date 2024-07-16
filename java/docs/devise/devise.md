@@ -36,13 +36,13 @@
 - [原型模式](create/prototype.md)
 
 ### <a id="jgx">结构型模式</a>
-- 适配器
+- [代理](structure/proxy.md)
+- [适配器](structure/adapter.md)
 - 桥接
 - 组合
 - 装饰
 - 外观
 - 享元
-- 代理
 
 ### <a id="xwx">行为型模式</a>
 - 责任链
