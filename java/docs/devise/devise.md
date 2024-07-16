@@ -38,7 +38,7 @@
 ### <a id="jgx">结构型模式</a>
 - [代理](structure/proxy.md)
 - [适配器](structure/adapter.md)
-- 桥接
+- [桥接](structure/bridge.md)
 - 组合
 - 装饰
 - 外观
