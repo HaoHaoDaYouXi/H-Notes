@@ -45,18 +45,18 @@
 - [享元](structure/flyweight.md)
 
 ### <a id="xwx">行为型模式</a>
-- 责任链
-- 命令
-- 解释器
-- 迭代器
-- 中介者
-- 备忘录
-- 观察者
-- 状态
-- 策略
-- 模板方法
-- 访问者
-- 空对象
+- [责任链](behavior/responsibility.md)
+- [命令](behavior/command.md)
+- [解释器](behavior/interpreter.md)
+- [迭代器](behavior/iterator.md)
+- [中介者](behavior/mediator.md)
+- [备忘录](behavior/memento.md)
+- [观察者](behavior/observer.md)
+- [状态](behavior/state.md)
+- [策略](behavior/strategy.md)
+- [模板方法](behavior/template.md)`
+- [访问者](behavior/visitor.md)
+- [空对象](behavior/null.md)
 
 ## <a id="sjyz>设计原则</a>
 
