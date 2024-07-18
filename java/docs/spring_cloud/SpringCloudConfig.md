@@ -1,5 +1,22 @@
 # SpringCloudConfig
-`Spring Cloud Config`项目是一个解决分布式系统的配置管理方案。
+`Spring Cloud Config`项目是一个解决分布式系统的配置管理方案，其不依赖于注册中心，是一个独立的配置中心，支持多种存储配置信息形式，
+目前主要有`jdbc`、`value`、`native`、`svn`、`git`，其中默认是`git`。
+
+因为采用`native`方式必然决定了每次配置完相关文件后一定要重启`Spring Cloud Config`，所以一般不会采用此方案，
+
+在实际操作中主要的实现方案有以下四种：
+- `Spring Cloud Config`结合`Git`实现配置中心方案
+- `Spring Cloud Config`结合关系型数据库实现配置中心方案
+- `Spring Cloud Config`结合非关系型数据库实现配置中心方案
+- `Spring Cloud Config`与`Apollo`配置结合实现界面化配置中心方案
+
+`Spring Cloud Config`服务端特性：
+- `HTTP`，为外部配置提供基于资源的`API`（键值对，或者等价的`YAML`内容）
+- 属性值的加密和解密（对称加密和非对称加密）
+- 通过使用`@EnableConfigServer`在`Spring boot`应用中非常简单的嵌入。
+- `Config`客户端的特性（特指`Spring`应用）
+- 绑定`Config`服务端，并使用远程的属性源初始化`Spring`环境。
+- 属性值的加密和解密（对称加密和非对称加密）
 
 它包含了`Client`和`Server`两个部分
 - `server`提供配置文件的存储、以接口的形式将配置文件的内容提供出去
