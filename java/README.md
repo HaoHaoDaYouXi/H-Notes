@@ -222,7 +222,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [Nacos 客户端](docs/spring_cloud/nacos.md#khd)
     - [Nacos 服务端](docs/spring_cloud/nacos.md#fwd)
   - [Nacos和其他注册中心的区别](docs/spring_cloud/nacos.md#qb)
-- [SpringCloudConfig](../wait.md)
+- [SpringCloudConfig](docs/spring_cloud/SpringCloudConfig.md)
 - [Archaius](../wait.md)
 - [Apollo](../wait.md)
 - [Rest、RPC和gRpc](../wait.md)
