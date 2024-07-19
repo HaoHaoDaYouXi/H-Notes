@@ -27,7 +27,7 @@
 
 ### 搭建服务端
 
-Maven配置
+Maven依赖
 ```xml 
 <dependencies>
     <dependency>
