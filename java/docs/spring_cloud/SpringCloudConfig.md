@@ -27,7 +27,7 @@
 
 ### 搭建服务端
 
-Maven依赖
+`Maven`依赖
 ```xml
 <dependency>
     <groupId>org.springframework.cloud</groupId>
@@ -63,7 +63,7 @@ spring:
 
 ### 修改客户端程序
 
-Maven依赖
+`Maven`依赖
 ```xml
 <dependency>
     <groupId>org.springframework.cloud</groupId>
@@ -83,3 +83,55 @@ spring:
 ```
 
 启动，可成功访问相关服务
+
+### 手动刷新
+
+已经在客户端取到了配置中心的值，但当修改GitHub上面的值时，服务端（`Config Server`）能实时获取最新的值，
+但客户端（`Config Client`）读的是缓存，无法实时获取最新值。
+
+`Spring Cloud`已经为我们解决了这个问题，那就是客户端使用`post`去触发`refresh`，获取最新数据，需要依赖`springboot-starter-actuator`
+
+`Maven`依赖
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+```
+
+对应的`controller`类加上`@RefreshScope`
+
+```java
+@RefreshScope
+@RestController
+@RequestMapping("/test")
+public class TestController {
+    @Resource
+    private TestService productService;
+
+    @Value("${spring.cloud.client.ip-address}") // spring cloud 自动的获取当前应用的ip地址
+    private String ip;
+  
+    @Value("${server.port}")
+    private String port;
+  
+    @Value("${test}")
+    private String test;
+  
+    @GetMapping(value = "/test")
+    public String test() {
+        return "访问的服务地址：" + ip + ":" + port+"，[test]："+test;
+    }
+}
+```
+
+客户端配置文件添加端点：
+```yaml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+```
+
+发送`post`请求：http://localhost:9001/actuator/refresh
