@@ -29,12 +29,10 @@
 
 Maven依赖
 ```xml
-<dependencies>
-    <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-config-server</artifactId>
-    </dependency>
-</dependencies>
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-config-server</artifactId>
+</dependency>
 ```
 
 添加启动类，通过`@EnableConfigServer`注解开启注册中心服务端功能
