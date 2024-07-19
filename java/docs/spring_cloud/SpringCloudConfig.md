@@ -62,3 +62,24 @@ spring:
 浏览器访问git文件：http://localhost:9000/application-dev.yml
 
 ### 修改客户端程序
+
+Maven依赖
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-config</artifactId>
+</dependency>
+```
+
+`application.yml`改为`bootstrap.yml`
+```yaml
+spring:
+  cloud:
+    config:
+      name: application # 应用名称，对应git中配置文件名称的前半部分
+      profile: dev # 开发环境
+      label: master # git中的分支
+      uri: http://localhost:9000 # config-server的请求地址
+```
+
+启动，可成功访问相关服务
