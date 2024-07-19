@@ -28,7 +28,7 @@
 ### 搭建服务端
 
 Maven依赖
-```xml 
+```xml
 <dependencies>
     <dependency>
         <groupId>org.springframework.cloud</groupId>
