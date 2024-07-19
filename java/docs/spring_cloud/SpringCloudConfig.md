@@ -59,4 +59,6 @@ spring:
         git:
           uri: https://gitlab.com/xxx.git # git地址
 ```
-浏览器访问git文件:http://localhost:9000/application-dev.yml
+浏览器访问git文件：http://localhost:9000/application-dev.yml
+
+### 修改客户端程序
