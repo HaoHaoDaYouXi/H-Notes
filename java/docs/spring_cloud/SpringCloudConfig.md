@@ -164,6 +164,52 @@ eureka:
     serviceUrl:
       defaultZone: http://127.0.0.1:8888/eureka/
   instance:
-    preferIpAddress: true
+    preferIpAddress: true # 使用ip地址注册
     instance-id: ${spring.cloud.client.ip-address}:${server.port} # spring.cloud.client.ip-address 获取ip地址
 ```
+
+### 客户端改造：
+
+添加依赖：
+```xml
+<dependencus>
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-config</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+</dependencus>
+```
+
+修改配置文件：
+```yaml
+spring:
+    cloud:
+        config:
+        name: application # 应用名称,需要对应git中配置文件名称的前半部分
+        profile: dev # 开发环境
+        label: master # git中的分支
+        # 通过注册中心获取config-server配置
+        discovery:
+            enabled: true # 开启服务发现
+            service-id: config-server
+eureka:
+    client:
+    service-url:
+      defaultZone: http://127.0.0.1:8888/eureka/
+    instance:
+      prefer-ip-address: true 
+      instance-id: ${spring.cloud.client.ip-address}:${server.port}
+```
+
+这样客户端就可以通过`eureka`获取配置中心服务端的服务了。
+
+
+----
