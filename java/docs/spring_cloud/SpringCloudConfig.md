@@ -76,7 +76,7 @@ spring:
 spring:
   cloud:
     config:
-      name: application # 应用名称，对应git中配置文件名称的前半部分
+      name: client-service # 应用名称，对应git中配置文件名称的前半部分
       profile: dev # 开发环境
       label: master # git中的分支
       uri: http://localhost:9000 # config-server的请求地址
@@ -193,7 +193,7 @@ eureka:
 spring:
     cloud:
         config:
-        name: application # 应用名称,需要对应git中配置文件名称的前半部分
+        name: client-service # 应用名称,需要对应git中配置文件名称的前半部分
         profile: dev # 开发环境
         label: master # git中的分支
         # 通过注册中心获取config-server配置
