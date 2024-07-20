@@ -172,7 +172,7 @@ eureka:
 
 添加依赖：
 ```xml
-<dependencus>
+<dependencies>
     <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -185,7 +185,7 @@ eureka:
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
-</dependencus>
+</dependencies>
 ```
 
 修改配置文件：
@@ -210,6 +210,5 @@ eureka:
 ```
 
 这样客户端就可以通过`eureka`获取配置中心服务端的服务了。
-
 
 ----
