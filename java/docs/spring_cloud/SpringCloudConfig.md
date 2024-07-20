@@ -148,3 +148,22 @@ management:
 客户端去`eureka`获取配置中心服务端的服务既可。
 
 ### 服务端改造：
+
+添加依赖：
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+</dependency>
+```
+
+修改配置文件添加如下配置：
+```yaml
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8888/eureka/
+  instance:
+    preferIpAddress: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port} # spring.cloud.client.ip-address 获取ip地址
+```
