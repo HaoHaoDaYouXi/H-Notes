@@ -224,7 +224,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
   - [Nacos和其他注册中心的区别](docs/spring_cloud/nacos.md#qb)
 - [Spring Cloud Config](docs/spring_cloud/SpringCloudConfig.md)
 - [Spring Cloud Bus](docs/spring_cloud/SpringCloudBus.md)
-- [Archaius](../wait.md)
+- [Archaius](docs/spring_cloud/Archaius.md)
 - [Apollo](../wait.md)
 - [Rest、RPC和gRpc](../wait.md)
   - [OpenFegin](../wait.md)
