@@ -1,12 +1,12 @@
 # Archaius
 
-Archaius是一个提供获取可以运行时动态改变的属性的API的Java类库，它主要实现为`Apache Commons Configuration`库的扩展。
+`Archaius`是一个提供获取可以运行时动态改变的属性的`API`的`Java`类库，它主要实现为`Apache Commons Configuration`库的扩展。
 
 ## Archaius特性
 
 ### 1. 动态属性
 - 可以使用简洁的代码去动态获取类型特定的属性
-- 可以对某个属性发生修改之后创建callback
+- 可以对某个属性发生修改之后创建`callback`
 ```java
 DynamicIntProperty prop = DynamicPropertyFactory.getInstance().getIntProperty("myProperty", DEFAULT_VALUE);
 // prop.get() may change value at runtime
@@ -22,7 +22,7 @@ prop.addCallback(new Runnable() {
 
 ### 2. 循环读取配置源数据信息
 
-DynamicPropertyFactory将会按照一定的间隔（默认1分钟）取获取类路径下或者通过参数指定的url的配置，实现动态更新
+`DynamicPropertyFactory`将会按照一定的间隔（默认`1`分钟）取获取类路径下或者通过参数指定的`url`的配置，实现动态更新
 
 我们可以实现相关的接口来自定义数据源、定时加载更新逻辑等
 ```java
