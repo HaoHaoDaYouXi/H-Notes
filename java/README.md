@@ -225,7 +225,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [Spring Cloud Config](docs/spring_cloud/SpringCloudConfig.md)
 - [Spring Cloud Bus](docs/spring_cloud/SpringCloudBus.md)
 - [Archaius](docs/spring_cloud/Archaius.md)
-- [Apollo](../wait.md)
+- [Apollo](docs/spring_cloud/Apollo.md)
 - [Rest、RPC和gRpc](../wait.md)
   - [OpenFegin](../wait.md)
   - [Dubbo](../wait.md)
