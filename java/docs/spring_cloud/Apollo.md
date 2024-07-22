@@ -61,3 +61,45 @@
   - 可以在`Admin`->`Tools-System`->`Configuration`下配置部门信息，修改完信息后点击下`Reset`按钮。
 - 创建项目
 - 添加配置参数
+
+### Apollo客户端
+
+#### `Maven`依赖
+```xml
+<!-- 在项目的pom.xml中添加Apollo客户端依赖 -->
+<dependency>
+    <groupId>com.ctrip.framework.apollo</groupId>
+    <artifactId>apollo-client</artifactId>
+</dependency>
+```
+
+#### 在`yml`中配置`Apollo`信息
+```yaml
+app:
+  id: app-id
+apollo:
+  meta: http://localhost:8080
+  bootstrap:
+    enabled: true
+    namespaces: application
+```
+
+#### 在代码中使用`@Value`注解获取配置：
+```java
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
+public class YourComponent {
+
+    @Value("${some.key:default}")
+    private String someKey;
+ 
+    // ...
+}
+```
+
+启动应用程序，`Apollo`客户端会自动从配置中心拉取配置并注入到应用中。
+
+
+---- 
