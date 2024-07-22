@@ -23,3 +23,32 @@
 - 集成`Apollo`客户端：在你的微服务应用中引入`Apollo`的客户端库，根据文档进行配置，以便应用可以从`Apollo`获取配置。
 - 配置管理：在`Apollo`控制台上创建项目，定义环境，上传配置，并管理这些配置的版本和变更。
 - 监控与维护：定期检查`Apollo`的健康状态，监控配置变更的日志，以及处理可能出现的问题。
+
+### 部署`Apollo`服务端
+
+#### 安装`jdk`和`mysql`
+`Apollo`服务需要`Java`和`MySQL`的支持。安装完成后启动`mysql`
+
+#### 下载并启动`Apollo`
+- 创建`Apollo`所需的数据库和表。
+    - `Apollo`的`GitHub`仓库中找到`SQL`脚本
+    - 项目地址：https://github.com/ctripcorp/apollo.git
+- 构建`Apollo`
+  - 在`build.sh`中配置了数据库的连接
+      - 修该数据库连接信息（`host`、用户、密码等配置信息）
+      - 其他配置信息可自行修改。
+- 初始化数据库
+    - 在`script`下存在`apolloconfigdb.sql`和`apolloportaldb.sql`文件，将这2个文件导入到数据库中。
+- 运行`Apollo`服务
+    - 运行`Apollo`配置中心通常需要运行三个`jar`文件，分别对应`Apollo`的三个主要服务：
+        - `apollo-configservice.jar`：`Apollo`的配置服务，为`Apollo`客户端提供配置信息，端口默认是`8080`
+        - `apollo-adminservice.jar`：`Apollo`的管理服务，为`Apollo`管理界面提供后端服务，端口默认是`8090`
+        - `apollo-portal.jar`：`Apollo`的门户服务，提供`Apollo`的管理界面，端口默认是`8070`
+
+#### 访问`Apollo`服务
+
+访问`http://localhost:8070`来查看`Apollo`的控制台。登录名密码默认为：`apollo/admin`
+
+访问`http://localhost:8080`可查看`Apollo`的服务信息。
+
+登录名和密码可以在`README.md`中查看到。
