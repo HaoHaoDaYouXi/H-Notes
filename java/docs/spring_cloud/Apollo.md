@@ -52,3 +52,12 @@
 访问`http://localhost:8080`可查看`Apollo`的服务信息。
 
 登录名和密码可以在`README.md`中查看到。
+
+### `Apollo`中创建项目
+在`Apollo`配置中心中，`部门`（Department）是一个组织结构的概念，用于管理和控制不同的项目和配置。
+部门可以包含多个项目，每个项目可以有多个环境和集群。
+
+- 创建`department`
+  - 可以在`Admin`->`Tools-System`->`Configuration`下配置部门信息，修改完信息后点击下`Reset`按钮。
+- 创建项目
+- 添加配置参数
