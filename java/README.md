@@ -227,7 +227,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [Archaius](docs/spring_cloud/Archaius.md)
 - [Apollo](docs/spring_cloud/Apollo.md)
 - [Rest、RPC和GRpc](docs/spring_cloud/Rest_RPC_GRpc.md)
-  - [OpenFegin](docs/spring_cloud/OpenFegin.md)
+  - [OpenFeign](docs/spring_cloud/OpenFeign)
   - [Dubbo](../wait.md)
       - [Dubbo 的服务治理](../wait.md)
       - [Dubbo 支持哪些协议？支持哪些序列化协议？](../wait.md)
