@@ -11,3 +11,39 @@
 
 在`Spring Cloud`中，`OpenFeign`可以轻松地与其他组件如`Hystrix`（断路器）结合使用，提供健壮的服务间通信解决方案。
 如果你想要在项目中使用`OpenFeign`，可以通过添加相应的依赖到你的`pom.xml`或`build.gradle`文件中，并定义相应的`Feign`客户端接口来开始。
+
+## OpenFeign的核心原理
+
+使用`@FeignClient`注解标注接口，`Feign`会为该接口创建一个动态代理，代理会将请求转发到远程服务。
+
+动态代理中，`Feign`会根据注解的配置生成请求`URL`，并根据参数值进行替换。
+
+使用`Decoder`解码响应体，将响应体转换为`Java`对象。
+
+使用`Encoder`编码请求体，将`Java`对象转换为请求格式。
+
+发送`HTTP`请求，底层通过`JDK`动态代理获取到接口中的服务信息，使用`Ribbon`管理后的`RestTemplate`进行调用
+
+以下是一个使用`OpenFeign`的简单例子：
+```java
+// 1. 定义一个Feign客户端接口
+@FeignClient(name = "test-Service")
+public interface RemoteTestService {
+    @GetMapping("/test")
+    String test();
+}
+
+// 2. 在Spring服务中注入Feign客户端并使用
+@RestController
+public class TestController {
+    @Resource
+    private RemoteTestService remoteTestService;
+
+    @GetMapping("/testGet")
+    public String testGet() {
+        return remoteTestService.test();
+    }
+}
+```
+
+----
