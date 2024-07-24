@@ -126,3 +126,19 @@
 `PB`之所以性能如此好，主要得益于两个：
 - 它使用`proto`编译器，自动进行序列化和反序列化，速度非常快，应该比`XML`和`JSON`快上了`20~100`倍；
 - 它的数据压缩效果好，就是说它序列化后的数据量体积小。因为体积小，传输起来带宽和速度上会有优化。
+
+##  Dubbo 核心的配置
+
+| 配置                | 说明     | 描述                                             |
+|-------------------|--------|------------------------------------------------|
+| dubbo:service     | 服务配置   | 暴露服务，定义服务的元信息，服务可以多协议暴露也可以注册到多个注册中心            |
+| dubbo:reference   | 引用配置   | 创建远程服务代理，可以指向多个注册中心                            |
+| dubbo:protocol    | 协议配置   | 配置提供服务的协议信息，协议由提供方指定，消费方被动获取                   |
+| dubbo:application | 应用配置   | 配置当前应用信息                                       |
+| dubbo:module      | 模块配置   | 配置当前模块信息                                       |
+| dubbo:registry    | 注册中心配置 | 配置注册中心信息                                       |                             
+| dubbo:monitor     | 监控中心配置 | 配置监控中心信息                                       |
+| dubbo:provider    | 提供方配置  | 当ProtocolConfig和ServiceConfig某一个配置没有配置时，使用此配置的 |
+| dubbo:consumer    | 消费方配置  | 当RegistryConfig某一个配置没有配置时，使用此配置的               |
+| dubbo:method      | 方法配置   | ServiceConfig和RegistryConfig 指定方法级的配置          |
+| dubbo:argument    | 参数配置   | 指定方法参数配置                                       |
