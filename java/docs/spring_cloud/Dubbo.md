@@ -77,3 +77,52 @@
 - `memcache`：基于`memcached`实现的`RPC`协议
 
 - `redis`：基于`redis`实现的`RPC`协议
+
+## <a id="xlhkj">`Dubbo`序列化框架</a>
+
+默认使用`Hessian`序列化，还有`Duddo`、`FastJson`、`Java`自带序列化。
+
+`Hessian`是一个采用二进制格式传输的服务框架，相对传统更轻量、更快速。
+
+### <a id="Hessian">`Hessian`原理与协议</a>
+
+`HTTP`的协议约定了数据传输的方式，`Hessian`无法改变太多
+
+- `Hessian`中`client`与`server`的交互，基于`HTTP-POST`方式。
+- `Hessian`将辅助信息，封装在`HTTP Header`中，比如`授权token`等，我们可以基于`http-header`来封装关于`安全校验`、`meta数据`等。`Hessian`提供了简单的`校验`机制。
+- 对于`Hessian`的交互核心数据，比如`调用的方法`和参数列表信息，将通过`POST`请求的`body`体直接发送，格式为字节流。
+- 对于`Hessian`的`server`端响应数据，将在`response`中通过字节流的方式直接输出。
+  `Hessian`的协议本身并不复杂，所谓协议(`protocol`)就是约束数据的格式，
+  `client`按照协议将请求信息序列化成字节序列发送给`server`端，
+  `server`端根据协议，将数据反序列化成`对象`，然后执行指定的方法，
+  并将方法的返回值再次按照协议序列化成字节流，响应给`client`，
+  `client`按照协议将字节流反序列话成`对象`。
+
+`Hessian`的对象序列化机制有8种原始类型:
+
+- 原始二进制数据
+- `boolean`
+- `64-bit date`(64位毫秒值的日期)
+- `64-bit double`
+- `32-bit int`
+- `64-bit long`
+- `enull`
+- `UTF-8`编码的`string`
+
+另外还包括`3`种递归类型:
+
+- `list for lists and arrays`
+- `map for maps and dictionaries`
+- `object for objects`
+
+还有一种特殊的类型:
+
+- `ref`：用来表示对共享对象的引用。
+
+### <a id="PB">`PB`</a>
+
+`PB`是指`Protocol Buffer`是`Google`出品的一种轻量并且高效的结构化数据存储格式，性能比`JSON`、`XML`要高很多。
+
+`PB`之所以性能如此好，主要得益于两个：
+- 它使用`proto`编译器，自动进行序列化和反序列化，速度非常快，应该比`XML`和`JSON`快上了`20~100`倍；
+- 它的数据压缩效果好，就是说它序列化后的数据量体积小。因为体积小，传输起来带宽和速度上会有优化。
