@@ -237,7 +237,6 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
           - [Hessian](docs/spring_cloud/Dubbo.md#Hessian)
           - [PB](docs/spring_cloud/Dubbo.md#PB)
       - [Dubbo 需要 Web 容器吗？内置了哪几种服务容器？](../wait.md)
-      - [Dubbo里面有哪几种节点角色？](../wait.md)
       - [Dubbo默认使用什么注册中心，还有别的选择吗？](../wait.md)
       - [Dubbo有哪几种配置方式？核心的配置有哪些？](../wait.md)
       - [Dubbo负载均衡策略、集群容错策略和动态代理策略](../wait.md)
