@@ -142,3 +142,7 @@
 | dubbo:consumer    | 消费方配置  | 当RegistryConfig某一个配置没有配置时，使用此配置的               |
 | dubbo:method      | 方法配置   | ServiceConfig和RegistryConfig 指定方法级的配置          |
 | dubbo:argument    | 参数配置   | 指定方法参数配置                                       |
+
+### 配置之间的关系
+
+![dubbo_pzgx.png](img/dubbo_pzgx.png)
