@@ -244,8 +244,15 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
       - [服务接口多实现](docs/spring_cloud/Dubbo.md#fwjkdsx)
       - [服务调用超时问题](docs/spring_cloud/Dubbo.md#fwdycs)
 - [Ribbon](docs/spring_cloud/Ribbon.md)
-- [LoadBalancer](../wait.md)
+  - [自定义负载均衡策略](docs/spring_cloud/Ribbon.md#zdy)
+  - [饥饿加载](docs/spring_cloud/Ribbon.md#jejz)
+- [Spring Cloud LoadBalancer](docs/spring_cloud/LoadBalancer.md)
+  - [和`Nginx`的区别](docs/spring_cloud/LoadBalancer.md#nginxqb)
+  - [配置使用](docs/spring_cloud/LoadBalancer.md#pzsy)
+  - [自定义负载均衡器](docs/spring_cloud/LoadBalancer.md#zdy)
+  - [重试机制](docs/spring_cloud/LoadBalancer.md#csjz)
 - [Nginx](../wait.md)
+  - [Nginx负债均衡实现以及动静分离](../wait.md)
 - [Hystrix](../wait.md)
 - [Resilience4j](../wait.md)
 - [Sentinel](../wait.md)
@@ -350,9 +357,6 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [TCP/IP](../wait.md)
 
 ### [日志](../wait.md)
-
-### [负责均衡](../wait.md)
-- [Nginx负债均衡实现以及动静分离](../wait.md)
 
 ### [算法](../wait.md)
 - [排序算法](../wait.md)

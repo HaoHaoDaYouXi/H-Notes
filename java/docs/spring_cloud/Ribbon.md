@@ -31,7 +31,7 @@
 | RandomRule	                | 随机选择一个可用的服务器。                                                                                                                                                                                                                                                  |
 | RetryRule                  | 	重试机制的选择逻辑                                                                                                                                                                                                                                                     |
 
-## 自定义负载均衡策略
+## <a id="zdy">自定义负载均衡策略</a>
 
 通过定义`IRule`实现可以修改负载均衡规则
 
@@ -50,18 +50,28 @@ public class RibbonConfiguration {
  **/
 @Configuration
 @RibbonClient(name = "test",configuration = RibbonConfiguration.class)
-public class TestRibbonConfiguration {}
+public class TestRibbonConfiguration {
+    @Bean
+    @LoadBalanced
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
+    }
+}
 ```
 
 ### 配置文件方式
 ```yaml
+spring:
+  application:
+    name: testService
+    
 testService: # 给某个微服务配置负载均衡规则，这里是 testService 服务
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule # 负载均衡规则
 ```
 
 ### 优先级高低
-类配置方式>配置文件方式
+类配置方式 > 配置文件方式
 
 ### 全局配置
 
@@ -73,10 +83,16 @@ testService: # 给某个微服务配置负载均衡规则，这里是 testServic
  **/
 @Configuration
 @RibbonClients(defaultConfiguration = RibbonConfiguration.class)
-public class TestRibbonConfiguration {}
+public class TestRibbonConfiguration {
+    @Bean
+    @LoadBalanced
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
+    }
+}
 ```
 
-## 饥饿加载
+## <a id="jejz">饥饿加载</a>
 
 `Ribbon`默认是采用懒加载，即第一次访问时才会去创建`LoadBalanceClient`，请求时间会很长。
 
@@ -84,8 +100,8 @@ public class TestRibbonConfiguration {}
 ```yaml
 ribbon:
   eager-load:
-    enabled: true
-    clients: testService
+    enabled: true # 开启
+    clients: testService # 配置 testService 使用饥饿加载，多个使用逗号分隔
 ```
 
 
