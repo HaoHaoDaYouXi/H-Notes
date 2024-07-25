@@ -243,7 +243,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
       - [`Dubbo`启动依赖检查](docs/spring_cloud/Dubbo.md#qdyljc)
       - [服务接口多实现](docs/spring_cloud/Dubbo.md#fwjkdsx)
       - [服务调用超时问题](docs/spring_cloud/Dubbo.md#fwdycs)
-- [Ribbon](../wait.md)
+- [Ribbon](docs/spring_cloud/Ribbon.md)
 - [LoadBalancer](../wait.md)
 - [Nginx](../wait.md)
 - [Hystrix](../wait.md)
