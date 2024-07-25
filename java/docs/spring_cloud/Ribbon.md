@@ -60,6 +60,22 @@ testService: # 给某个微服务配置负载均衡规则，这里是 testServic
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule # 负载均衡规则
 ```
 
+### 优先级高低
+类配置方式>配置文件方式
+
+### 全局配置
+
+`RibbonClient`改为`RibbonClients`，`configuration`改为`defaultConfiguration`
+```java
+
+/**
+ * 指定配置
+ **/
+@Configuration
+@RibbonClients(defaultConfiguration = RibbonConfiguration.class)
+public class TestRibbonConfiguration {}
+```
+
 ## 饥饿加载
 
 `Ribbon`默认是采用懒加载，即第一次访问时才会去创建`LoadBalanceClient`，请求时间会很长。
