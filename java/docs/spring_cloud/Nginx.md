@@ -4,7 +4,7 @@
 
 下载地址：https://nginx.org/en/download.html
 
-## 正向代理和反向代理
+## <a id="zxdlfxdl>正向代理和反向代理</a>
 
 - 正向代理
     - 一个人发送一个请求直接就到达了目标的服务器
@@ -17,5 +17,17 @@
 
 - `Master`进程：读取及评估配置和维持
 - `Worker`进程：处理请求
+
+## <a id="fzjh>Nginx负载均衡</a>
+
+Nginx负载均衡支持：
+- [轮询（默认方式）](Nginx.md#lx)
+- [`weight`（权重方式）](Nginx.md#weight)
+- [`ip_hash`（依据`ip`分配方式）](Nginx.md#iphash)
+- [`least_conn`（依据最少连接方式）](Nginx.md#leastconn)
+- [`url_hash`（依据`URL`分配方式，使用第三方插件）](Nginx.md#urlhash)
+- [`fair`（依据响应时间方式，使用第三方插件）](Nginx.md#fair)
+
+
 
 ----
