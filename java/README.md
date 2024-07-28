@@ -264,8 +264,8 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [Hystrix](docs/spring_cloud/Hystrix.md)
 - [Resilience4j](docs/spring_cloud/Resilience4j.md)
 - [Sentinel](docs/spring_cloud/Sentinel.md)
-- [Zuul](../wait.md)
-- [Gateway](../wait.md)
+- [Zuul](docs/spring_cloud/Zuul.md)
+- [Gateway](docs/spring_cloud/Gateway.md)
 - [Spring Cloud Demo空业务模板项目](../wait.md)
 
 ### [SpringSocial](docs/social/social.md)
