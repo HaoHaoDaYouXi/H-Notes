@@ -3,6 +3,10 @@
 `Resilience4j`是一个轻量级的故障容忍库，用于实现常见的容错模式，如断路器、重试、缓存、隔离、限流和超时。
 它旨在解决分布式系统中的常见问题，如网络延迟、服务不可用或过载，从而提高应用程序的弹性和可靠性。
 
+代码仓库：https://github.com/resilience4j/resilience4j
+
+文档地址：https://resilience4j.readme.io/
+
 ## `Resilience4j`功能
 - 断路器 (Circuit Breaker): 当依赖的服务出现故障时，断路器可以快速失败并避免进一步的调用，直到服务恢复。
 - 重试 (Retry): 允许在检测到特定类型的错误时自动重试操作，以处理瞬态故障。
