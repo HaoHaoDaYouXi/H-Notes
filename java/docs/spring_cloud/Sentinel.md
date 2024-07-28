@@ -166,3 +166,98 @@
 这样使得微服务可以根据系统当前的状态和策略来保护自己，并确保系统的稳定性和可靠性。
 
 通过`Sentinel`的限流机制，可以在不影响系统整体稳定性的前提下，处理高流量压力和潜在的过载风险。
+
+## `Sentinel`限流的规则
+
+### `QPS`控制（每秒查询率）
+
+`QPS`控制，也就是基于每秒请求数量的控制规则，是`Sentinel`中最常用的限流规则。
+这个规则可以限制资源每秒可以通过的请求次数，如果请求次数超过设置的阈值，新的请求将会被拒绝。
+```java
+FlowRule rule = new FlowRule();
+rule.setResource("someResourceName");
+rule.setGrade(RuleConstant.FLOW_GRADE_QPS);
+rule.setCount(20); // 设置 QPS 阈值
+FlowRuleManager.loadRules(Collections.singletonList(rule));
+```
+
+### 并发线程数控制
+   
+并发限流，这个规则通过限制资源并发执行的线程数量，当并发数达到阈值时，新的进入请求将被阻塞直到有空余线程。
+```java
+FlowRule rule = new FlowRule("someResourceName")
+    .setCount(concurrentThreadCountThreshold)
+    .setGrade(RuleConstant.FLOW_GRADE_THREAD);
+FlowRuleManager.loadRules(Collections.singletonList(rule));
+```
+
+### 冷启动规则
+
+冷启动规则用于在系统启动阶段逐渐增加流量，避免服务刚启动时因为并发流量过大导致系统负载突增。
+
+### 基于预测的动态规则
+
+基于预测的动态规则是`Sentinel`提供的更高级的限流方式，它根据一段时间窗口内的流量数据预测即将到来的流量，并实时调整限流阈值。
+
+### 授权和黑白名单规则
+
+可以基于发起者的 IP、用户等信息定义限流规则。可以设置黑名单和白名单，分别来拒绝或只允许某些特定的发起者通过。
+
+### 流量分配、链路限流
+
+通过定义多个入口资源和关联规则从而实现调用链路的限流，即当某个入口资源的`QPS`达到设定的阈值时，其关联资源的流量也将被限制。
+```java
+FlowRule rule = new FlowRule("someResourceName")
+    .setLimitApp("default")
+    .setGrade(RuleConstant.FLOW_GRADE_QPS)
+    .setControlBehavior(RuleConstant.CONTROL_BEHAVIOR_RATE_LIMITER)
+    .setCount(1);
+FlowRuleManager.loadRules(Collections.singletonList(rule));
+```
+
+### 慢调用比例控制（仅针对熔断）
+
+`Sentinel`还提供了慢调用比例的控制规则，可以用来作为熔断策略。
+当资源调用的响应时间超过预设的阈值且慢调用比例超过预设的比例时，`Sentinel`可以暂时断开资源的调用，迅速返回错误信息。
+```java
+DegradeRule rule = new DegradeRule("someResourceName")
+.setGrade(RuleConstant.DEGRADE_GRADE_RT)
+.setCount(responseTimeThreshold)
+.setTimeWindow(inSeconds);
+```
+
+`Sentinel`可以动态修改这些规则，并支持通过`Dashboard`实时更新和推送规则。
+
+使用`Sentinel`设定限流规则时，应该根据业务和性能来判断合适的限流策略。
+同时`Sentinel`支持自定义限流效果，比如按自定义比例进行限流或队列等待等，增加了限流控制的灵活性。
+
+## `Sentinel`熔断策略
+
+`Sentinel`提供了多种熔断策略，用于在服务不稳定或达到一定的不健康指标时对调用进行熔断降级，从而保护系统避免雪崩效应。
+
+- 基于响应时间的熔断（慢调用比例）
+  - 此策略会检测调用的响应时间。当一段时间内资源的平均响应时间超过阈值（如200ms），且在溢出请求数量超过最少请求数（比如5个）的情况下，如果慢调用比例超过某个阈值（如50%），就会触发熔断。熔断发生后，后续的调用会被自动降级（直接返回或抛出异常），直到过了降级时间窗口，服务才会自动恢复。
+
+- 异常比例/异常数熔断
+  - 基于异常比例的熔断会监控调用异常产生的比例。当一段时间内异常比例超出设定的阈值（例如每秒请求异常率超过50%）时，服务会进入降级，后续的调用会立即返回错误。
+  - 基于异常数的熔断类似，但它基于一段时间内连续发生的异常数来进行熔断判断。
+
+- 基于错误率熔断
+  - 该策略通过统计一段时间内调用中出现错误的比率，当错误率达到阈值时触发熔断。
+
+- 强制降级
+  - 与自动熔断策略不同，强制降级是通过手动设置标志位来强制让资源直接进入降级状态，所有访问该资源的请求都会被拒绝直至关闭强制降级。
+
+对于熔断策略的选择和配置，选择合适的熔断策略通常取决于服务的实际业务逻辑和稳定性目标。
+
+例如，对于复杂的计算密集型任务，可能更倾向于选择基于响应时间的熔断策略，
+而对于简单的数据查询服务，则可能更关注于异常比例或错误率。
+
+无论选择哪种熔断策略，关键的是要根据实际的度量及错误模式合理配置阈值。
+通常需要结合业务数据进行压力测试，以确定最佳的熔断参数。
+这些参数包括阈值、统计时间窗口、最小请求数、慢调用的耗时定义、熔断持续的时间窗口等。
+
+配置熔断规则时还要考虑其可能对用户体验和系统功能的影响。
+应该确保熔断规则既能对系统做出快速的保护反应，又不会过于敏感以至于误伤正常的流量。
+
+`Sentinel`提供了一套灵活的规则管理器和控制台，有助于开发者调整和优化这些熔断策略。
