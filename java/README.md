@@ -262,7 +262,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
   - [动静分离](docs/spring_cloud/Nginx.md#djfl)
   - [配置文件说明](docs/spring_cloud/Nginx.md#pzwjsm)
 - [Hystrix](docs/spring_cloud/Hystrix.md)
-- [Resilience4j](../wait.md)
+- [Resilience4j](docs/spring_cloud/Resilience4j.md)
 - [Sentinel](../wait.md)
 - [Zuul](../wait.md)
 - [Gateway](../wait.md)
