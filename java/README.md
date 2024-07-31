@@ -330,8 +330,8 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [备份和恢复](docs/mysql/Mysql.md#bfhf)
 
 ### [Redis](docs/redis/redis.md)
-- [redis安装](docs/redis/redisInstall.md)
-- [Redis支持的数据类型？](../wait.md)
+- [Redis安装](docs/redis/redisInstall.md)
+- [Redis数据类型](../wait.md)
 - [Redis的高可用、主从和哨兵机制](docs/redis/redis_high_availability.md)
 - [Redis持久化](docs/redis/redis_cjh.md)
 - [Redis雪崩、穿透、并发等问题](../wait.md)
