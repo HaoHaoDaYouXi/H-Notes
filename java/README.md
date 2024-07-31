@@ -331,7 +331,6 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 
 ### [Redis](docs/redis/redis.md)
 - [redis安装](docs/redis/redisInstall.md)
-- [为什么要使用redis？](../wait.md)
 - [Redis支持的数据类型？](../wait.md)
 - [Redis的高可用、主从和哨兵机制](docs/redis/redis_high_availability.md)
 - [Redis持久化](docs/redis/redis_cjh.md)
