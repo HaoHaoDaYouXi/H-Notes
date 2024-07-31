@@ -377,6 +377,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 ### [算法](../wait.md)
 - [排序算法](../wait.md)
 - [加密算法](../wait.md)
+    - [AES](../wait.md)
     - [RSA](../wait.md)
 
 ### [插件](../wait.md)
