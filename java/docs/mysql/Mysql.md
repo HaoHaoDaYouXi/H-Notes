@@ -496,6 +496,77 @@ DELIMITER ;
 
 这个存储过程可以被调用，传入具体的部门`ID`，然后自动找出并更新薪资低于平均值的员工信息。
 
+### 触发器
+
+触发器是数据库对象，它是与表相关联的特殊程序。
+它可以在特定的数据操作：例如插入（`INSERT`）、更新（`UPDATE`）或删除（`DELETE`）时触发时自动执行。
+`MySQL`触发器使数据库开发人员能够在数据的不同状态之间维护一致性和完整性，并且可以为特定的数据库表自动执行操作。
+
+触发器的作用主要有以下几个方面：
+
+- 强制实施业务规则：触发器可以帮助确保数据表中的业务规则得到强制执行，例如检查插入或更新的数据是否符合某些规则。
+- 数据审计：触发器可以声明在执行数据修改时自动记日志或审计数据变化的操作，使数据对数据库管理员和`SQL`审计人员更易于追踪和审计。
+- 执行特定业务操作：触发器可以自动执行特定的业务操作，例如计算数据行的总数、计算平均值或总和等。
+
+触发器有两种类型：`BEFORE`和`AFTER`
+
+- `BEFORE`触发器在执行`INSERT`、`UPDATE`、`DELETE`语句之前执行
+- `AFTER`触发器在执行`INSERT`、`UPDATE`、`DELETE`语句之后执行。
+
+#### 触发器的语法
+
+```sql
+CREATE TRIGGER trigger_name
+BEFORE/AFTER INSERT/UPDATE/DELETE ON table_name FOR EACH ROW
+BEGIN
+-- 触发器执行的 SQL 语句
+END;
+```
+- `trigger_name`：触发器的名称
+- `BEFORE/AFTER`：触发器的类型，可以是 BEFORE 或者 AFTER
+- `INSERT/UPDATE/DELETE`：触发器所监控的 DML 调用类型
+- `table_name`：触发器所绑定的表名
+- `FOR EACH ROW`：表示触发器在每行受到 DML 的影响之后都会执行
+- 触发器执行的`SQL`语句：该语句会在触发器被触发时执行
+
+以下是一个简单的示例，该触发器会在向`employees`表中插入新记录时自动更新`departments`表中的员工计数：
+```sql
+DELIMITER $$
+
+CREATE TRIGGER update_department_employee_count
+AFTER INSERT ON employees
+FOR EACH ROW
+BEGIN
+   UPDATE departments SET employee_count = employee_count + 1 WHERE department_id = NEW.department_id;
+END $$
+
+DELIMITER ;
+```
+- `DELIMITER $$ 和 DELIMITER ;`
+  - 这些命令用于更改`SQL`语句的结束标记。默认情况下，`SQL`语句以分号(`;`)结束。因为触发器定义中可能包含分号，所以这里先将结束标记更改为`$$`，然后在定义结束后再改回分号。
+- `CREATE TRIGGER`
+  - 用于创建新的触发器。
+- `update_department_employee_count`
+  - 是触发器的名称。
+- `AFTER INSERT ON employees`
+  - 表明触发器将在`employees`表上执行`INSERT`操作后触发。
+- `FOR EACH ROW`
+  - 表示每次插入一行时触发器都会执行一次。
+- `BEGIN ... END`
+  - 定义触发器执行的SQL语句块。
+- `UPDATE departments SET employee_count = employee_count + 1 WHERE department_id = NEW.department_id;`
+  - 这条语句将更新`departments`表中与新插入记录的`department_id`相匹配的行，增加其`employee_count`字段的值。
+
+#### 触发器的NEW和OLD关键字
+
+`NEW`和`OLD`关键字在触发器中用于表示触发器所监控的行的新旧状态。
+- `NEW`：在触发`INSERT`或`UPDATE`操作期间，`NEW`用于引用将要插入或更新到表中的新行的值。
+- `OLD`：在触发`UPDATE`或`DELETE`操作期间，`OLD`用于引用更新或删除之前在表中的旧行的值。
+
+`NEW`和`OLD`使用方法是相似的。在触发器中，可以像引用表的其他列一样引用`NEW`和`OLD`。
+
+可以使用`OLD.column_name`从旧行中引用列值，也可以使用`NEW.column_name`从新行中引用列值。
+
 ## <a id="fkfb">分库分表</a>
 
 
