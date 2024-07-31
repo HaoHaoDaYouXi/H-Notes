@@ -385,6 +385,116 @@ DELETE...
 
 存储过程是数据库程序，可以理解为数据库函数，但区别在于存储过程可以执行多条`sql`语句，而函数只能执行一条。
 
+通过系统表`information_schema.ROUTINES`查看存储过程的详细信，
+`information_schema.ROUTINES`是数据库中一个系统表，存储了所有存储过程、函数、触发器的详细信息，包括名称、返回值类型、参数、创建时间、修改时间等。
+```sql
+select * from information_schema.routines where routine_name = 'test';
+```
+`information_schema.ROUTINES`表中的列：
+
+- `SPECIFIC_NAME`：存储过程的具体名称，包括该存储过程的名字，参数列表。
+- `ROUTINE_SCHEMA`：存储过程所在的数据库名称。
+- `ROUTINE_NAME`：存储过程的名称。
+- `ROUTINE_TYPE`：`PROCEDURE`表示是一个存储过程，`FUNCTION`表示是一个函数。
+- `ROUTINE_DEFINITION`：存储过程的定义语句。
+- `CREATED`：存储过程的创建时间。
+- `LAST_ALTERED`：存储过程的最后修改时间。
+- `DATA_TYPE`：存储过程的返回值类型、参数类型等。
+
+### 使用
+
+创建存储过程：
+```sql
+create procedure test()
+begin
+	select id,name from user;
+end;
+```
+
+调用
+```sql
+call test();
+```
+
+查看创建存储过程的语句：
+```sql
+show create procedure test;
+```
+- Procedure：存储过程名称
+- Create Procedure：创建存储过程语句
+- Definer：存储过程创建者
+- sql_mode：SQL模式
+- character_set_client：客户端字符集
+- collation_connection：连接字符集
+- Database Collation：数据库字符集
+
+删除
+```sql
+drop procedure if exists test;
+```
+
+存储过程还可以声明参数、传参、循环、条件判断等等。
+
+假设我们有一个名为`employees`的表，包含员工信息，我们想要找出所有部门中薪资低于平均薪资的员工，并更新他们的薪资为平均薪资的1.1倍。
+```sql
+-- 定义分隔符：`DELIMITER`。这改变了MySQL命令的默认分隔符，
+-- 使得存储过程中可以包含多个SQL语句。
+-- $$通常用于定义存储过程或函数的开始和结束
+DELIMITER $$
+
+-- 选择数据库my：USE `my`。
+-- 这指示MySQL使用名为my的数据库。
+USE `my`$$
+
+-- 删除如果已存在的存储过程：DROP PROCEDURE IF EXISTS `UpdateSalariesBelowAverage`。
+-- 如果存储过程`StatisticsForDay1`已经存在，则删除它。
+DROP PROCEDURE IF EXISTS `UpdateSalariesBelowAverage`$$
+
+CREATE PROCEDURE UpdateSalariesBelowAverage(IN department_id INT)
+BEGIN
+    -- 声明局部变量
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE emp_id, emp_salary, avg_salary INT;
+    DECLARE cur CURSOR FOR SELECT id, salary FROM employees WHERE department_id = department_id;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    -- 计算指定部门的平均薪资
+    SELECT AVG(salary) INTO avg_salary FROM employees WHERE department_id = department_id;
+
+    -- 打开游标
+    OPEN cur;
+
+    read_loop: LOOP
+        -- 从游标中获取数据
+        FETCH cur INTO emp_id, emp_salary;
+
+        -- 检查是否到达游标末尾
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+
+        -- 判断员工薪资是否低于平均薪资
+        IF emp_salary < avg_salary THEN
+            -- 更新员工薪资为平均薪资的1.1倍
+            UPDATE employees SET salary = avg_salary * 1.1 WHERE id = emp_id AND department_id = department_id;
+        END IF;
+    END LOOP;
+
+    -- 关闭游标
+    CLOSE cur;
+END$$
+
+DELIMITER ;
+```
+这个存储过程中：
+- 首先定义了一个输入参数`department_id`，用于指定要处理的部门。
+- 声明了几个局部变量，包括`done`标记游标是否结束，`emp_id`和`emp_salary`用于存储从游标中读取的员工ID和薪资，`avg_salary`用于存储部门的平均薪资。
+- 使用`CURSOR`创建了一个游标，用于遍历指定部门的所有员工。
+- 计算了指定部门的平均薪资。
+- 使用`LOOP`循环遍历游标中的每一项，如果员工的薪资低于平均薪资，则更新该员工的薪资为平均薪资的1.1倍。
+- 最后，关闭游标，完成存储过程。
+
+这个存储过程可以被调用，传入具体的部门`ID`，然后自动找出并更新薪资低于平均值的员工信息。
 
 ## <a id="fkfb">分库分表</a>
 
