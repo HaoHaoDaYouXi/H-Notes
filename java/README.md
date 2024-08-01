@@ -336,7 +336,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [Redis与MemCache](docs/redis/redis.md#redismemcache)
 - [Redis持久化](docs/redis/redis.md#cjh)
 - [Redis的高可用、主从和哨兵机制](docs/redis/redis.md#gky)
-- [Redis雪崩、穿透、并发等问题](../wait.md)
+- [Redis雪崩、穿透、并发等问题](docs/redis/redis.md#bfwt)
 - [高并发下Redis保持数据一致性](../wait.md)
 - [Redis的key的过期时间，删除策略](../wait.md)
 - [Redis的并发竞争问题和cas](../wait.md)
