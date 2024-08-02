@@ -350,7 +350,8 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [保证消息的不丢失](docs/mq/mq.md#bds)
 - [保证消息的顺序性](docs/mq/mq.md#sxx)
 - [消息的过期失效问题](docs/mq/mq.md#gqsx)
-- [高可用](../wait.md)
+- [高可用](docs/mq/mq.md#gky)
+- [设计消息队列系统](docs/mq/mq.md#sjxxdl)
 - [rocketmq](docs/mq/rocketmq/rocketmq.md)
 
 ### [搜索引擎](../wait.md)
