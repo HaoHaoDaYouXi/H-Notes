@@ -322,9 +322,37 @@ public class OrderedConsumer {
 }
 ```
 
+## <a id="gqsx">消息的过期失效问题</a>
 
+RocketMQ中的消息过期失效问题通常是指消息在一定时间内未被消费则会过期。
 
+RocketMQ提供了两种方式来设置消息的过期时间：
 
+- 消息存活时间（Message Age）：通过设置消息属性putUserProperty("__STARTDELIVERTIME", String.valueOf(System.currentTimeMillis() + delayLevel))，可以指定消息的存活时间。
+
+- 消息队列的消息过期时间（Queue Max Size & Message In Memory Size）：在broker配置文件中设置队列的最大消息数量和内存中消息的最大大小，超过这些值的消息会被自动清除。
+
+想要处理消息过期失效的问题，可以考虑以下策略：
+
+- 增加消费者的消费能力，确保它们能够及时处理消息。
+
+- 使用延时消息，通过设置不同的延时级别来让消费者有足够的时间处理消息。
+
+- 对于长时间处理的消息，可以考虑使用定时任务检查消息的状态，如果消费者长时间未处理则重新推送或者标记为过期。
+
+设置消息的存活时间：
+```java
+// 创建消息
+Message msg = new Message("topic", "tag", "message body".getBytes(RemotingHelper.DEFAULT_CHARSET));
+ 
+// 设置消息存活时间，例如30分钟
+long currentTime = System.currentTimeMillis();
+long delayTime = 30 * 60 * 1000;
+msg.putUserProperty("__STARTDELIVERTIME", String.valueOf(currentTime + delayTime));
+ 
+// 发送消息
+producer.send(msg);
+```
 
 
 ----

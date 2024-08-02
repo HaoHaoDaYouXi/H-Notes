@@ -349,7 +349,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [保证消息的幂等性](docs/mq/mq.md#mdx)
 - [保证消息的不丢失](docs/mq/mq.md#bds)
 - [保证消息的顺序性](docs/mq/mq.md#sxx)
-- [消息的过期失效问题，满了以后该怎么处理？](../wait.md)
+- [消息的过期失效问题](docs/mq/mq.md#gqsx)
 - [高可用](../wait.md)
 - [rocketmq](docs/mq/rocketmq/rocketmq.md)
 
