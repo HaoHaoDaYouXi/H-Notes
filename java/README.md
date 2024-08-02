@@ -354,8 +354,8 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [设计消息队列系统](docs/mq/mq.md#sjxxdl)
 - [rocketmq](docs/mq/rocketmq/rocketmq.md)
 
-### [搜索引擎](../wait.md)
-- Elasticsearch
+### [搜索引擎](docs/search/search.md)
+- [Elasticsearch](docs/search/search.md#elasticsearch)
     - [Elasticsearch是如何实现Master选举的？](../wait.md)
     - [Elasticsearch搜索、更新和删除文档的过程？](../wait.md)
     - [在并发情况下，Elasticsearch如果保证读写一致？](../wait.md)
@@ -363,7 +363,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [拼写纠错是如何实现的？](../wait.md)
     - [Elasticsearch对于大数据量（上亿量级）的聚合如何实现？](../wait.md)
     - [每个索引的数据量大概有多少？每个索引大概有多少个分片？](../wait.md)
-- solr
+- [Solr](docs/search/search.md#solr)
     - [solr和Elasticsearch的区别](../wait.md)
     - [分词器](../wait.md)
     - [什么是solrCloud?](../wait.md)
