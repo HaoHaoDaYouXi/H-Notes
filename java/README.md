@@ -344,14 +344,13 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
   - [Redis实现](docs/redis/redis_lock.md#redis)
   - [Redisson实现](docs/redis/redis_lock.md#redisson)
 
-### [消息队列 MQ](../wait.md)
-- [为什么使用消息队列？](../wait.md)
-- [优点和缺点？ActiveMQ、RabbitMQ、RocketMQ、Kafka区别？](../wait.md)
-- [高可用](../wait.md)
+### [消息队列 MQ](docs/mq/mq.md)
+- [ActiveMQ、RabbitMQ、RocketMQ、Kafka区别](docs/mq/mq.md#qb)
 - [保证消息的幂等性](../wait.md)
 - [保证消息的不丢失](../wait.md)
 - [保证消息的顺序性](../wait.md)
 - [消息的过期失效问题，满了以后该怎么处理？](../wait.md)
+- [高可用](../wait.md)
 - [rocketmq](docs/mq/rocketmq/rocketmq.md)
 
 ### [搜索引擎](../wait.md)
