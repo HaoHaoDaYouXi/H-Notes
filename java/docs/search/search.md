@@ -29,7 +29,7 @@
 - 分片（`Shard`）：`Elasticsearch`中的最小可寻址单元，每个索引可以被划分为多个分片，以实现水平扩展。
 - 副本（`Replica`）：分片的副本，用于提高数据的可用性和容错性。
 
-### `ELK Stack`
+### <a id="stack">`ELK Stack`</a>
 
 `ELK`分别代表`Elasticsearch`、`Logstash`和`Kibana`，这三个工具共同构成了一个完整的日志管理和分析解决方案。
 
@@ -832,6 +832,71 @@ GET my_index/_search
 一旦所有的文档都被取回了，协调节点返回结果给客户端。
 
 ![流程图](img/syssgc.png)
+
+### <a id="pxjc">实现拼写纠错</a>
+
+拼写纠错主要依赖于分析器和查询增强功能。
+
+常见的解决办法：
+- 使用拼写建议组件。
+- 使用编辑距离算法。
+- 使用模糊查询加最大编辑距离。
+- 自定义实现纠错功能或使用第三方插件，比如`elasticsearch-analysis-icu`。
+
+例子：
+- 定义一个自定义分析器，使用自定义令牌过滤器来实现拼写纠错。
+- 在查询时，先使用正常的分析器分析查询，然后使用编辑距离算法寻找最可能的拼写建议。
+```
+PUT /my_index
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "autocomplete_filter": {
+          "type": "ngram",
+          "min_gram": 2,
+          "max_gram": 20
+        }
+      },
+      "analyzer": {
+        "autocomplete": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "autocomplete_filter"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "text": {
+        "type": "text",
+        "analyzer": "autocomplete"
+      }
+    }
+  }
+}
+```
+在查询时，可以使用`suggester`来实现拼写纠错：
+```
+GET /my_index/_search
+{
+  "suggest": {
+    "text_suggestion": {
+      "text": "querry_text",
+      "term": {
+        "field": "text"
+      }
+    }
+  }
+}
+```
+这个查询会返回一个拼写建议，它基于编辑距离算法找到与查询词条最相似的文档。
+
+实际的拼写纠错实现可能需要更复杂的逻辑，例如使用自定义脚本查询或集成外部拼写纠错库。
 
 ### <a id="sfy">深翻页</a>
 
