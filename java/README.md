@@ -355,7 +355,8 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [rocketmq](docs/mq/rocketmq/rocketmq.md)
 
 ### [搜索引擎](docs/search/search.md)
-- [Elasticsearch](docs/search/search.md#elasticsearch)
+- [`Elasticsearch`](docs/search/search.md#elasticsearch)
+    - [`Elasticsearch`查询类型](docs/search/search.md#cxlx)
     - [Elasticsearch是如何实现Master选举的？](../wait.md)
     - [Elasticsearch搜索、更新和删除文档的过程？](../wait.md)
     - [在并发情况下，Elasticsearch如果保证读写一致？](../wait.md)
