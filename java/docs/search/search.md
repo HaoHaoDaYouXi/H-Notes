@@ -134,6 +134,376 @@ GET /my-index/_search
 }
 ``` 
 
+### <a id="cxlx">`Elasticsearch`聚合</a>
+
+聚合有助于从搜索中使用的查询中收集数据，聚合为各种统计指标，便于统计信息或做其他分析。
+聚合可求得：平均值、最大值、最小值、总和，等等指标。
+
+- 分桶`Bucket`聚合
+  - 根据字段值，范围或其他条件将文档分组为桶（也称为箱）。
+- 指标`Metric`聚合
+  - 从字段值计算指标（例如总和或平均值）的指标聚合。
+- 管道`Pipeline`聚合
+  - 子聚合，从其他聚合（而不是文档或字段）获取输入。
+
+#### 分桶聚合示例
+
+**日期区间（Date Histogram）**：按照日期区间分组。
+```
+GET /my-index/_search
+{
+  "size": 0,
+  "aggs": {
+    "sales_by_month": {
+      "date_histogram": {
+        "field": "order_date",
+        "calendar_interval": "month"
+      },
+      "aggs": {
+        "total_sales": {
+          "sum": {
+            "field": "price"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+**区间（Range）**：按照数值区间分组。
+```
+GET /my-index/_search
+{
+  "size": 0,
+  "aggs": {
+    "price_ranges": {
+      "range": {
+        "field": "price",
+        "ranges": [
+          { "to": 100 },
+          { "from": 100, "to": 500 },
+          { "from": 500 }
+        ]
+      }
+    }
+  }
+}
+```
+
+**直方图（Histogram）**：按照数值间隔分组。
+```
+GET /my-index/_search
+{
+  "size": 0,
+  "aggs": {
+    "age_groups": {
+      "histogram": {
+        "field": "age",
+        "interval": 10
+      }
+    }
+  }
+}
+```
+
+#### 指标聚合示例
+
+**最大值（Max）**：找出某个字段的最大值。
+```
+GET /my-index/_search
+{
+  "size": 0,
+  "aggs": {
+    "max_price": {
+      "max": {
+        "field": "price"
+      }
+    }
+  }
+}
+```
+
+**平均值（Average）**：计算某个字段的平均值。
+```
+GET /my-index/_search
+{
+  "size": 0,
+  "aggs": {
+    "avg_price": {
+      "avg": {
+        "field": "price"
+      }
+    }
+  }
+}
+```
+
+**基数（Cardinality）**：计算某个字段的唯一值数量。
+```
+GET /my-index/_search
+{
+  "size": 0,
+  "aggs": {
+    "unique_customers": {
+      "cardinality": {
+        "field": "customer_id"
+      }
+    }
+  }
+}
+```
+
+#### 管道聚合示例
+
+**百分比（Derivative Aggregation）**：计算每个区间的销售占比。
+```
+GET /my-index/_search
+{
+  "size": 0,
+  "aggs": {
+    "price_ranges": {
+      "range": {
+        "field": "price",
+        "ranges": [
+          { "to": 100 },
+          { "from": 100, "to": 500 },
+          { "from": 500 }
+        ]
+      },
+      "aggs": {
+        "total_sales": {
+          "sum": {
+            "field": "price"
+          }
+        },
+        "percentage_of_total": {
+          "bucket_script": {
+            "buckets_path": {
+              "total_sales": "total_sales",
+              "total_sales_all": "_total.total_sales.value"
+            },
+            "script": "params.total_sales / params.total_sales_all * 100"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### <a id="jq">集群</a>
+
+`Elasticsearch`集群是由一个或多个`Elasticsearch`节点组成的集合，它们共同协作来存储和处理数据。
+集群的设计目的是为了提供高可用性、容错能力和可扩展性。
+
+#### 集群组成
+
+- 节点（`Node`）：`Elasticsearch`集群中的一个实例，可以运行在一个或多个物理机器上。
+- 主节点（`Master Node`）：负责管理集群的元数据，如索引设置和分片分配，不负责文档级别的管理。
+- 数据节点（`Data Node`）：负责存储实际的数据，可以关闭`http`功能。
+- 客户端节点（`Client Node`）：不存储数据，只转发请求到数据节点。
+
+#### 集群配置
+
+- 单机部署
+  - 对于开发和测试环境，可以使用单机部署`Elasticsearch`。只需要安装并启动`Elasticsearch`实例即可。
+- 集群部署
+  - 对于生产环境，通常需要部署多个节点以实现高可用性和负载均衡。
+
+#### 配置步骤
+
+- 解压`Elasticsearch`：从官方下载`Elasticsearch`压缩包，解压出多个实例。
+- 修改配置：编辑每个实例的`config/elasticsearch.yml`文件，配置必要的参数。
+  - `cluster.name`：设置集群名称。
+  - `node.name`：设置节点名称。
+  - `network.host`：设置节点绑定的`IP`地址。
+  - `discovery.seed_hosts`：设置集群中其他节点的地址，用于节点发现。
+  - `cluster.initial_master_nodes`：设置初始主节点的名称，用于选举主节点。
+- 启动节点：启动每个`Elasticsearch`实例。
+
+#### 集群管理
+
+- 查看集群状态：可以使用`_cat API：GET _cat/nodes?v=true&h=ip,node.role,master`或者`Kibana`来查看集群的状态。
+- 查看集群健康状况：`GET _cluster/health`
+- 查看集群配置：`GET _cluster/settings`
+
+#### 分片与副本
+
+- 分片（`Shard`）：`Elasticsearch`将索引分成多个分片，每个分片都是一个独立的`Lucene`实例。
+- 副本（`Replica`）：分片的副本，用于提高数据的可用性和容错性。
+
+可以通过配置索引的`number_of_shards`和`number_of_replicas`参数来控制分片和副本的数量。
+
+#### 集群操作
+
+- 添加新节点
+  - 配置新节点：确保新节点的配置文件正确配置了集群名称和其他必要的参数。
+  - 启动新节点：启动新节点后，它将自动加入集群。
+- 移除节点
+  - 关闭节点：停止节点的服务。
+  - 等待重新平衡：集群会自动重新分配分片。
+- 重新平衡分片
+  - 如果需要手动触发分片重新平衡，可以更改集群的`cluster.routing.allocation.enable`设置。
+
+#### 故障转移
+集群具有内置的故障转移机制。当主节点或数据节点失败时，集群会自动选举新的主节点，并恢复数据的可用性。
+
+##### `Master`选举
+
+前置条件：
+- 只有是候选主节点（`master：true`）的节点才能成为主节点。
+- 最小主节点数（`min_master_nodes`）的目的是防止脑裂。
+
+`Elasticsearch`选主是`ZenDiscovery`模块负责的
+
+主要包含`Ping`（节点之间通过这个RPC来发现彼此）和`Unicast`（单播模块包含一个主机列表以控制哪些节点需要 ping 通）
+
+获取主节点的核心入口为`findMaster`，选择主节点成功返回对应`Master`，否则返回`null`。
+
+选举流程大致描述如下：
+- 确认候选主节点数达标，`elasticsearch.yml`设置的值`discovery.zen.minimum_master_nodes`
+- 对所有候选主节点根据`nodeId`字典排序，每次选举每个节点都把自己所知道节点排一次序，然后选出第一个（第`0`位）节点，暂且认为它是`master`节点。
+- 如果对某个节点的投票数达到一定的值（候选主节点数`n/2+1`）并且该节点自己也选举自己，那这个节点就是`master`。否则重新选举一直到满足上述条件。
+
+###### `Master`节点和候选`Master`节点
+
+主节点负责集群相关的操作，例如创建或删除索引，跟踪哪些节点是集群的一部分，以及决定将哪些分片分配给哪些节点。
+- 稳定的主节点是衡量集群健康的重要标志。
+- 候选主节点是被选具备候选资格，可以被选为主节点的那些节点。
+
+当集群候选`Master`数量不小于`3`个，可以通过设置最少投票通过数量（`discovery.zen.minimum_master_nodes`）超过所有候选节点一半以上来解决脑裂问题（两个候选节点各占一半）。
+当候选数量为两个时，只能修改为唯一的一个`Master`候选，其他作为`data`节点，避免脑裂问题。
+
+### <a id="cyml">常用的`cat`命令</a>
+
+| 含义    | 命令                       |
+|-------|--------------------------|
+| 别名    | GET _cat/aliases?v       |
+| 分配相关  | GET _cat/allocation      |
+| 计数    | GET _cat/count?v         |
+| 字段数据  | GET _cat/fielddata?v     |
+| 运行状况  | GET_cat/health?          |
+| 索引相关  | GET _cat/indices?v       |
+| 主节点相关 | GET _cat/master?v        |
+| 节点属性  | GET _cat/nodeattrs?v     |
+| 节点    | GET _cat/nodes?v         |
+| 待处理任务 | GET _cat/pending_tasks?v |
+| 插件    | GET _cat/plugins?v       |
+| 恢复    | GET _cat / recovery?v    |
+| 存储库   | GET _cat /repositories?v |
+| 段     | GET _cat /segments?v     |
+| 分片    | GET _cat/shards?v        |
+| 快照    | GET _cat/snapshots?v     |
+| 任务    | GET _cat/tasks?v         |
+| 模板    | GET _cat/templates?v     |
+| 线程池   | GET _cat/thread_pool?v   |
+
+### <a id="fc">分词</a>
+
+分词是文本分析的一个重要组成部分，它涉及到将文本分割成一系列的单词（`tokens`）或术语（`terms`）。
+这个过程对于建立索引和执行全文搜索至关重要。
+
+#### 分词的概念
+
+分词是指将文本转换成一系列单词（`term or token`）的过程，也可以叫做文本分析，在`Elasticsearch`中称为`analysis`。
+分词会在创建或更新文档时进行，对相应的文档进行分词处理，以便后续的索引和搜索。
+
+#### 分词器（Analyzer）
+
+分词器是用于定义如何将文本转换为一系列词项的规则集。
+
+- 字符过滤器（`Char Filter`）：在分词之前对文本进行预处理，如去除`HTML`标签、转换大小写等。
+- 分词器（`Tokenizer`）：将文本分割成一系列词项。
+- 标记过滤器（`Token Filter`）：对分词器产生的词项进行进一步处理，如去除停用词、转换大小写、词干提取等。
+
+#### 分词器
+
+`Elasticsearch`提供了一些分词器，这些分词器可以满足大多数常见的文本分析需求。
+
+- `Standard Analyzer`：标准分词器，这个是默认的分词器，使用Unicode文本分割算法，它会去除标点符号将文本按单词切分并且转换为小写。
+- `Simple Analyzer`：简单分词器，它会将文本分割成词项，并将它们转换为小写。
+- `Stop Analyzer`：停用词分词器，类似于`Simple Analyzer`，增加了停用词过滤（如 a、an、and、are、as、at、be、but 等）。
+- `Whitespace Analyzer`：空白分词器，仅按空白符分割文本，并不进行小写转换。
+- `Keyword Analyzer`：关键字分词器，不会对文本进行任何分词处理，而是将整个文本作为一个词项。
+- `Pattern Analyzer`：模式分词器，使用正则表达式来定义分词规则，默认使用 \W+ (非字符分隔)，支持小写转换和停用词删除。
+- `Language Analyzer`：针对特定语言的分词器，如英语、德语等。
+- `Customer Analyzer`：自定义分词器，除了内置分词器外，还可以自定义分词器来满足特定的需求。这可以通过组合不同的字符过滤器、分词器和标记过滤器来实现。
+
+#### 分词器配置
+
+分词器可以在索引级别的`settings`中进行配置。
+示例：创建一个索引，并定义一个自定义分词器`my_analyzer`，该分词器使用`standard`分词器，并添加一个`lowercase`标记过滤器。
+```
+PUT my_index
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_analyzer": {
+          "tokenizer": "standard",
+          "filter": ["lowercase"]
+        }
+      }
+    }
+  }
+}
+```
+
+#### 分析文档
+
+可以使用`_analyze API`来测试分词器的效果。
+示例：使用上面定义的`my_analyzer`来分析一段文本。
+```
+GET my_index/_analyze
+{
+ "analyzer": "my_analyzer",
+ "text": "Hello World! This is a test."
+}
+```
+
+#### 分词器的工作流程
+
+分词器的工作流程一般如下：
+- 字符过滤器：对原始文本进行预处理。
+- 分词器：将处理后的文本分割成一系列词项。
+- 标记过滤器：对词项进行进一步处理，如去除停用词、转换大小写、词干提取等。
+
+#### 停用词
+
+停用词是一些常见的词汇，如冠词、介词等，在搜索时通常会被忽略。可以使用停用词过滤器来去除这些词项。
+示例：定义一个停用词过滤器，并将其应用于分词器。
+```
+PUT my_index
+{
+ "settings": {
+   "analysis": {
+     "analyzer": {
+       "my_analyzer": {
+         "tokenizer": "standard",
+         "filter": ["lowercase", "stop"]
+       }
+     },
+     "filter": {
+       "stop": {
+         "type": "stop",
+         "stopwords": ["the", "is", "a"]
+       }
+     }
+   }
+ }
+}
+```
+
+#### 总结
+
+分词是文本分析的核心部分，通过合理的配置分词器，可以有效地提高搜索的准确性和效率。
+内置分词器可以满足大多数需求，而对于更复杂的情况，可以通过自定义分词器来实现。
+
+### <a id="sy">索引</a>
+
+
+
 ## <a id="solr">Solr</a>
 
 
