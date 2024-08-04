@@ -948,13 +948,26 @@ GET /my_index/_search
 
 还有很多，如服务器配置升级，业务需求调整等等
 
-## <a id="solr">Solr</a>
+## <a id="solr">`Solr`</a>
 
+`Solr`是一个高性能、采用`Java`开发、基于`Lucene`的全文检索服务。
+它可以高效地为用户提供文本搜索功能，并且支持多种高级特性，如：`faceting`（分类）、`highlighting`（高亮显示）和`geospatial search`（地理空间搜索）等。
 
+**`SolrCloud`**
+`SolrCloud`旨在提供一个高度可用，容错的环境，用于在多个服务器之间分发索引内容和查询请求。
+这是一个系统，其中数据被组织成多个部分或分片，可以托管在多台机器上，副本为可扩展性和容错性提供冗余，还有一个`ZooKeeper`服务器，有助于管理整体结构，以便索引和搜索请求都可以正确路由。
+简单来说，`SolrCloud`就是`Solr`集群。
 
+官网地址：https://solr.apache.org/
+使用教程：https://solr.apache.org/guide/solr/latest/getting-started/solr-tutorial.html
 
+### <a id="zytd">主要特点</a>
 
-
+- 高度可扩展：`Solr`可以很容易地扩展到数亿个文档。
+- 分布式搜索：通过`SolrCloud`模式，可以实现分布式部署和管理。
+- 丰富的功能集：全文检索、动态聚类、分面搜索、高亮显示、地理空间搜索、多语言支持、等
+- `RESTful API`：支持`HTTP`的`GET`和`POST`请求进行交互。
+- 集成方便：可以轻松集成到基于`Java`的应用中。
 
 
 ---- 

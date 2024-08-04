@@ -372,9 +372,9 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [并发保证读写一致](docs/search/search.md#bfdxyz)
     - [优化](docs/search/search.md#yh)
 - [Solr](docs/search/search.md#solr)
-    - [solr和Elasticsearch的区别](../wait.md)
+    - [主要特点](docs/search/search.md#zytd)
     - [分词器](../wait.md)
-    - [什么是solrCloud?](../wait.md)
+    - [`Solr`和`Elasticsearch`](docs/search/search.md#soleelasticsearch)
 
 ### [网络](../wait.md)
 - [UDP](../wait.md)
