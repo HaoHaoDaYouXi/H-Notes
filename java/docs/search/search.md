@@ -969,5 +969,269 @@ GET /my_index/_search
 - `RESTful API`：支持`HTTP`的`GET`和`POST`请求进行交互。
 - 集成方便：可以轻松集成到基于`Java`的应用中。
 
+### <a id="azpz">安装与配置</a>
+
+#### 下载`Solr`
+
+从官方网站 https://solr.apache.org/downloads.html 下载`Solr`。
+
+- `Source release`：`Solr`的源代码包。
+- `Binary releases`：`Solr`二进制包。
+- `Docker`：`Solr`的`Docker`镜像。
+
+#### 解压
+
+目录说明：
+- `bin`：此目录中包含几个重要的脚本，这些脚本将使使用`Solr`更容易。
+  - `solr`和`solr.cmd`：`Solr`的控制脚本，也称为`bin/solr`（对于`Linux`）或者`bin/solr.cmd`（对于`Windows`）。这个脚本是启动和停止`Solr`的首选工具。
+    也可以在运行`SolrCloud`模式时创建集合或内核、配置身份验证以及配置文件。
+  - `post`：`Post Tool`，它提供了用于发布内容到`Solr`的一个简单的命令行界面。
+  - `solr.in.cmd`和`solr.in.sh`：分别是`Windows`和`Linux`系统提供的属性文件。
+    配置了`Java`、`Jetty`和`Solr`的系统级属性。许多这些设置可以在使用`bin/solr`或者`bin/solr.cmd`时被覆盖，但这允许你在一个地方设置所有的属性。
+  - `install_solr_services.sh`：用于`Linux`系统安装`Solr`作为服务。
+- `docker`：`Solr`的`Docker`镜像。
+- `docs`：`Solr`的文档。
+- `example`：包括演示各种`Solr`功能的几种类型的示例
+- `lib`：包含`Solr`的依赖项。
+- `licenses`：包含`Solr`使用的第三方库的所有许可证。
+- `modules`：包含`Solr`的模块化功能。
+- `prometheus-exporter`：`Solr`的`Prometheus`对接。
+- `server`：此目录是`Solr`应用程序的核心所在。
+  - `Solr`的`Admin UI`（`server/solr-webapp`）
+  - `Jetty`库（`server/lib`）
+  - 日志配置（`server/resources`）
+  - 示例配置（`server/solr/configsets`）
+
+#### 启动`Solr`
+
+进入`bin`目录下，运行`solr.cmd start`或`solr start`命令来启动`Solr`（启动成功，默认端口`8983`，也可通过`-p`指定端口启动，如果要`SoleCloud`启动，命令后面加`-e cloud`）。
+
+启动成功后，会打印端口号，可以通过浏览器访问：http://localhost:8983/solr 查看`Solr`的界面。
+
+关闭命令：`solr.cmd stop -p 8983`(或`solr stop -p 8983`、`solr.cmd stop -all`)
+
+#### 配置`Solr`
+
+##### 配置安全验证
+
+启动后默认是不用登入即可访问`Solr`管理界面，这会暴露Solr，他人可以随意修改，配置登入权限限制访问，Web访问也可以限制，尽量保证其他人不能随意访问
+
+###### 新建security.json
+
+创建该`security.json`文件并将其放在`$SOLR_HOME`的安装目录中（与`solr.xml`所在的位置相同，通常为`server/solr`下）。
+以下配置用户名密码是：`solr:SolrRocks`
+```json
+{
+    "authentication":{ 
+       "blockUnknown": true, 
+       "class":"solr.BasicAuthPlugin",
+       "credentials":{
+            "solr":"IV0EHq1OnNrj6gvRCwvFwTrZ1+z1oBbnQdiVC3otuq0= Ndd7LKvVBAaZIF0QAVi1ekCfAJXr1GGfLtRUXhgrF8c="
+        }, 
+       "realm":"My Solr users", 
+       "forwardCredentials": false 
+    },
+    "authorization":{
+       "class":"solr.RuleBasedAuthorizationPlugin",
+       "permissions":[
+            {
+                "name":"security-edit",
+                "role":"admin"
+            }
+        ], 
+       "user-role":{
+            "solr":"admin"
+        } 
+    }
+}
+```
+配置文件说明
+- `authentication`：启用了基本身份验证和基于规则的授权插件。
+  - `blockUnknown`：`true`表示不允许未经身份验证的请求通过。
+  - `credentials`：定义一个名为`solr`的用户，并带有密码，密码是由密码和盐值中间一个空格组成(空格多了登录不成功)
+  - `"realm":"My Solr users"`：我们覆盖该`realm`属性以在登录提示上显示另一个文本
+  - `forwardCredentials`：`false`表示让`Solr`的`PKI`身份验证处理分布式请求，而不是转发`Basic Auth`标头。
+- `authorization`：授权
+  - `permissions`：定义了一个权限。
+    - `"name":"security-edit"`：权限名称
+    - `"role":"admin"`：角色已被定义，它有权编辑安全设置。
+  - `user-role`：定义了一个用户角色。
+    - `"solr":"admin"`：用户已被定义为`admin`角色。
+
+密码生成代码：
+```java
+public class Test {
+    public static void main(String[] args) {
+        // 密码
+        String password = "SolrRocks";
+
+        MessageDigest digest;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+
+            final Random random = new SecureRandom();
+            byte[] salt = new byte[32];
+            random.nextBytes(salt);
+
+            digest.reset();
+            digest.update(salt);
+            byte[] btPass = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+            digest.reset();
+            btPass = digest.digest(btPass);
+
+            System.out.println(Base64.encodeBase64String(btPass) + " " + Base64.encodeBase64String(salt));
+        } catch (NoSuchAlgorithmException e) {
+            System.err.println("error：" + e.getMessage());
+        }
+    }
+}
+```
+
+还有通过接口新增用户、`jetty`配置验证此类方法，具体的配置方法可以参考官方文档：https://solr.apache.org/guide/solr/latest/deployment-guide/solr-control-script-reference.html#authentication。
+
+##### `solr core`创建
+
+如果没有使用示例配置启动`Solr`，则需要创建一个核心才能进行索引和搜索，在创建后可以通过`solr.cmd status`查看状态
+
+`core`是`solr`的一个实例，一个`solr`服务下可以有多个`core`，每个`core`下都有自己的索引库和与之相应的配置文件。
+
+- 命令创建删除
+  - 创建命令：在`bin`目录下执行，`solr.cmd create -c test1`
+  - 删除命令：在`bin`目录下执行，`solr.cmd delete -c test1`
+- 页面创建删除
+  - 在页面左侧点`Core Admin`，在点击`Add Core`，输入要创建的信息
+  - 删除也就是在页面找到要删除的`core`，在删除
+
+使用页面创建`core`，可能会报错：`Error CREATEing SolrCore 'new_core': Unable to create core [new_core] Caused by: Can't find resource...`
+只用把`..\server\solr\configsets\_default`下的`conf`文件夹全部复制到新建的`Core`下：`\server\solr\test1\`即可创建或者删除
+
+##### 添加字段
+
+`core`相当于表，要为这个表设置字段，用于存放数据
+
+左边选中`test1`->`Schema`->`Add Field`输入`name: name`，`field type: my_ik`, 这里一定要使用中文分词中新创建的`my_ik`类型，否则后续查询中文会失败。
+然后点击`Add Field`按钮进行添加
+
+`id`字段是默认就有的，无需自己创建
+
+##### 分词器
+
+**分词器的基本概念**
+
+- 分析器（Analyzer）：由一个分词器和零个或多个过滤器组成，用于处理文本数据。
+- 分词器（Tokenizer）：将输入文本分割成词元。
+- 过滤器（Filter）：对分词器产生的词元进行进一步处理，如大小写转换、去除停用词等。
+
+**分词器配置**
+
+分词器配置通常在`Solr`的`schema.xml`文件中定义，可以通过以下方式配置：
+- 内置分词器：`Solr`自带了一些常用的分词器，例如`standard`、`whitespace`等。
+- 第三方分词器：对于中文等复杂语言的支持，通常需要引入第三方分词器，例如`IKAnalyzer`等
+
+默认情况下是没有中文分词的，通过点击左边的`test1`->`Analysis`，然后输入内容，得到是按照每个字的分词效果
+
+**下载IK分词器**
+
+下载地址: https://mvnrepository.com/artifact/com.github.magese/ik-analyzer
+
+`Maven`依赖
+```xml
+<dependency>
+    <groupId>com.github.magese</groupId>
+    <artifactId>ik-analyzer</artifactId>
+</dependency>
+```
+把下载好的`jar`包放到以目录:`server\solr-webapp\webapp\WEB-INF\lib`
+
+**修改`schema`**
+
+在`solr 6.6`之前是`schema.xml`文件，之后是`managed-schema`，其位置在`server\solr\新建的core文件夹\conf\`下，如：`server\solr\test1\conf\`
+
+添加以下内容
+```xml
+<!-- ik分词器 -->
+<fieldType name="text_ik" class="solr.TextField">
+    <analyzer type="index">
+        <tokenizer class="org.wltea.analyzer.lucene.IKTokenizerFactory" useSmart="false" conf="ik.conf"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+    <analyzer type="query">
+        <tokenizer class="org.wltea.analyzer.lucene.IKTokenizerFactory" useSmart="true" conf="ik.conf"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+</fieldType>
+```
+
+**停止词、同义词、扩展词库**
+
+- 停止词：`lucene`的停止词是无功能意义的词，比如`is`、`a`、`are`、`了`、`的`、`得`、`我`等，这些词会在句子中多次出现却无意义，所以在分词的时候需要把这些词过滤掉。
+- 扩展词库：就是不想让哪些词被分开，让它们分成一个词，如：北京、杭州、上海、等，这类需要合并在一起，不想被分开的词。
+- 同义词：假设有一个电子商务系统，销售书籍，提供了一个搜索引擎，一天，市场部的人要求客户在搜索书籍时，同义词就是比如输入电子，除了展示电子相关的书籍，还需要展现机器相关的书籍。
+
+**配置扩展词和停止词**
+
+把`ik`的`jar`包内里的配置文件`IKAnalyzer.cfg.xml`和自定义词典`ext.dic`和停用词词典`stopword.dic`复制到`\server\solr-webapp\webapp\WEB-INF\classes`文件夹下
+
+`IKAnalyzer.cfg.xml`内容如下：
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>IK Analyzer 扩展配置</comment>
+    <!-- 配置是否加载默认词典 -->
+    <entry key="use_main_dict">true</entry>
+    <!-- 配置自己的扩展字典，多个用分号分隔 -->
+    <entry key="ext_dict">ext.dic;</entry>
+    <!-- 配置自己的扩展停止词字典，多个用分号分隔 -->
+    <entry key="ext_stopwords">stopword.dic;</entry>
+</properties>
+```
+
+**配置同义词**
+
+例子：假设索引库只有两个字段。
+
+在`server\solr\新建的core文件夹\conf\`文件夹下的`managed-schema`中修改
+```xml
+<filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="false" />
+```
+```xml
+<fieldType name="my_ik" class="solr.TextField">
+  <analyzer type="index">
+    <tokenizer class="org.wltea.analyzer.lucene.IKTokenizerFactory" useSmart="false" conf="ik.conf"/>
+    <filter class="solr.LowerCaseFilterFactory"/>
+    <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="false" />
+  </analyzer>
+  <analyzer type="query">
+    <tokenizer class="org.wltea.analyzer.lucene.IKTokenizerFactory" useSmart="true" conf="ik.conf"/>
+    <filter class="solr.LowerCaseFilterFactory"/>
+    <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="false" />
+  </analyzer>
+</fieldType>
+```
+
+在相同的conf目录下的`synonyms.txt`中增加
+```
+早 => 早上好
+中国 => 华夏
+中国 => 中华人民共和国
+```
+
+重启：重启solr服务`solr.cmd restart -p 8983`
+
+打开`solr`地址: http://127.0.0.1:8983/solr
+
+分词界面中有`text_ik`这个选项就说明已经添加成功了
+
+### <a id="soleelasticsearch">`Solr`和`Elasticsearch`</a>
+
+- `Solr`建立索引时候，会产生`io`阻塞，搜索效率下降，实时搜索效率不高，`ES`实时搜索效率高。
+- `Solr`利用`Zookeeper`进行分布式管理，`ES`自带分布式协调管理功能。
+- `Solr`支持更多格式的数据，如`JSON`、`XML`、`CSV`，`ES`仅支持`json`文件格式。
+- `Solr`官方提供的功能更多，`ES`本身更注重于核心功能，高级功能由第三方插件提供。
+- `Solr`在传统的搜索应用中表现好于`ES`，处理实时搜索应用时效率明显低于`ES`。
+- `Solr`是传统搜索应用的有力解决方案，`ES`更适用于新兴的实时搜索应用。
+
+
 
 ---- 

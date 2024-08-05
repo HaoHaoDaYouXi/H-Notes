@@ -373,7 +373,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [优化](docs/search/search.md#yh)
 - [Solr](docs/search/search.md#solr)
     - [主要特点](docs/search/search.md#zytd)
-    - [分词器](../wait.md)
+    - [安装与配置](docs/search/search.md#azpz)
     - [`Solr`和`Elasticsearch`](docs/search/search.md#soleelasticsearch)
 
 ### [网络](../wait.md)
