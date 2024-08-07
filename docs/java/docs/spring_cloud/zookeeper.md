@@ -155,8 +155,9 @@
 `Leader`服务器保存了所有`Follower/Observer`的`LearnerHandler`。
 
 ## <a id="zab>ZAB 协议</a>
+
 `Zookeeper`的核心是`原子广播`，这个机制保证了各个`Server`之间的同步。
-实现这个机制的协议叫做`ZAB`协议。
+实现这个机制的协议叫做`ZAB`协议，它也是分布式共识算法的一种。
 
 `ZAB`协议有两种模式，它们分别是恢复模式和广播模式。
 

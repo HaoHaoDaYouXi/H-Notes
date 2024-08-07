@@ -50,6 +50,36 @@
 - [`CAP`理论](../other/cap_base.md#cap)
 - [`BASE`理论](../other/cap_base.md#base)
 
+### 分布式共识算法
+
+分布式共识算法是在分布式系统中确保所有参与节点就单一数据值达成一致的算法。
+这些算法对于构建可靠和容错的分布式系统至关重要，尤其是在那些需要在没有中央控制的情况下维护一致性状态的应用场景中，例如区块链技术和分布式数据库。
+
+常见的分布式共识算法和特点：
+- Paxos
+  - 分布式共识算法的基础。
+  - 提供了在异步网络环境中达成一致性的方法。
+  - 实现复杂，尤其是 Multi-Paxos，它解决了多个提案的问题。
+- Raft
+  - 是为了解决 Paxos 难以理解的问题而设计的。
+  - 提供了更易于理解和实现的机制来实现一致性。
+  - 强调了领导者选举和日志复制。
+- ZAB (Zookeeper Atomic Broadcast)
+  - 构成了 ZooKeeper 分布式协调服务的基石。
+  - 支持两种模式：崩溃恢复和正常操作。
+  - 在 ZooKeeper 中用于确保数据的一致性。
+- Two-Phase Commit (2PC) 和 Three-Phase Commit (3PC)
+  - 主要用于事务处理系统中的分布式事务管理。
+  - 2PC 包括准备阶段和提交阶段；3PC 增加了一个预准备阶段以减少锁定资源的时间。
+- 其他共识算法
+  - PBFT (Practical Byzantine Fault Tolerance): 这是一种实用的拜占庭容错算法。
+  - HotStuff: 一种基于 PBFT 的改进版本，通过引入新的优化机制提高了效率。
+  - Proof of Work (PoW), Proof of Stake (PoS), and other blockchain consensus mechanisms: 用于区块链技术中的共识。
+
+每种算法都有其特定的优势和适用场景。
+选择合适的共识算法取决于系统的具体需求，包括对延迟、吞吐量、容错性和安全性的要求。
+例如，在区块链中，通常会使用 PoW 或 PoS 这样的算法来达成共识，而在传统的分布式数据库中，则可能采用 Raft 或 Paxos。
+
 ## 微服务架构
 微服务架构就是对微服务进行管理整合应用的。
 
