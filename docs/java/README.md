@@ -118,8 +118,6 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
     - [ThreadLocalMap](docs/java/thread.md#threadlocal_map)
     - [使用场景](docs/java/thread.md#threadlocal_sycj)
 - [协程](docs/java/coroutine.md)
-  - [协程](docs/java/coroutine.md)
-    - [协程](docs/java/coroutine.md)
 
 ### [设计模式和原则](docs/devise/devise.md)
 - [设计模式](docs/devise/devise.md#sjms)
