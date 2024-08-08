@@ -201,5 +201,55 @@ spring6.1.x版本：https://docs.spring.io/spring-framework/reference/6.1-SNAPSH
 | 属性   | `required`        | `name`、`type` |
 | 作用范围 | 字段、`setter`方法、构造器 | 字段、`setter`方法 |
 
+### <a id="btjautowired">Spring和IDEA不推荐使用@Autowired注解</a>
+
+这个问题实际是`Spring`和`IntelliJ IDEA`不推荐在特定的情况下使用`@Autowired`注解，主要是针对字段级别的注入，不是针对所有的情况。
+
+详细的解释是：
+- 代码可读性和维护性
+  - 使用字段级别的注入使得依赖关系变得不明显，降低了代码的可读性。
+  - 当依赖关系发生变化时，修改字段级别的注入可能会导致遗漏或错误。
+- 测试性
+  - 字段级别的注入使得依赖项难以替换，这可能导致单元测试变得复杂。
+  - 使用构造器注入可以更容易地为测试创建模拟对象。
+- 循环依赖
+  - 字段级别的注入可能导致循环依赖的问题，尤其是在复杂的依赖图中。
+  - 构造器注入可以更好地控制依赖的顺序。
+- 官方建议
+  - 从`Spring 4.0`开始，官方文档就推荐使用构造器注入而非字段级别的注入。
+  - 构造器注入使得依赖关系更加明确，并且可以确保对象在创建时即处于完全初始化的状态。
+
+在`IDEA`中，当你使用`@Autowired`注解时，它不会检查依赖关系是否存在，这可能会导致错误的行为。
+
+在使用`@Autowired`进行依赖注入时，`Spring`会自动根据类型来匹配`Bean`，如果存在多个类型相同的`Bean`，就会产生歧义。
+此时，需要使用`@Qualifier`注解或者`@Primary`注解来指定具体的`Bean`。
+`Spring`还会根据`Bean`的创建顺序来注入依赖，这种方式无法保证依赖注入的顺序。
+
+**替代方案**
+
+可以使用@Resource注解替代@Autowired，或以下的替代方案。
+
+- 构造器注入
+  - 明确地在构造器中声明依赖，这有助于提高代码的可读性和测试性。
+  - 可以配合`Lombok`的`@AllArgsConstructor`或`@RequiredArgsConstructor`注解简化构造器的定义。
+- `Setter`注入
+  - 通过`setter`方法注入依赖，适用于某些特定的情况，比如依赖项是可选的。
+- 方法参数注入
+  - 在特定的方法中注入依赖，适用于不需要长期持有的依赖。
+
+构造器注入示例
+```java
+@Component
+public class MyComponent {
+    private final AnotherComponent anotherComponent;
+
+    @Autowired
+    public MyComponent(AnotherComponent anotherComponent) {
+        this.anotherComponent = anotherComponent;
+    }
+    // ...其他方法...
+}
+```
+
 
 ----

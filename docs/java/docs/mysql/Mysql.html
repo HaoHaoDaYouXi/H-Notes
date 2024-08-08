@@ -4584,6 +4584,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.2.14.11.3" data-path="../../../docs/redis/redis_lock.md">
+            
+                <span>
+            
+                    
+                    红锁（RedLock）
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -5924,7 +5937,7 @@
 <li>&#x5FEB;&#x7167;&#x8BFB;&#xFF08;&#x2F00;&#x81F4;&#x6027;&#x2FAE;&#x9501;&#x5B9A;&#x8BFB;&#xFF09;&#xFF1A;&#x7531;<code>MVCC</code>&#x673A;&#x5236;&#x6765;&#x4FDD;&#x8BC1;&#x4E0D;&#x51FA;&#x73B0;&#x5E7B;&#x8BFB;&#x3002;</li>
 <li>&#x5F53;&#x524D;&#x8BFB;&#xFF08;&#x2F00;&#x81F4;&#x6027;&#x9501;&#x5B9A;&#x8BFB;&#xFF09;&#xFF1A;&#x4F7F;&#x2F64;<code>Next-Key Lock</code>&#x8FDB;&#x2F8F;&#x52A0;&#x9501;&#x6765;&#x4FDD;&#x8BC1;&#x4E0D;&#x51FA;&#x73B0;&#x5E7B;&#x8BFB;&#x3002;</li>
 </ul>
-<h3 id="&#x5F53;&#x524D;&#x8BFB;&#x548C;&#x5FEB;&#x7167;&#x8BFB;&#x533A;&#x522B;">&#x5F53;&#x524D;&#x8BFB;&#x548C;&#x5FEB;&#x7167;&#x8BFB;&#x533A;&#x522B;</h3>
+<h3 id="&#x5F53;&#x524D;&#x8BFB;&#x548C;&#x5FEB;&#x7167;&#x8BFB;">&#x5F53;&#x524D;&#x8BFB;&#x548C;&#x5FEB;&#x7167;&#x8BFB;</h3>
 <p>&#x5FEB;&#x7167;&#x8BFB;&#xFF08;&#x2F00;&#x81F4;&#x6027;&#x2FAE;&#x9501;&#x5B9A;&#x8BFB;&#xFF09;&#x5C31;&#x662F;&#x5355;&#x7EAF;&#x7684;<code>SELECT</code>&#x8BED;&#x53E5;&#xFF0C;&#x4E0D;&#x5305;&#x62EC;&#x4E0B;&#x2FAF;&#x7684;<code>SELECT</code>&#x8BED;&#x53E5;&#xFF1A;</p>
 <pre><code class="lang-sql"><span class="hljs-keyword">SELECT</span> ... <span class="hljs-keyword">FOR</span> <span class="hljs-keyword">UPDATE</span>
 <span class="hljs-keyword">SELECT</span> ... <span class="hljs-keyword">LOCK</span> <span class="hljs-keyword">IN</span> <span class="hljs-keyword">SHARE</span> <span class="hljs-keyword">MODE</span>
@@ -5948,6 +5961,143 @@
 <span class="hljs-keyword">UPDATE</span>...
 <span class="hljs-keyword">DELETE</span>...
 </code></pre>
+<h3 id="mvcc&#x673A;&#x5236;"><code>MVCC</code>&#x673A;&#x5236;</h3>
+<p><code>MVCC</code>(Multi-Version Concurrency Control)&#x53EB;&#x591A;&#x7248;&#x672C;&#x5E76;&#x53D1;&#x63A7;&#x5236;&#xFF0C;&#x662F;<code>InnoDB</code>&#x5B58;&#x50A8;&#x5F15;&#x64CE;&#x4E2D;&#x7528;&#x4E8E;&#x5904;&#x7406;&#x4E8B;&#x52A1;&#x5E76;&#x53D1;&#x7684;&#x5173;&#x952E;&#x673A;&#x5236;&#x4E4B;&#x4E00;&#x3002;
+<code>MVCC</code>&#x5141;&#x8BB8;&#x5728;&#x8BFB;&#x53D6;&#x6570;&#x636E;&#x7684;&#x540C;&#x65F6;&#x8FDB;&#x884C;&#x66F4;&#x65B0;&#x64CD;&#x4F5C;&#xFF0C;&#x4ECE;&#x800C;&#x63D0;&#x9AD8;&#x4E86;&#x7CFB;&#x7EDF;&#x7684;&#x5E76;&#x53D1;&#x6027;&#x80FD;&#x3002;</p>
+<h4 id="&#x57FA;&#x672C;&#x539F;&#x7406;">&#x57FA;&#x672C;&#x539F;&#x7406;</h4>
+<p><code>MVCC</code>&#x4E3B;&#x8981;&#x901A;&#x8FC7;&#x8BB0;&#x5F55;&#x591A;&#x4E2A;&#x7248;&#x672C;&#x7684;&#x6570;&#x636E;&#x6765;&#x652F;&#x6301;&#x5E76;&#x53D1;&#x8BFB;&#x53D6;&#x548C;&#x5199;&#x5165;&#x64CD;&#x4F5C;</p>
+<ul>
+<li>&#x5F53;&#x4E8B;&#x52A1;&#x8BFB;&#x53D6;&#x4E00;&#x884C;&#x6570;&#x636E;&#x65F6;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x7B26;&#x5408;&#x5176;&#x4E8B;&#x52A1;&#x5F00;&#x59CB;&#x65F6;&#x523B;&#x7684;&#x6570;&#x636E;&#x7248;&#x672C;</li>
+<li>&#x5F53;&#x4E8B;&#x52A1;&#x66F4;&#x65B0;&#x4E00;&#x884C;&#x6570;&#x636E;&#x65F6;&#xFF0C;<code>InnoDB</code>&#x4F1A;&#x4FDD;&#x5B58;&#x65E7;&#x7248;&#x672C;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x5E76;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x7248;&#x672C;</li>
+</ul>
+<p>&#x8FD9;&#x6837;&#xFF0C;&#x4E0D;&#x540C;&#x7684;&#x4E8B;&#x52A1;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x4E0D;&#x540C;&#x7248;&#x672C;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x4ECE;&#x800C;&#x907F;&#x514D;&#x4E86;&#x6570;&#x636E;&#x51B2;&#x7A81;&#x3002;</p>
+<h4 id="&#x5B9E;&#x73B0;">&#x5B9E;&#x73B0;</h4>
+<p><code>MVCC</code>&#x7684;&#x5B9E;&#x73B0;&#x4F9D;&#x8D56;&#x4E8E;&#xFF1A;&#x9690;&#x5F0F;&#x5B57;&#x6BB5;&#x3001;<code>Undo log</code>&#xFF08;&#x64A4;&#x9500;&#x65E5;&#x5FD7;&#xFF09;&#x3001;<code>Read View</code>&#xFF08;&#x8BFB;&#x89C6;&#x56FE;&#xFF09;</p>
+<p><strong>&#x9690;&#x5F0F;&#x5B57;&#x6BB5;</strong></p>
+<p>&#x5728;&#x5185;&#x90E8;&#xFF0C;<code>InnoDB</code>&#x5411;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x5B58;&#x50A8;&#x7684;&#x6BCF;&#x4E00;&#x884C;&#x6DFB;&#x52A0;&#x4E09;&#x4E2A;&#x5B57;&#x6BB5;&#xFF1A;</p>
+<ul>
+<li><code>DB_ROW_ID</code>&#xFF1A;<code>6 byte</code>&#xFF0C;&#x9690;&#x85CF;&#x7684;&#x81EA;&#x589E; ID&#x3002;&#xFF08;&#x5982;&#x679C;&#x6570;&#x636E;&#x8868;&#x4E2D;&#x6CA1;&#x6709;&#x4E3B;&#x952E;&#xFF0C;&#x90A3;&#x4E48;InnoDB&#x4F1A;&#x81EA;&#x52A8;&#x751F;&#x6210;&#x5355;&#x8C03;&#x9012;&#x589E;&#x7684;&#x9690;&#x85CF;&#x4E3B;&#x952E;&#xFF08;&#x8868;&#x4E2D;&#x6709;&#x4E3B;&#x952E;&#x6216;&#x8005;&#x975E;NULL&#x7684;UNIQUE&#x952E;&#x65F6;&#x90FD;&#x4E0D;&#x4F1A;&#x5305;&#x542B; DB_ROW_ID&#x5217;&#xFF09;&#xFF09;</li>
+<li><code>DB_TRX_ID</code> &#xFF1A;<code>6 byte</code>&#xFF0C;&#x63D2;&#x5165;&#x6216;&#x66F4;&#x65B0;&#x884C;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;ID&#x3002;&#xFF08;&#x7528;&#x4E8E;MVCC&#x7684;ReadView&#x5224;&#x65AD;&#x4E8B;&#x52A1;id, &#x5220;&#x9664;&#x5728;&#x5185;&#x90E8;&#x88AB;&#x89C6;&#x4E3A;&#x66F4;&#x65B0;&#xFF0C;&#x5176;&#x4E2D;&#x884C;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x7279;&#x6B8A;&#x4F4D;&#x88AB;&#x8BBE;&#x7F6E;&#x4E3A;&#x5C06;&#x5176;&#x6807;&#x8BB0;&#x4E3A;&#x5DF2;&#x5220;&#x9664;&#xFF09;</li>
+<li><code>DB_ROLL_PTR</code>&#xFF1A;<code>7 byte</code>&#xFF0C;&#x56DE;&#x6EDA;&#x6307;&#x9488;&#x3002;&#xFF08;&#x7528;&#x4E8E;MVCC&#x4E2D;&#x6307;&#x5411;undo log&#x8BB0;&#x5F55;&#xFF0C;&#x6307;&#x5411;&#x5DF2;&#x5199;&#x5165;&#x56DE;&#x6EDA;&#x6BB5;(<code>rollback segment</code>)&#x7684;&#x4E00;&#x6761;<code>undo log</code>&#x8BB0;&#x5F55;, &#x8BB0;&#x5F55;&#x7740;&#x884C;(<code>row</code>)&#x66F4;&#x65B0;&#x524D;&#x7684;&#x526F;&#x672C;&#xFF09;</li>
+</ul>
+<p><strong><code>undo log</code>&#xFF08;&#x64A4;&#x9500;&#x65E5;&#x5FD7;&#xFF09;</strong></p>
+<p><code>undo log</code>&#x662F;&#x5404;&#x4E2A;&#x4E8B;&#x52A1;&#x4FEE;&#x6539;&#x540C;&#x4E00;&#x6761;&#x8BB0;&#x5F55;&#x7684;&#x65F6;&#x5019;&#x751F;&#x6210;&#x7684;&#x5386;&#x53F2;&#x8BB0;&#x5F55;&#xFF0C;&#xFF0C;&#x8FD9;&#x4E9B;&#x8BB0;&#x5F55;&#x4FDD;&#x5B58;&#x5728;<code>undo log</code>&#x91CC;&#xFF0C;&#x8FD9;&#x4E9B;&#x65E5;&#x5FD7;&#x901A;&#x8FC7;&#x56DE;&#x6EDA;&#x6307;&#x9488;&#x4E32;&#x8054;&#x5728;&#x4E00;&#x8D77;&#xFF0C;&#x65B9;&#x4FBF;&#x56DE;&#x6EDA;&#xFF0C;&#x540C;&#x65F6;&#x4F1A;&#x751F;&#x6210;&#x4E00;&#x6761;&#x7248;&#x672C;&#x94FE;&#x3002;</p>
+<p>&#x6570;&#x636E;&#x5206;&#x4E3A;&#x4E24;&#x7C7B;</p>
+<ul>
+<li><code>Insert undo log</code>&#xFF1A;<code>insert</code>&#x751F;&#x6210;&#x7684;&#x65E5;&#x5FD7;&#xFF0C;&#x4EC5;&#x5728;&#x4E8B;&#x52A1;&#x56DE;&#x6EDA;&#x4E2D;&#x9700;&#x8981;&#xFF0C;&#x5E76;&#x4E14;&#x53EF;&#x4EE5;&#x5728;&#x4E8B;&#x52A1;&#x63D0;&#x4EA4;&#x540E;&#x7ACB;&#x5373;&#x4E22;&#x5F03;&#x3002;</li>
+<li><code>Update undo log</code>&#xFF1A;<code>update</code>&#x3001;<code>delete</code>&#x751F;&#x6210;&#x7684;&#x65E5;&#x5FD7;&#xFF0C;&#x9664;&#x4E86;&#x7528;&#x4E8E;&#x4E8B;&#x52A1;&#x56DE;&#x6EDA;&#xFF0C;&#x8FD8;&#x7528;&#x4E8E;&#x4E00;&#x81F4;&#x6027;&#x8BFB;&#x53D6;&#xFF0C;&#x53EA;&#x6709;&#x4E0D;&#x5B58;&#x5728;<code>innodb</code>&#x4E3A;&#x5176;&#x5206;&#x914D;&#x5FEB;&#x7167;&#x7684;&#x4E8B;&#x52A1;&#x4E4B;&#x540E;&#x624D;&#x80FD;&#x4E22;&#x5F03;&#x5B83;&#x4EEC;&#xFF0C;&#x5728;&#x4E00;&#x81F4;&#x8BFB;&#x53D6;&#x4E2D;&#x53EF;&#x80FD;&#x9700;&#x8981;<code>update undo log</code>&#x4E2D;&#x7684;&#x4FE1;&#x606F;&#x6765;&#x6784;&#x5EFA;&#x6570;&#x636E;&#x5E93;&#x884C;&#x7684;&#x65E9;&#x671F;&#x7248;&#x672C;&#x3002;</li>
+</ul>
+<p>&#x5220;&#x9664;&#x64CD;&#x4F5C;&#x5B9E;&#x9645;&#x4E0A;&#x4E0D;&#x4F1A;&#x76F4;&#x63A5;&#x5220;&#x9664;&#xFF0C;&#x800C;&#x53EA;&#x662F;&#x6807;&#x8BB0;&#x4E3A;&#x5220;&#x9664;&#xFF0C;&#x6700;&#x7EC8;&#x7684;&#x5220;&#x9664;&#x64CD;&#x4F5C;&#x662F;<code>purge</code>&#x7EBF;&#x7A0B;&#x5B8C;&#x6210;&#x7684;</p>
+<p><code>InnoDB</code>&#x4E2D;&#xFF0C;&#x4E8B;&#x52A1;&#x4E2D;&#x7684;<code>Delete</code>&#x64CD;&#x4F5C;&#x5B9E;&#x9645;&#x4E0A;&#x5E76;&#x4E0D;&#x662F;&#x771F;&#x6B63;&#x7684;&#x5220;&#x9664;&#x6389;&#x6570;&#x636E;&#x884C;&#xFF0C;&#x800C;&#x662F;&#x4E00;&#x79CD;<code>Delete Mark</code>&#x64CD;&#x4F5C;&#xFF0C;&#x5728;&#x8BB0;&#x5F55;&#x4E0A;&#x6807;&#x8BC6;&#x5220;&#x9664;&#xFF0C;&#x771F;&#x6B63;&#x7684;&#x5220;&#x9664;&#x5DE5;&#x4F5C;&#x9700;&#x8981;&#x540E;&#x53F0;<code>purge</code>&#x7EBF;&#x7A0B;&#x53BB;&#x5B8C;&#x6210;&#x3002;</p>
+<p><code>purge</code>&#x7EBF;&#x7A0B;&#x4F5C;&#x7528;</p>
+<ul>
+<li>&#x6E05;&#x7406;<code>undo log</code></li>
+<li>&#x6E05;&#x9664;<code>page</code>&#x91CC;&#x9762;&#x5E26;&#x6709;<code>Delete_Bit</code>&#x6807;&#x8BC6;&#x7684;&#x6570;&#x636E;&#x884C;</li>
+</ul>
+<p>&#x4F7F;&#x7528;<code>InnoDB</code>&#x5B58;&#x50A8;&#x5F15;&#x64CE;&#x7684;&#x8868;&#xFF0C;&#x5B83;&#x7684;&#x805A;&#x7C07;&#x8BB0;&#x5F55;&#x4E2D;&#x5305;&#x542B;</p>
+<ul>
+<li><code>TRX_ID</code>&#xFF1A;&#x6BCF;&#x6B21;&#x4E8B;&#x52A1;&#x5BF9;&#x805A;&#x7C07;&#x8BB0;&#x5F55;&#x8FDB;&#x884C;&#x4FEE;&#x6539;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x4F1A;&#x5C06;&#x8BE5;&#x4E8B;&#x52A1;&#x7684;<code>id</code>&#x590D;&#x5236;&#x7ED9;<code>TRX_ID</code>&#x9690;&#x85CF;&#x5217;</li>
+<li><code>ROLL_PTR</code>&#xFF1A;&#x6BCF;&#x6B21;&#x5BF9;&#x6BCF;&#x6761;&#x805A;&#x7C07;&#x7D22;&#x5F15;&#x8FDB;&#x884C;&#x6539;&#x52A8;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x90FD;&#x4F1A;&#x5C06;&#x65E7;&#x7684;&#x7248;&#x672C;&#x4FE1;&#x606F;&#x5199;&#x5165;<code>undo log</code>&#x4E2D;&#xFF0C;&#x901A;&#x8FC7;&#x56DE;&#x6EDA;&#x6307;&#x9488;&#x5C31;&#x80FD;&#x627E;&#x5230;&#x8BB0;&#x5F55;&#x4FEE;&#x6539;&#x524D;&#x7684;&#x4FE1;&#x606F;&#x3002;</li>
+</ul>
+<p><code>undo log</code>&#x5B58;&#x50A8;&#x5728;<code>InnoDB</code>&#x7684;&#x5185;&#x90E8;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x4E2D;</p>
+<ul>
+<li><code>undo</code>&#x8868;&#x7A7A;&#x95F4;<ul>
+<li><code>undo log</code>&#x5B58;&#x50A8;&#x5728;&#x4E00;&#x4E2A;&#x7279;&#x6B8A;&#x7684;&#x8868;&#x7A7A;&#x95F4;&#x4E2D;&#xFF0C;&#x79F0;&#x4E3A;<code>undo</code>&#x8868;&#x7A7A;&#x95F4;&#x3002;</li>
+<li>&#x901A;&#x8FC7;&#x914D;&#x7F6E;&#x53C2;&#x6570;<code>innodb_undo_directory</code>&#x6307;&#x5B9A;<code>undo</code>&#x8868;&#x7A7A;&#x95F4;&#x6240;&#x5728;&#x7684;&#x76EE;&#x5F55;&#x3002;</li>
+<li>&#x901A;&#x8FC7;&#x914D;&#x7F6E;&#x53C2;&#x6570;<code>innodb_undo_logs</code>&#x6307;&#x5B9A;<code>undo</code>&#x8868;&#x7A7A;&#x95F4;&#x4E2D;<code>undo</code>&#x6BB5;&#x7684;&#x6570;&#x91CF;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;<code>128</code>&#x3002;</li>
+</ul>
+</li>
+<li><code>undo</code>&#x6BB5;<ul>
+<li><code>undo log</code>&#x662F;&#x6309;&#x7167;<code>undo</code>&#x6BB5;&#x6765;&#x7EC4;&#x7EC7;&#x7684;&#x3002;</li>
+<li>&#x6BCF;&#x4E2A;<code>undo</code>&#x6BB5;&#x5305;&#x542B;&#x591A;&#x4E2A;&#x9875;&#xFF0C;&#x6BCF;&#x4E2A;&#x9875;&#x4E0A;&#x5B58;&#x50A8;&#x7740;<code>undo log</code>&#x8BB0;&#x5F55;&#x3002;</li>
+<li>&#x4E00;&#x4E2A;<code>undo</code>&#x6BB5;&#x53EF;&#x4EE5;&#x5BB9;&#x7EB3;&#x591A;&#x4E2A;<code>undo log</code>&#x8BB0;&#x5F55;&#xFF0C;&#x6BCF;&#x4E2A;&#x8BB0;&#x5F55;&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x7684;&#x64CD;&#x4F5C;&#x3002;</li>
+</ul>
+</li>
+<li><code>undo</code>&#x8BB0;&#x5F55;<ul>
+<li>&#x6BCF;&#x4E2A;<code>undo log</code>&#x8BB0;&#x5F55;&#x90FD;&#x5305;&#x542B;&#x6709;&#x5173;&#x4E8B;&#x52A1;&#x64CD;&#x4F5C;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x5305;&#x62EC;&#x64CD;&#x4F5C;&#x524D;&#x7684;&#x6570;&#x636E;&#x503C;&#x3001;&#x4E8B;&#x52A1;<code>ID</code>&#x3001;&#x56DE;&#x6EDA;&#x6307;&#x9488;&#x7B49;&#x3002;</li>
+<li>&#x56DE;&#x6EDA;&#x6307;&#x9488;&#x6307;&#x5411;&#x540C;&#x4E00;&#x4E2A;<code>undo</code>&#x6BB5;&#x4E2D;&#x7684;&#x524D;&#x4E00;&#x4E2A;<code>undo log</code>&#x8BB0;&#x5F55;&#xFF0C;&#x5F62;&#x6210;&#x4E00;&#x4E2A;&#x94FE;&#x8868;&#x3002;</li>
+</ul>
+</li>
+</ul>
+<p><strong><code>Read View</code>&#xFF08;&#x8BFB;&#x89C6;&#x56FE;&#xFF09;</strong></p>
+<p><code>Read View</code>&#x5B83;&#x4EE3;&#x8868;&#x4E86;&#x4E8B;&#x52A1;&#x5F00;&#x59CB;&#x65F6;&#x53EF;&#x89C1;&#x7684;&#x6570;&#x636E;&#x7248;&#x672C;&#x96C6;&#x5408;&#xFF0C;&#x7528;&#x4E8E;&#x786E;&#x5B9A;&#x54EA;&#x4E9B;&#x7248;&#x672C;&#x7684;&#x6570;&#x636E;&#x5BF9;&#x5F53;&#x524D;&#x4E8B;&#x52A1;&#x53EF;&#x89C1;&#x3002;</p>
+<p>&#x4E3B;&#x8981;&#x7684;&#x5B57;&#x6BB5;&#xFF1A;</p>
+<ul>
+<li><code>m_low_limit_id</code>&#xFF1A;&#x5C1A;&#x672A;&#x5206;&#x914D;&#x7684;&#x6700;&#x5C0F;&#x4E8B;&#x52A1;<code>ID</code>&#xFF0C;&#x7B49;&#x4E8E;&#x5B83;&#x7684;, &#x90FD;&#x4E0D;&#x53EF;&#x89C1;</li>
+<li><code>m_up_limit_id</code>&#xFF1A;&#x6700;&#x5C0F;&#x6D3B;&#x8DC3;&#x672A;&#x63D0;&#x4EA4;&#x4E8B;&#x52A1;<code>ID</code>&#xFF0C;&#x5C0F;&#x4E8E;&#x5B83;&#x7684;, &#x90FD;&#x53EF;&#x89C1;</li>
+<li><code>m_creator_trx_id</code>&#xFF1A;&#x521B;&#x5EFA;<code>Read View</code>&#x7684;&#x4E8B;&#x52A1;<code>ID</code>&#xFF0C;&#x7B49;&#x4E8E;&#x5B83;&#x7684;, &#x90FD;&#x53EF;&#x89C1;</li>
+<li><code>m_ids</code>&#xFF1A;&#x521B;&#x5EFA;<code>Read View</code>&#x65F6;&#xFF0C;&#x6B63;&#x6D3B;&#x8DC3;&#x672A;&#x63D0;&#x4EA4;&#x7684;&#x4E8B;&#x52A1;<code>ids</code>&#xFF0C;&#x5728;<code>m_ids</code>&#x91CC;&#x9762;&#x4E0D;&#x53EF;&#x89C1;&#xFF0C;&#x5426;&#x5219;&#x53EF;&#x89C1;</li>
+</ul>
+<p>&#x4E8B;&#x52A1;&#x5728;&#x8BFB;&#x53D6;&#x6570;&#x636E;&#x65F6;&#x4F1A;&#x68C0;&#x67E5;&#x6570;&#x636E;&#x7684;&#x4E8B;&#x52A1;<code>ID</code>&#x662F;&#x5426;&#x5728;<code>Read View</code>&#x4E2D;&#xFF0C;&#x53EA;&#x6709;&#x7B26;&#x5408;&#x6761;&#x4EF6;&#x7684;&#x6570;&#x636E;&#x7248;&#x672C;&#x624D;&#x4F1A;&#x88AB;&#x8BFB;&#x53D6;&#x3002;</p>
+<p><code>m_low_limit_id</code>&#x4E0D;&#x662F;<code>m_ids</code>&#x7684;&#x6700;&#x5927;&#x503C;&#xFF0C;&#x800C;&#x662F;&#x7CFB;&#x7EDF;&#x80FD;&#x591F;&#x5206;&#x914D;&#x7684;&#x4E8B;&#x52A1;<code>ID</code>&#x6700;&#x5927;&#x503C;&#xFF0C;&#x4E8B;&#x52A1;<code>ID</code>&#x662F;&#x9012;&#x589E;&#x5206;&#x914D;&#x7684;&#xFF0C;&#x5E76;&#x4E14;&#x53EA;&#x6709;&#x4E8B;&#x52A1;&#x5728;&#x8FDB;&#x884C;&#x589E;&#x5220;&#x6539;&#x64CD;&#x4F5C;&#x7684;&#x65F6;&#x5019;&#x624D;&#x4F1A;&#x5206;&#x914D;&#x4E8B;&#x52A1;<code>ID</code>&#x3002;</p>
+<p>&#x5982;&#xFF1A;&#x6709;<code>1&#x3001;2&#x3001;3</code>&#x4E09;&#x4E2A;&#x4E8B;&#x52A1;&#xFF0C;<code>3</code>&#x7684;&#x4E8B;&#x52A1;&#x63D0;&#x4EA4;&#x540E;&#xFF0C;&#x4E00;&#x4E2A;&#x65B0;&#x4E8B;&#x52A1;&#x5728;&#x751F;&#x6210;<code>Read View</code>&#x7684;&#x65F6;&#x5019;&#xFF0C;<code>m_ids</code>&#x91CC;&#x662F;<code>1&#x3001;2</code>&#xFF0C;<code>m_up_limit_id</code>&#x662F;<code>1</code>&#xFF0C;<code>m_low_limit_id</code>&#x5C31;&#x662F;<code>4</code></p>
+<p><strong><code>Read View</code>&#x7684;&#x5224;&#x65AD;&#x6D41;&#x7A0B;</strong>&#xFF1A;&#x5F53;&#x67E5;&#x8BE2;&#x4E00;&#x6761;&#x6570;&#x636E;&#x7684;&#x65F6;&#x5019;</p>
+<ul>
+<li>&#x9996;&#x5148;&#x83B7;&#x53D6;&#x67E5;&#x8BE2;&#x64CD;&#x4F5C;&#x7684;&#x4E8B;&#x52A1;&#x7684;&#x7248;&#x672C;&#x53F7;</li>
+<li>&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x7CFB;&#x7EDF;&#x7684;<code>Read View</code></li>
+<li>&#x5C06;&#x67E5;&#x8BE2;&#x5230;&#x7684;&#x6570;&#x636E;&#x4E0E;<code>Read View</code>&#x4E2D;&#x7684;&#x4E8B;&#x52A1;&#x7248;&#x672C;&#x53F7;&#x8FDB;&#x884C;&#x6BD4;&#x8F83;</li>
+<li>&#x5982;&#x679C;&#x4E0D;&#x7B26;&#x5408;<code>Read View</code>&#x7684;&#x89C4;&#x5219;&#xFF0C;&#x5219;&#x901A;&#x8FC7;&#x56DE;&#x6EDA;&#x6307;&#x9488;&#x5F62;&#x6210;&#x7684;<code>undo log</code>&#x7248;&#x672C;&#x94FE;&#x4ECE;<code>undo log</code>&#x4E2D;&#x83B7;&#x53D6;&#x7B26;&#x5408;&#x89C4;&#x5219;&#x7684;&#x5386;&#x53F2;&#x5FEB;&#x7167;</li>
+<li>&#x8FD4;&#x56DE;&#x7B26;&#x5408;&#x89C4;&#x5219;&#x7684;&#x6570;&#x636E;</li>
+</ul>
+<p><strong><code>MVCC</code>&#x7684;&#x884C;&#x4E3A;&#x53D7;&#x5230;&#x4E8B;&#x52A1;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x7684;&#x5F71;&#x54CD;&#xFF0C;&#x4E0D;&#x540C;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x4F7F;&#x7528;<code>Read View</code></strong></p>
+<ul>
+<li>&#x8BFB;&#x672A;&#x63D0;&#x4EA4;&#xFF1A;&#x80FD;&#x591F;&#x8BFB;&#x53D6;&#x672A;&#x63D0;&#x4EA4;&#x7684;&#x4E8B;&#x52A1;&#x4FEE;&#x6539;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x6240;&#x4EE5;&#x76F4;&#x63A5;&#x8BFB;&#x53D6;&#x6700;&#x65B0;&#x7684;&#x8BB0;&#x5F55;&#x5C31;&#x53EF;&#x4EE5;&#xFF0C;&#x4E0D;&#x5FC5;&#x4F7F;&#x7528;<code>MVCC</code>&#x3002;</li>
+<li>&#x8BFB;&#x5DF2;&#x63D0;&#x4EA4;&#xFF1A;&#x4E0D;&#x80FD;&#x8BFB;&#x53D6;&#x672A;&#x63D0;&#x4EA4;&#x7684;&#x4E8B;&#x52A1;&#x4FEE;&#x6539;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x5E76;&#x4E14;&#x4E0D;&#x80FD;&#x8FDB;&#x884C;&#x91CD;&#x590D;&#x8BFB;&#x53D6;&#xFF0C;&#x4E8B;&#x52A1;&#x4E2D;&#xFF0C;&#x6BCF;&#x6B21;&#x5FEB;&#x7167;&#x8BFB;&#x90FD;&#x4F1A;&#x65B0;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x5FEB;&#x7167;&#x548C;<code>Read View</code>&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x5728;<code>RC</code>&#x7EA7;&#x522B;&#x4E0B;&#x7684;&#x4E8B;&#x52A1;&#x4E2D;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x522B;&#x7684;&#x4E8B;&#x52A1;&#x63D0;&#x4EA4;&#x7684;&#x66F4;&#x65B0;&#x7684;&#x539F;&#x56E0;&#x3002;</li>
+<li>&#x53EF;&#x91CD;&#x590D;&#x8BFB;&#xFF1A;&#x4E0D;&#x80FD;&#x8BFB;&#x53D6;&#x672A;&#x63D0;&#x4EA4;&#x7684;&#x4E8B;&#x52A1;&#x4FEE;&#x6539;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x5E76;&#x4E14;&#x80FD;&#x8FDB;&#x884C;&#x91CD;&#x590D;&#x8BFB;&#x53D6;&#xFF0C;&#x6240;&#x4EE5;&#x53EA;&#x5728;&#x7B2C;&#x4E00;&#x6B21;&#x67E5;&#x8BE2;&#x7684;&#x65F6;&#x5019;&#x83B7;&#x53D6;&#x4E00;&#x6B21;<code>Read View</code>&#xFF0C;&#x4E4B;&#x540E;&#x67E5;&#x8BE2;&#x90FD;&#x53EA;&#x67E5;&#x770B;&#x5DF2;&#x7ECF;&#x751F;&#x6210;&#x7684;<code>Read View</code>&#x526F;&#x672C;&#x3002;</li>
+<li>&#x53EF;&#x4E32;&#x884C;&#x5316;&#xFF1A;<code>MVCC</code>&#x88AB;&#x7981;&#x7528;&#xFF0C;<code>InnoDB</code>&#x89C4;&#x5B9A;&#x4F7F;&#x7528;&#x52A0;&#x9501;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x8BBF;&#x95EE;&#x8BB0;&#x5F55;&#xFF0C;&#x901A;&#x8FC7;&#x52A0;&#x9501;&#x7684;&#x65B9;&#x5F0F;&#x8BA9;&#x6240;&#x6709;<code>sql</code>&#x90FD;&#x4E32;&#x884C;&#x5316;&#x6267;&#x884C;&#x4E86;&#xFF0C;&#x4E5F;&#x662F;&#x8BFB;&#x6700;&#x65B0;&#x7684;&#xFF0C;&#x4E0D;&#x5B58;&#x5728;&#x5FEB;&#x7167;&#x8BFB;<code>Read View</code>&#x3002;</li>
+</ul>
+<p><strong>&#x4F8B;&#xFF1A;</strong>
+&#x5047;&#x8BBE;&#x6709;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x8868;<code>orders</code>&#xFF0C;&#x5305;&#x542B;<code>id</code>&#x548C;<code>status</code>&#x4E24;&#x5217;&#xFF0C;&#x73B0;&#x5728;&#x6709;&#x4E24;&#x4E2A;&#x4E8B;&#x52A1;<code>T1</code>&#x548C;<code>T2</code>&#x540C;&#x65F6;&#x8FD0;&#x884C;&#xFF1A;</p>
+<ul>
+<li>&#x4E8B;&#x52A1;<code>T1</code>&#x66F4;&#x65B0;&#x8BA2;&#x5355;&#x72B6;&#x6001;<ul>
+<li><code>T1</code>&#x5F00;&#x59CB;&#x4E8B;&#x52A1;&#x3002;</li>
+<li><code>T1</code>&#x66F4;&#x65B0;&#x8BA2;&#x5355;&#x72B6;&#x6001;&#xFF1A;<code>UPDATE orders SET status = &apos;SHIPPED&apos; WHERE id = 1;</code></li>
+<li><code>T1</code>&#x63D0;&#x4EA4;&#x4E8B;&#x52A1;&#x3002;</li>
+</ul>
+</li>
+<li>&#x4E8B;&#x52A1;<code>T2</code>&#x8BFB;&#x53D6;&#x8BA2;&#x5355;&#x72B6;&#x6001;</li>
+<li><code>T2</code>&#x5F00;&#x59CB;&#x4E8B;&#x52A1;&#x3002;</li>
+<li><code>T2</code>&#x8BFB;&#x53D6;&#x8BA2;&#x5355;&#x72B6;&#x6001;&#xFF1A;<code>SELECT * FROM orders WHERE id = 1;</code></li>
+<li><code>T2</code>&#x8BFB;&#x53D6;&#x5230;&#x7684;&#x6570;&#x636E;&#x53D6;&#x51B3;&#x4E8E;&#x4E8B;&#x52A1;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x3002;</li>
+</ul>
+<p>&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MVCCExample</span> </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> SQLException </span>{
+        Connection conn1 = DriverManager.getConnection(<span class="hljs-string">&quot;jdbc:mysql://localhost:3306/testdb&quot;</span>, <span class="hljs-string">&quot;root&quot;</span>, <span class="hljs-string">&quot;password&quot;</span>);
+        Connection conn2 = DriverManager.getConnection(<span class="hljs-string">&quot;jdbc:mysql://localhost:3306/testdb&quot;</span>, <span class="hljs-string">&quot;root&quot;</span>, <span class="hljs-string">&quot;password&quot;</span>);
+
+        <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x4E8B;&#x52A1;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x4E3A; REPEATABLE READ</span>
+        conn1.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
+        conn2.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
+
+        <span class="hljs-comment">// &#x4E8B;&#x52A1; T1</span>
+        <span class="hljs-keyword">try</span> (PreparedStatement ps1 = conn1.prepareStatement(<span class="hljs-string">&quot;UPDATE orders SET status = ? WHERE id = ?&quot;</span>)) {
+            ps1.setString(<span class="hljs-number">1</span>, <span class="hljs-string">&quot;SHIPPED&quot;</span>);
+            ps1.setInt(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>);
+            ps1.executeUpdate();
+            conn1.commit();
+        }
+
+        <span class="hljs-comment">// &#x4E8B;&#x52A1; T2</span>
+        <span class="hljs-keyword">try</span> (PreparedStatement ps2 = conn2.prepareStatement(<span class="hljs-string">&quot;SELECT * FROM orders WHERE id = ?&quot;</span>)) {
+            ps2.setInt(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+            ResultSet rs = ps2.executeQuery();
+
+            <span class="hljs-keyword">while</span> (rs.next()) {
+                System.out.println(<span class="hljs-string">&quot;Order ID: &quot;</span> + rs.getInt(<span class="hljs-string">&quot;id&quot;</span>));
+                System.out.println(<span class="hljs-string">&quot;Status: &quot;</span> + rs.getString(<span class="hljs-string">&quot;status&quot;</span>));
+            }
+        }
+
+        conn1.close();
+        conn2.close();
+    }
+}
+</code></pre>
+<p>&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E86;&#x4E24;&#x4E2A;&#x4E8B;&#x52A1;<code>T1</code>&#x548C;<code>T2</code>&#x3002;<code>T1</code>&#x66F4;&#x65B0;&#x4E86;&#x4E00;&#x6761;&#x8BA2;&#x5355;&#x8BB0;&#x5F55;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x800C;<code>T2</code>&#x8BD5;&#x56FE;&#x8BFB;&#x53D6;&#x8FD9;&#x6761;&#x8BB0;&#x5F55;&#x7684;&#x72B6;&#x6001;&#x3002;
+&#x4E8B;&#x52A1;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x88AB;&#x8BBE;&#x7F6E;&#x4E3A;<code>REPEATABLE READ</code>&#xFF0C;&#x8FD9;&#x610F;&#x5473;&#x7740;<code>T2</code>&#x5728;&#x5176;&#x4E8B;&#x52A1;&#x5F00;&#x59CB;&#x540E;&#x4E0D;&#x4F1A;&#x770B;&#x5230;<code>T1</code>&#x7684;&#x66F4;&#x6539;&#x3002;</p>
+<p>&#x603B;&#x7ED3;&#x6765;&#x8BF4;&#xFF0C;<code>MVCC</code>&#x662F;<code>InnoDB</code>&#x5B58;&#x50A8;&#x5F15;&#x64CE;&#x4E2D;&#x7528;&#x4E8E;&#x5904;&#x7406;&#x5E76;&#x53D1;&#x8BFB;&#x53D6;&#x548C;&#x5199;&#x5165;&#x64CD;&#x4F5C;&#x7684;&#x5173;&#x952E;&#x673A;&#x5236;&#x3002;&#x901A;&#x8FC7;&#x7EF4;&#x62A4;&#x591A;&#x4E2A;&#x6570;&#x636E;&#x7248;&#x672C;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x6709;&#x6548;&#x5730;&#x652F;&#x6301;&#x9AD8;&#x5E76;&#x53D1;&#x73AF;&#x5883;&#x4E0B;&#x7684;&#x4E8B;&#x52A1;&#x5904;&#x7406;&#x3002;</p>
 <h2 id="&#x7D22;&#x5F15;"><a id="sy">&#x7D22;&#x5F15;</a></h2>
 <p>&#x7D22;&#x5F15;&#x662F;&#x4E00;&#x79CD;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x53EF;&#x4EE5;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x5FEB;&#x901F;&#x7684;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x7684;&#x67E5;&#x627E;&#x3002;</p>
 <p>&#x7D22;&#x5F15;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x548C;&#x5177;&#x4F53;&#x5B58;&#x50A8;&#x5F15;&#x64CE;&#x7684;&#x5B9E;&#x73B0;&#x6709;&#x5173;&#xFF0C;&#x5728;<code>MySQL</code>&#x4E2D;&#x4F7F;&#x7528;&#x8F83;&#x591A;&#x7684;&#x7D22;&#x5F15;&#x6709;<code>Hash</code>&#x7D22;&#x5F15;&#xFF0C;<code>B+</code>&#x6811;&#x7D22;&#x5F15;&#x7B49;</p>
@@ -6584,7 +6734,7 @@ mysql -u &#x7528;&#x6237;&#x540D; -p &#x6570;&#x636E;&#x5E93;&#x540D; &lt; &#x59
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Mysql","level":"1.2.13","depth":2,"next":{"title":"安装","level":"1.2.13.1","depth":3,"path":"linux/mysql/install.md","ref":"linux/mysql/install.md","articles":[]},"previous":{"title":"Groovy环境变量的配置","level":"1.2.12.3.1","depth":4,"anchor":"#hjpz","path":"java/docs/groovy/groovy.md","ref":"java/docs/groovy/groovy.md#hjpz","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"HaoHaoDaYouXi","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"我的笔记仓库","language":"zh-hans","links":{"sidebar":{"我的笔记仓库":"https://github.com/HaoHaoDaYouXi/MyNotes"}},"gitbook":"3.2.3","description":"个人的一些知识笔记和各类学习资料"},"file":{"path":"java/docs/mysql/Mysql.md","mtime":"2024-08-07T08:04:29.729Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-08-07T08:04:44.787Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Mysql","level":"1.2.13","depth":2,"next":{"title":"安装","level":"1.2.13.1","depth":3,"path":"linux/mysql/install.md","ref":"linux/mysql/install.md","articles":[]},"previous":{"title":"Groovy环境变量的配置","level":"1.2.12.3.1","depth":4,"anchor":"#hjpz","path":"java/docs/groovy/groovy.md","ref":"java/docs/groovy/groovy.md#hjpz","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"HaoHaoDaYouXi","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"我的笔记仓库","language":"zh-hans","links":{"sidebar":{"我的笔记仓库":"https://github.com/HaoHaoDaYouXi/MyNotes"}},"gitbook":"3.2.3","description":"个人的一些知识笔记和各类学习资料"},"file":{"path":"java/docs/mysql/Mysql.md","mtime":"2024-08-08T17:19:58.886Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-08-08T17:21:00.445Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>

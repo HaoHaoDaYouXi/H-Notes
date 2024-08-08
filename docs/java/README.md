@@ -347,6 +347,7 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 - [Redis分布式锁](docs/redis/redis_lock.md)
   - [Redis实现](docs/redis/redis_lock.md#redis)
   - [Redisson实现](docs/redis/redis_lock.md#redisson)
+  - [红锁（RedLock）](docs/redis/redis_lock.md#redlock)
 
 ### [消息队列 MQ](docs/mq/mq.md)
 - [ActiveMQ、RabbitMQ、RocketMQ、Kafka区别](docs/mq/mq.md#qb)

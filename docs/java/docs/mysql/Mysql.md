@@ -147,7 +147,7 @@ SELECT ... FOR UPDATE;
 - 快照读（⼀致性⾮锁定读）：由`MVCC`机制来保证不出现幻读。
 - 当前读（⼀致性锁定读）：使⽤`Next-Key Lock`进⾏加锁来保证不出现幻读。
 
-### 当前读和快照读区别
+### 当前读和快照读
 
 快照读（⼀致性⾮锁定读）就是单纯的`SELECT`语句，不包括下⾯的`SELECT`语句：
 ```sql
@@ -178,6 +178,146 @@ INSERT...
 UPDATE...
 DELETE...
 ```
+
+### `MVCC`机制
+
+`MVCC`(Multi-Version Concurrency Control)叫多版本并发控制，是`InnoDB`存储引擎中用于处理事务并发的关键机制之一。
+`MVCC`允许在读取数据的同时进行更新操作，从而提高了系统的并发性能。
+
+#### 基本原理
+
+`MVCC`主要通过记录多个版本的数据来支持并发读取和写入操作
+
+- 当事务读取一行数据时，它可以看到符合其事务开始时刻的数据版本
+- 当事务更新一行数据时，`InnoDB`会保存旧版本的数据，并创建一个新的版本
+
+这样，不同的事务可以看到不同版本的数据，从而避免了数据冲突。
+
+#### 实现
+
+`MVCC`的实现依赖于：隐式字段、`Undo log`（撤销日志）、`Read View`（读视图）
+
+**隐式字段**
+
+在内部，`InnoDB`向数据库中存储的每一行添加三个字段：
+
+- `DB_ROW_ID`：`6 byte`，隐藏的自增 ID。（如果数据表中没有主键，那么InnoDB会自动生成单调递增的隐藏主键（表中有主键或者非NULL的UNIQUE键时都不会包含 DB_ROW_ID列））
+- `DB_TRX_ID` ：`6 byte`，插入或更新行的最后一个事务ID。（用于MVCC的ReadView判断事务id, 删除在内部被视为更新，其中行中的一个特殊位被设置为将其标记为已删除）
+- `DB_ROLL_PTR`：`7 byte`，回滚指针。（用于MVCC中指向undo log记录，指向已写入回滚段(`rollback segment`)的一条`undo log`记录, 记录着行(`row`)更新前的副本）
+
+**`undo log`（撤销日志）**
+
+`undo log`是各个事务修改同一条记录的时候生成的历史记录，，这些记录保存在`undo log`里，这些日志通过回滚指针串联在一起，方便回滚，同时会生成一条版本链。
+
+数据分为两类
+- `Insert undo log`：`insert`生成的日志，仅在事务回滚中需要，并且可以在事务提交后立即丢弃。
+- `Update undo log`：`update`、`delete`生成的日志，除了用于事务回滚，还用于一致性读取，只有不存在`innodb`为其分配快照的事务之后才能丢弃它们，在一致读取中可能需要`update undo log`中的信息来构建数据库行的早期版本。
+
+删除操作实际上不会直接删除，而只是标记为删除，最终的删除操作是`purge`线程完成的
+
+`InnoDB`中，事务中的`Delete`操作实际上并不是真正的删除掉数据行，而是一种`Delete Mark`操作，在记录上标识删除，真正的删除工作需要后台`purge`线程去完成。
+
+`purge`线程作用
+- 清理`undo log`
+- 清除`page`里面带有`Delete_Bit`标识的数据行
+
+使用`InnoDB`存储引擎的表，它的聚簇记录中包含
+- `TRX_ID`：每次事务对聚簇记录进行修改的时候，就会将该事务的`id`复制给`TRX_ID`隐藏列
+- `ROLL_PTR`：每次对每条聚簇索引进行改动的时候，都会将旧的版本信息写入`undo log`中，通过回滚指针就能找到记录修改前的信息。
+
+`undo log`存储在`InnoDB`的内部数据结构中
+- `undo`表空间
+  - `undo log`存储在一个特殊的表空间中，称为`undo`表空间。
+  - 通过配置参数`innodb_undo_directory`指定`undo`表空间所在的目录。
+  - 通过配置参数`innodb_undo_logs`指定`undo`表空间中`undo`段的数量，默认为`128`。
+- `undo`段
+  - `undo log`是按照`undo`段来组织的。
+  - 每个`undo`段包含多个页，每个页上存储着`undo log`记录。
+  - 一个`undo`段可以容纳多个`undo log`记录，每个记录对应一个事务的操作。
+- `undo`记录
+  - 每个`undo log`记录都包含有关事务操作的信息，包括操作前的数据值、事务`ID`、回滚指针等。
+  - 回滚指针指向同一个`undo`段中的前一个`undo log`记录，形成一个链表。
+
+**`Read View`（读视图）**
+
+`Read View`它代表了事务开始时可见的数据版本集合，用于确定哪些版本的数据对当前事务可见。
+
+主要的字段：
+- `m_low_limit_id`：尚未分配的最小事务`ID`，等于它的, 都不可见
+- `m_up_limit_id`：最小活跃未提交事务`ID`，小于它的, 都可见
+- `m_creator_trx_id`：创建`Read View`的事务`ID`，等于它的, 都可见
+- `m_ids`：创建`Read View`时，正活跃未提交的事务`ids`，在`m_ids`里面不可见，否则可见
+
+事务在读取数据时会检查数据的事务`ID`是否在`Read View`中，只有符合条件的数据版本才会被读取。
+
+`m_low_limit_id`不是`m_ids`的最大值，而是系统能够分配的事务`ID`最大值，事务`ID`是递增分配的，并且只有事务在进行增删改操作的时候才会分配事务`ID`。
+
+如：有`1、2、3`三个事务，`3`的事务提交后，一个新事务在生成`Read View`的时候，`m_ids`里是`1、2`，`m_up_limit_id`是`1`，`m_low_limit_id`就是`4`
+
+**`Read View`的判断流程**：当查询一条数据的时候
+- 首先获取查询操作的事务的版本号
+- 获取当前系统的`Read View`
+- 将查询到的数据与`Read View`中的事务版本号进行比较
+- 如果不符合`Read View`的规则，则通过回滚指针形成的`undo log`版本链从`undo log`中获取符合规则的历史快照
+- 返回符合规则的数据
+
+**`MVCC`的行为受到事务隔离级别的影响，不同隔离级别使用`Read View`**
+- 读未提交：能够读取未提交的事务修改的数据，所以直接读取最新的记录就可以，不必使用`MVCC`。
+- 读已提交：不能读取未提交的事务修改的数据，并且不能进行重复读取，事务中，每次快照读都会新生成一个快照和`Read View`，这就是在`RC`级别下的事务中可以看到别的事务提交的更新的原因。
+- 可重复读：不能读取未提交的事务修改的数据，并且能进行重复读取，所以只在第一次查询的时候获取一次`Read View`，之后查询都只查看已经生成的`Read View`副本。
+- 可串行化：`MVCC`被禁用，`InnoDB`规定使用加锁的方式来访问记录，通过加锁的方式让所有`sql`都串行化执行了，也是读最新的，不存在快照读`Read View`。
+
+**例：**
+假设有一个简单的表`orders`，包含`id`和`status`两列，现在有两个事务`T1`和`T2`同时运行：
+- 事务`T1`更新订单状态
+  - `T1`开始事务。
+  - `T1`更新订单状态：`UPDATE orders SET status = 'SHIPPED' WHERE id = 1;`
+  - `T1`提交事务。
+- 事务`T2`读取订单状态
+- `T2`开始事务。
+- `T2`读取订单状态：`SELECT * FROM orders WHERE id = 1;`
+- `T2`读取到的数据取决于事务隔离级别。
+
+示例代码：
+```java
+public class MVCCExample {
+
+    public static void main(String[] args) throws SQLException {
+        Connection conn1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb", "root", "password");
+        Connection conn2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb", "root", "password");
+
+        // 设置事务隔离级别为 REPEATABLE READ
+        conn1.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
+        conn2.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
+
+        // 事务 T1
+        try (PreparedStatement ps1 = conn1.prepareStatement("UPDATE orders SET status = ? WHERE id = ?")) {
+            ps1.setString(1, "SHIPPED");
+            ps1.setInt(2, 1);
+            ps1.executeUpdate();
+            conn1.commit();
+        }
+
+        // 事务 T2
+        try (PreparedStatement ps2 = conn2.prepareStatement("SELECT * FROM orders WHERE id = ?")) {
+            ps2.setInt(1, 1);
+            ResultSet rs = ps2.executeQuery();
+
+            while (rs.next()) {
+                System.out.println("Order ID: " + rs.getInt("id"));
+                System.out.println("Status: " + rs.getString("status"));
+            }
+        }
+
+        conn1.close();
+        conn2.close();
+    }
+}
+```
+示例中，我们创建了两个事务`T1`和`T2`。`T1`更新了一条订单记录的状态，而`T2`试图读取这条记录的状态。
+事务隔离级别被设置为`REPEATABLE READ`，这意味着`T2`在其事务开始后不会看到`T1`的更改。
+
+总结来说，`MVCC`是`InnoDB`存储引擎中用于处理并发读取和写入操作的关键机制。通过维护多个数据版本，它可以有效地支持高并发环境下的事务处理。
 
 ## <a id="sy">索引</a>
 
