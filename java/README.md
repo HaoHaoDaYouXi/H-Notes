@@ -384,6 +384,8 @@ shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
         - [安装与配置](docs/search/search.md#azpz)
         - [`Solr`和`Elasticsearch`](docs/search/search.md#soleelasticsearch)
 
+### [Docker](../wait.md)
+
 ### [网络](../wait.md)
 - [UDP](../wait.md)
 - [TCP/IP](../wait.md)
