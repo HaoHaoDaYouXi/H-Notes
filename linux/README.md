@@ -5,6 +5,7 @@
 例如：软件的安装，配置，常用工具等
 
 - [更新为阿里云的Yum源](yum/UpdateYum.md)
+- [磁盘扩容](diskExpansion.md)
 - [利用 logrotate 管理日志](log/logrotate.md)
 - [cronolog 安装和使用](log/cronologinstall.md)
 - [防火墙 Firewalld](Firewalld.md)
