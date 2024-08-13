@@ -15,7 +15,7 @@ spring，springBoot，Spring Data JPA
 微服务系统(dubbo，springCloud，等组件)
 shiro，maven，mysql，mybatis，redis，mq，搜索引擎，social，等框架
 网络，日志，负责均衡，算法
-等等
+等等内容
 
 ### [JVM](docs/jvm/jvm.md)
 - [jvm内存区域都有哪些？](docs/jvm/jvm_memory.md)
