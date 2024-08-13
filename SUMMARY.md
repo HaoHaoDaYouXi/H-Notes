@@ -365,6 +365,7 @@
       - [build](wait.md)
 - [linux](linux/README.md)
   - [更新为阿里云的Yum源](linux/yum/UpdateYum.md)
+  - [磁盘扩容](linux/diskExpansion.md)
   - [利用 logrotate 管理日志](linux/log/logrotate.md)
   - [cronolog 安装和使用](linux/log/cronologinstall.md)
   - [防火墙 Firewalld](linux/Firewalld.md)
