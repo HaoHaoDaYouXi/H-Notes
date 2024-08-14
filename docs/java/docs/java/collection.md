@@ -107,16 +107,20 @@
 总之，选择`0.75`这个值是为了在时间和空间成本之间达到一个较好的平衡点，既可以保证哈希表的性能表现，又能够充分利用空间。
 
 ## <a id="jh_concurrenthashmap">`ConcurrentHashMap`</a>
+
 `ConcurrentHashMap`和`HashMap`思路是差不多的，但是因为它支持并发操作，所以要复杂一些。
 
 ### <a id="segment">`Segment`段</a>
+
 整个`ConcurrentHashMap`由一个个`Segment`组成，`Segment`代表”部分“或”一段“的意思，所以很多地方都会将其描述为分段锁。
 
 ### 线程安全(`Segment`继承`ReentrantLock`加锁)
+
 简单理解就是，`ConcurrentHashMap`是一个`Segment`数组，`Segment`通过继承`ReentrantLock`来进行加锁，
 所以每次需要加锁的操作锁住的是一个`segment`，这样只要保证每个`Segment`是线程安全的，也就实现了全局的线程安全。
 
 ### 并行度(默认 16)
+
 `concurrencyLevel`：并行级别、并发数、`Segment`数。默认是`16`，也就是说`ConcurrentHashMap`有`16`个`Segments`，
 所以理论上，这个时候，最多可以同时支持`16`个线程并发写，只要它们的操作分别分布在不同的`Segment`上。
 这个值可以在初始化的时候设置为其他值，但是一旦初始化以后，它是不可以扩容的。
