@@ -14,12 +14,13 @@ Redis常见的数据结构有5种: String，List, Set, ZSet, Hash
 
 ### String（字符串）
 
-字符串类型实际上是动态字符串（Simple Dynamic String，SDS）
+字符串类型由int和动态字符串（Simple Dynamic String，SDS）
 
-`SDS`数据结构
-- `len`：表示已使用的字符长度。
-- `alloc`：表示分配的内存大小。
-- `buf`：实际存储字符的数组。
+- `int`数字结构，编码方式是`int`
+- `SDS`数据结构，编码方式是`embstr`
+  - `len`：表示已使用的字符长度。
+  - `alloc`：表示分配的内存大小。
+  - `buf`：实际存储字符的数组。
 
 3.2版本之后，`SDS`结构会根据字符串的长度来选择对应的数据结构
 ```
