@@ -19,7 +19,7 @@
 	git branch --set-upstream-to=origin/main
 ~~~
 
-## <a id="scyfz">删除远端提交</a>
+## <a id="scydtj">删除远端提交</a>
 
 要删除远端仓库的提交记录，需要执行以下步骤：
 
