@@ -401,6 +401,11 @@
 - [加密算法](../wait.md)
     - [AES](../wait.md)
     - [RSA](../wait.md)
+    - [国密](docs/algorithm/state_secrets.md)
+      - [SM1](docs/algorithm/state_secrets.md#sm1)
+      - [SM2](docs/algorithm/state_secrets.md#sm2)
+      - [SM3](docs/algorithm/state_secrets.md#sm3)
+      - [SM4](docs/algorithm/state_secrets.md#sm4)
 
 ### [插件](../wait.md)
 - [Generator](../wait.md)
