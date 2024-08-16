@@ -9,6 +9,8 @@
 
 基本上能接触和使用的就是`SM2`、`SM3`、`SM4`，其他的就比较少。
 
+相关的实现可以查看：[SM2、3、4](https://github.com/HaoHaoDaYouXi/MyCodes/tree/main/java/framework/common-util/src/main/java/com/haohaodayouxi/common/util/algorithm/sm)
+
 ## <a id="sm1">`SM1`对称密码</a>
 
 `SM1`算法是分组密码算法，分组长度为`128`位，密钥长度都为`128`比特，算法安全保密强度及相关软硬件实现性能与`AES`相当，算法不公开，仅以`IP`核的形式存在于芯片中。
