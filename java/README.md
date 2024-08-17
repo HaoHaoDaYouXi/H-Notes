@@ -401,7 +401,7 @@
 - [加密算法](docs/algorithm/Encryption.md)
     - [MD5](docs/algorithm/Encryption.md#MD5)
     - [AES](docs/algorithm/Encryption.md#AES)
-    - [RSA](../wait.md)
+    - [RSA](docs/algorithm/Encryption.md#RSA)
     - [国密](docs/algorithm/state_secrets.md)
       - [SM1](docs/algorithm/state_secrets.md#sm1)
       - [SM2](docs/algorithm/state_secrets.md#sm2)
