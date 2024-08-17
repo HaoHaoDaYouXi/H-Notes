@@ -398,8 +398,9 @@
 
 ### [算法](../wait.md)
 - [排序算法](../wait.md)
-- [加密算法](../wait.md)
-    - [AES](../wait.md)
+- [加密算法](docs/algorithm/Encryption.md)
+    - [MD5](docs/algorithm/Encryption.md#MD5)
+    - [AES](docs/algorithm/Encryption.md#AES)
     - [RSA](../wait.md)
     - [国密](docs/algorithm/state_secrets.md)
       - [SM1](docs/algorithm/state_secrets.md#sm1)
