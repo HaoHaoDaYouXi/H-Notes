@@ -108,7 +108,8 @@ chkconfig --level 35 mysqld on   #设置mysqld在init3和init5级别开启
 echo "export PATH=$PATH:/home/mysql/mysql5.7.39/bin" >> /etc/profile   #将/usr/local/mysql/bin目录加入PATH
 source /etc/profile   #刷新profile文件，重载系统环境变量PATH
 echo $PATH   #查看PATH
-chown -R mysql:mysql /home/mysql/   #将mysql目录的所有文件的属主和属组改为mysql用户
+# 自启不生效时可以把 service mysqld start 添加进 /etc/rc.d/rc.loca 同时更改执行权限
+chmod +x /etc/rc.d/rc.loca
 ~~~
 
 8.初始化数据库
@@ -123,6 +124,8 @@ chown -R mysql:mysql /home/mysql/   #将mysql目录的所有文件的属主和�
 
 9.修改配置文件
 ~~~
+# 将mysql目录的所有文件的属主和属组改为mysql用户
+chown -R mysql:mysql /home/mysql/ 
 vim /etc/init.d/mysqld   #修改mysqld文件
  basedir=/home/mysql/mysql5.7.39   #找到basedir参数，输入/home/mysql/mysql5.7.39
  datadir=/home/mysql/mysql5.7.39/data   #batadir参数输入/home/mysql/mysql5.7.39/data 
@@ -137,8 +140,7 @@ ps -ef | grep mysqld
 11.登录及退出mysql
 ~~~
 mysql   #登录，密码为空，直接回车即可
-use mysql;
-update user set password=password("myroot") where user="root";
+update mysql.user set authentication_string=password('myroot') where user='root';
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'myroot' WITH GRANT OPTION; 
 flush privileges;
 quit/exit   #退出，需进入数据库
@@ -383,5 +385,3 @@ make && make install
 https://github.com/thkukuk/rpcsvc-proto/archive/refs/tags/v1.4.3.tar.gz
 
 ====================================
-
-
