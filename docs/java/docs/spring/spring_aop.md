@@ -7,7 +7,7 @@
 `Spring AOP`是基于动态代理的，如果要代理的对象实现了某个接口，那么`Spring AOP`就会使用`JDK`动态代理去创建代理对象；
 而对于没有实现接口的对象，就无法使用`JDK`动态代理，转而使用`CGlib`动态代理生成一个被代理对象的子类来作为代理。
 
-也可以使⽤`AspectJ`，`Spring AOP`已经集成了`AspectJ`，`AspectJ`是`Java`⽣态系统中最完整的`AOP`框架了。
+也可以使用`AspectJ`，`Spring AOP`已经集成了`AspectJ`，`AspectJ`是`Java`生态系统中最完整的`AOP`框架了。
 
 ## <a id="aophxgn">`AOP`核心概念</a>
 - 切面（`aspect`）：类是对物体特征的抽象，切面就是对横切关注点的抽象
@@ -69,22 +69,22 @@ public class TransactionDemo {
 如果我们的切面比较少，那么两者性能差异不大。当切面太多的话，最好选择`AspectJ`，它比`Spring AOP`快很多。
 
 ### <a id="aspectJ_tzlx">`AspectJ`定义的通知类型</a>
-- `Before`(前置通知)：⽬标对象的⽅法调⽤之前触发
-- `After`(后置通知)：⽬标对象的⽅法调⽤之后触发
-- `AfterReturning`(返回通知)：⽬标对象的⽅法调⽤完成，在返回结果值之后触发
-- `AfterThrowing`(异常通知) ：⽬标对象的⽅法运⾏中抛出或触发异常后触发。
+- `Before`(前置通知)：⽬标对象的方法调用之前触发
+- `After`(后置通知)：⽬标对象的方法调用之后触发
+- `AfterReturning`(返回通知)：⽬标对象的方法调用完成，在返回结果值之后触发
+- `AfterThrowing`(异常通知) ：⽬标对象的方法运⾏中抛出或触发异常后触发。
   - `AfterReturning`和`AfterThrowing`两者互斥。
-  - 如果⽅法调⽤成功⽆异常，则会有返回值；如果⽅法抛出了异常，则不会有返回值。
-- `Around`：(环绕通知)编程式控制⽬标对象的⽅法调⽤。
-  - 环绕通知是所有通知类型中可操作范围最⼤的⼀种，因为它可以直接拿到⽬标对象，以及要执⾏的⽅法
-  - 所以环绕通知可以任意的在⽬标对象的⽅法调⽤前后搞事，甚⾄不调⽤⽬标对象的⽅法
+  - 如果方法调用成功⽆异常，则会有返回值；如果方法抛出了异常，则不会有返回值。
+- `Around`：(环绕通知)编程式控制⽬标对象的方法调用。
+  - 环绕通知是所有通知类型中可操作范围最⼤的⼀种，因为它可以直接拿到⽬标对象，以及要执⾏的方法
+  - 所以环绕通知可以任意的在⽬标对象的方法调用前后搞事，甚⾄不调用⽬标对象的方法
 
 ### <a id="dgqmdzxsx">多个切面的执行顺序</a>
 
-**通常使⽤`@Order`注解直接定义切⾯顺序**
+**通常使用`@Order`注解直接定义切⾯顺序**
 
 ```java
-// 值越⼩优先级越⾼
+// 值越小优先级越⾼
 @Order(3)
 @Aspect
 @Component
@@ -93,7 +93,7 @@ public class AClassAspect implements Ordered {
 }
 ```
 
-**实现`Ordered`接⼝重写`getOrder`⽅法。**
+**实现`Ordered`接⼝重写`getOrder`方法。**
 
 ```java
 @Aspect
@@ -102,7 +102,7 @@ public class AClassAspect implements Ordered {
     
     @Override
     public int getOrder() {
-        // 返回值越⼩优先级越⾼
+        // 返回值越小优先级越⾼
         return 1;
     }
 }
