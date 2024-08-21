@@ -26,6 +26,8 @@ tar -zxvf mysql-5.7.39.tar.gz
 cd mysql-5.7.39/
 cmake . -DCMAKE_INSTALL_PREFIX=/home/mysql/mysql5.7.39 -DINSTALL_BINDIR=/home/mysql/mysql5.7.39/bin -DMYSQL_UNIX_ADDR=/home/mysql/mysql5.7.39/mysql.sock -DSYSCONFDIR=/home/mysql/mysql5.7.39/conf -DMYSQL_DATADIR=/home/mysql/mysql5.7.39/data -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/home/mysql/mysql5.7.39/boost -DMYSQL_TCP_PORT=61306 -DMYSQL_USER=mysql -DEXTRA_CHARSETS=all -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_EXTRA_CHARSETS=all -DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_MEMORY_STORAGE_ENGINE=1 -DWITH_ARCHIVE_STORAGE_ENGINE=1 -DWITH_BLACKHOLE_STORAGE_ENGINE=1 -DWITH_FEDERATED_STORAGE_ENGINE=1 -DWITH_PARTITION_STORAGE_ENGINE=1 -DWITH_PERFSCHEMA_STORAGE_ENGINE=1 -DENABLED_LOCAL_INFILE=1 -DWITH_READLINE=1
 ~~~
+此处编译安装常见问题boost下载不了，建议自行下载后解压到安装目录下
+
 ### cmake 命令说明
 ~~~
 cmake .
@@ -110,6 +112,8 @@ source /etc/profile   #刷新profile文件，重载系统环境变量PATH
 echo $PATH   #查看PATH
 # 自启不生效时可以把 service mysqld start 添加进 /etc/rc.d/rc.loca 同时更改执行权限
 chmod +x /etc/rc.d/rc.loca
+# 将mysql目录的所有文件的属主和属组改为mysql用户
+chown -R mysql:mysql /home/mysql/ 
 ~~~
 
 8.初始化数据库
@@ -124,8 +128,6 @@ chmod +x /etc/rc.d/rc.loca
 
 9.修改配置文件
 ~~~
-# 将mysql目录的所有文件的属主和属组改为mysql用户
-chown -R mysql:mysql /home/mysql/ 
 vim /etc/init.d/mysqld   #修改mysqld文件
  basedir=/home/mysql/mysql5.7.39   #找到basedir参数，输入/home/mysql/mysql5.7.39
  datadir=/home/mysql/mysql5.7.39/data   #batadir参数输入/home/mysql/mysql5.7.39/data 
@@ -140,11 +142,11 @@ ps -ef | grep mysqld
 11.登录及退出mysql
 ~~~
 mysql   #登录，密码为空，直接回车即可
-update mysql.user set authentication_string=password('myroot') where user='root';
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'myroot' WITH GRANT OPTION; 
+update mysql.user set authentication_string=password('123456') where user='root';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456' WITH GRANT OPTION; 
 flush privileges;
 quit/exit   #退出，需进入数据库
-mysql -uroot -pmyroot   #使用root登录，密码为myroot，-p后面不要加空格
+mysql -uroot -p123456   #使用root登录，密码为123456，-p后面不要加空格
 ~~~
 
 12.配置nginx访问
@@ -152,7 +154,7 @@ mysql -uroot -pmyroot   #使用root登录，密码为myroot，-p后面不要加�
 stream { 
     server {
         listen 61307;
-        proxy_pass 172.16.0.141:61306;
+        proxy_pass 192.168.0.110:61306;
     }
 }
 ~~~

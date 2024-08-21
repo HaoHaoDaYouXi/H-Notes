@@ -46,7 +46,7 @@ skip-name-resolve
 skip-external-locking
 
 #--- REPL ---#
-server-id               = 2023030101
+server-id               = 2024082101
 log-bin                 = /home/mysql/mysql5.7.39/binlog/mysql-bin
 relay-log               = /home/mysql/mysql5.7.39/binlog/mysqld-relay-bin
 relay-log-index         = /home/mysql/mysql5.7.39/binlog/mysqld-relay-bin.index
@@ -88,4 +88,3 @@ max_allowed_packet = 128M
 [mysqld_safe]	
 log-error=/home/mysql/mysql5.7.39/log/mysqld.log
 pid-file=/home/mysql/mysql5.7.39/run/mysqld.pid
-
