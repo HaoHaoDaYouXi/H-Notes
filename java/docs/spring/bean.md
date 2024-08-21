@@ -26,13 +26,13 @@
 你可以使用这些注释将`bean`类标记为特定应用程序层的成员，`Spring`框架会将它们全部视为`@Components`。
 
 ## <a id="bean_zyy">Bean的作用域</a>
-`Spring`中`Bean`的作⽤域通常有：
+`Spring`中`Bean`的作用域通常有：
 - `singleton`：单例，这种`bean`范围是默认的，这种范围确保不管接受到多少个请求，每个容器中只有一个`bean`的实例，单例的模式由`BeanFactory`自身来维护。
 - `prototype`：原形，范围与单例范围相反，每次获取都会创建⼀个新的`bean`实例，连续`getBean()`两次，是不同的`Bean`实例。
-- `request`(`Web`应⽤使⽤)：请求，在请求`bean`范围内会每一个来自客户端的网络请求创建一个实例，在请求完成以后，`bean`会失效并被垃圾回收器回收
-- `session`(`Web`应⽤使⽤)：会话，与`request`范围类似，确保每个`session`中有一个`bean`的实例，在`session`过期后，`bean`会随之失效。
-- `application/global-session`(`Web`应⽤使⽤)：全局会话，在一个全局的`Http Session`中，容器会返回该`bean`的同一个实例，仅在使用`portlet context`时有效。
-- `websocket`(`Web`应⽤使⽤)：网络通信，在`WebSocket`会话范围内会创建⼀个新的`bean`。
+- `request`(`Web`应用使用)：请求，在请求`bean`范围内会每一个来自客户端的网络请求创建一个实例，在请求完成以后，`bean`会失效并被垃圾回收器回收
+- `session`(`Web`应用使用)：会话，与`request`范围类似，确保每个`session`中有一个`bean`的实例，在`session`过期后，`bean`会随之失效。
+- `application/global-session`(`Web`应用使用)：全局会话，在一个全局的`Http Session`中，容器会返回该`bean`的同一个实例，仅在使用`portlet context`时有效。
+- `websocket`(`Web`应用使用)：网络通信，在`WebSocket`会话范围内会创建⼀个新的`bean`。
 
 ## <a id="bean_smzq">Bean的生命周期</a>
 
@@ -160,23 +160,23 @@ xml配置
 
 #### **声明`bean`**
 
-- `@Component`：通⽤的注解，可标注任意类为`Spring`组件。如果⼀个`Bean`不清楚属于哪一层，可以使⽤`@Component`注解标注。
-- `@Repository`: 对应持久层即`Dao`层，主要⽤于数据库相关操作。
-- `@Service`: 对应服务层，主要涉及⼀些复杂的逻辑，需要⽤到`Dao`层。
-- `@Controller`: 对应`Spring MVC`控制层，主要⽤户接受⽤户请求并调⽤`Service`层返回数据给前端。
+- `@Component`：通用的注解，可标注任意类为`Spring`组件。如果⼀个`Bean`不清楚属于哪一层，可以使用`@Component`注解标注。
+- `@Repository`: 对应持久层即`Dao`层，主要用于数据库相关操作。
+- `@Service`: 对应服务层，主要涉及⼀些复杂的逻辑，需要用到`Dao`层。
+- `@Controller`: 对应`Spring MVC`控制层，主要用户接受用户请求并调用`Service`层返回数据给前端。
 
 ##### `@Component`和`@Bean`的区别
-- `@Component`注解作⽤于类，⽽`@Bean`注解作⽤于⽅法。
-- `@Component`通常是通过类路径扫描来⾃动侦测以及⾃动装配到`Spring`容器中（我们可以使⽤
+- `@Component`注解作用于类，而`@Bean`注解作用于方法。
+- `@Component`通常是通过类路径扫描来⾃动侦测以及⾃动装配到`Spring`容器中（我们可以使用
 `@ComponentScan`注解定义要扫描的路径从中找出标识了需要装配的类⾃动装配到`Spring`的`bean`容器中）。
-`@Bean`注解通常是我们在标有该注解的⽅法中定义产⽣这个`bean`, `@Bean`告诉了`Spring`这是某个类的实例，当我需要⽤它的时候还给我。
-- `@Bean`注解⽐`@Component`注解的⾃定义性更强，⽽且很多地⽅我们只能通过`@Bean`注解来注册`bean`。
-⽐如当我们引⽤第三⽅库中的类需要装配到`Spring`容器时，则只能通过`@Bean`来实现。
+`@Bean`注解通常是我们在标有该注解的方法中定义产生这个`bean`, `@Bean`告诉了`Spring`这是某个类的实例，当我需要用它的时候还给我。
+- `@Bean`注解比`@Component`注解的⾃定义性更强，而且很多地方我们只能通过`@Bean`注解来注册`bean`。
+比如当我们引用第三方库中的类需要装配到`Spring`容器时，则只能通过`@Bean`来实现。
 
 
 #### **使用`Bean`**
 
-`Spring`内置的`@Autowired`以及`JDK`内置的`@Resource`和`@Inject`都可以⽤于注⼊`Bean`。
+`Spring`内置的`@Autowired`以及`JDK`内置的`@Resource`和`@Inject`都可以⽤于注入`Bean`。
 
 一般都是使用`@Autowired`和`@Resource`
 

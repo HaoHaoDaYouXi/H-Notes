@@ -19,22 +19,22 @@
 
 ## `Resilience4j`和`Hystrix`的不同
 
-`Hystrix`使⽤`HystrixCommand`来调⽤外部的系统，⽽`R4j`提供了⼀些⾼阶函数，例如断路器、限流器、隔离机制等，这些函数作为装饰器对函数式接⼝、`lambda`表达式、函数引⽤进⾏装饰。
+`Hystrix`使用`HystrixCommand`来调用外部的系统，而`R4j`提供了⼀些⾼阶函数，例如断路器、限流器、隔离机制等，这些函数作为装饰器对函数式接⼝、`lambda`表达式、函数引用进⾏装饰。
 
-此外，R4j库还提供了失败重试和缓存调⽤结果的装饰器。
+此外，R4j库还提供了失败重试和缓存调用结果的装饰器。
 
-你可以在函数式接⼝、`lambda`表达式、函数引⽤上叠加地使⽤⼀个或多个装饰器，这意味着隔离机制、限流器、重试机制等能够进⾏组合使⽤。
+你可以在函数式接⼝、`lambda`表达式、函数引用上叠加地使用⼀个或多个装饰器，这意味着隔离机制、限流器、重试机制等能够进⾏组合使用。
 
-这么做的优点在于，你可以根据需要选择特定的装饰器。任何被装饰的⽅法都可以同步或异步执⾏，异步执⾏可以采⽤`CompletableFuture`或`RxJava`。
+这么做的优点在于，你可以根据需要选择特定的装饰器。任何被装饰的方法都可以同步或异步执⾏，异步执⾏可以采用`CompletableFuture`或`RxJava`。
 
 当有很多超过规定响应时间的请求时，在远程系统没有响应和引发异常之前，断路器将会开启。
 
 当Hystrix处于半开状态时，`Hystrix`根据只执⾏⼀次请求的结果来决定是否关闭断路器。
-⽽`R4j`允许执⾏可配置次数的请求，将请求的结果和配置的阈值进⾏⽐较来决定是否关闭断路器。
+而`R4j`允许执⾏可配置次数的请求，将请求的结果和配置的阈值进⾏比较来决定是否关闭断路器。
 
 `R4j`提供了⾃定义的`Reactor`和`Rx Java`操作符对断路器、隔离机制、限流器中任何的反应式类型进⾏装饰。
 
-`Hystrix`和`R4j`都发出⼀个事件流，系统可以对发出的事件进⾏监听，得到相关的执⾏结果和延迟的时间统计数据都是⼗分有⽤的。
+`Hystrix`和`R4j`都发出⼀个事件流，系统可以对发出的事件进⾏监听，得到相关的执⾏结果和延迟的时间统计数据都是⼗分有用的。
 
 
 ## `Resilience4j`组件
@@ -104,9 +104,9 @@ resilience4j:
   circuitbreaker:
     configs:
       default:
-        failureRateThreshold: 30 #失败请求百分⽐，超过这个⽐例，CircuitBreaker变为OPEN状态 
-        slidingWindowSize: 10 #滑动窗⼝的⼤⼩，配置COUNT_BASED,表示10个请求，配置TIME_BASED表示10秒 
-        minimumNumberOfCalls: 5 #最⼩请求个数，只有在滑动窗⼝内，请求个数达到这个个数，才会触发CircuitBreader对于断路器的判断 
+        failureRateThreshold: 30 #失败请求百分比，超过这个比例，CircuitBreaker变为OPEN状态 
+        slidingWindowSize: 10 #滑动窗⼝的⼤小，配置COUNT_BASED,表示10个请求，配置TIME_BASED表示10秒 
+        minimumNumberOfCalls: 5 #最小请求个数，只有在滑动窗⼝内，请求个数达到这个个数，才会触发CircuitBreader对于断路器的判断 
         slidingWindowType: TIME_BASED #滑动窗⼝的类型 
         permittedNumberOfCallsInHalfOpenState: 3 #当CircuitBreaker处于HALF_OPEN状态的时候，允许通过的请求个数 
         automaticTransitionFromOpenToHalfOpenEnabled: true #设置true，表示⾃动从OPEN变成HALF_OPEN，即使没有请求过来 
@@ -118,8 +118,8 @@ resilience4j:
         baseConfig: default #熔断器backendA，继承默认配置default 
       backendB:
         failureRateThreshold: 50
-        slowCallDurationThreshold: 2s #慢调⽤时间阈值，⾼于这个阈值的呼叫视为慢调⽤，并增加慢调⽤⽐例。 
-        slowCallRateThreshold: 30 #慢调⽤百分⽐阈值，断路器把调⽤时间⼤于 slowCallDurationThreshold，视为慢调⽤，当慢调⽤⽐例⼤于阈值，断路器打开，并进⾏服务降级
+        slowCallDurationThreshold: 2s #慢调用时间阈值，⾼于这个阈值的呼叫视为慢调用，并增加慢调用比例。 
+        slowCallRateThreshold: 30 #慢调用百分比阈值，断路器把调用时间⼤于 slowCallDurationThreshold，视为慢调用，当慢调用比例⼤于阈值，断路器打开，并进⾏服务降级
         slidingWindowSize: 10
         slidingWindowType: TIME_BASED
         minimumNumberOfCalls: 2
@@ -146,17 +146,17 @@ public Response<Object> fallback(Integer id) {
 
 ### 测试过程
 
-服务⽆法调⽤，所有请求报错，这时第⼀次并发发送20次请求，触发异常⽐例熔断，
-断路器进⼊打开状态，2s后（waitDurationInOpenState: 2s），
-断路器⾃动进⼊半开状态（automaticTransitionFromOpenToHalfOpenEnabled: true），
+服务⽆法调用，所有请求报错，这时第⼀次并发发送20次请求，触发异常比例熔断，
+断路器进入打开状态，2s后（waitDurationInOpenState: 2s），
+断路器⾃动进入半开状态（automaticTransitionFromOpenToHalfOpenEnabled: true），
 再次发送请求断路器处于半开状态，允许3次请求通过（permittedNumberOfCallsInHalfOpenState: 3），
 
-注意此时控制台打印3次⽇志信息，说明半开状态，进⼊了3次请求调⽤，接着断路器继续进⼊打开状态。
+注意此时控制台打印3次⽇志信息，说明半开状态，进入了3次请求调用，接着断路器继续进入打开状态。
 
-慢⽐例调⽤熔断测试，修改代码，使⽤`backendB`熔断器。
+慢比例调用熔断测试，修改代码，使用`backendB`熔断器。
 
-第⼀次发送并发发送了20个请求，触发了慢⽐例熔断，但是因为没有配置（automaticTransitionFromOpenToHalfOpenEnabled: true），
-⽆法⾃动从打开状态转为半开状态，需要浏览器中执⾏⼀次请求，这时，断路器才能从打开状态进⼊半开状态，接下来进⼊半开状态，
+第⼀次发送并发发送了20个请求，触发了慢比例熔断，但是因为没有配置（automaticTransitionFromOpenToHalfOpenEnabled: true），
+⽆法⾃动从打开状态转为半开状态，需要浏览器中执⾏⼀次请求，这时，断路器才能从打开状态进入半开状态，接下来进入半开状态，
 根据配置，允许2次请求在半开状态通过（permittedNumberOfCallsInHalfOpenState: 2）。
 
 ## 限流器（Rate Limiter）
@@ -232,7 +232,7 @@ type默认为Bulkhead.Type.SEMAPHORE，表示信号量隔离。
 
 #### 测试过程
 
-因为并发线程数为5（maxConcurrentCalls: 5），只有5个线程进⼊执⾏，其他请求降直接降级。
+因为并发线程数为5（maxConcurrentCalls: 5），只有5个线程进入执⾏，其他请求降直接降级。
 
 ### FixedThreadPoolBulkhead
 
@@ -244,8 +244,8 @@ resilience4j:
         configs: 
             default:
                 queueCapacity: 2 # 队列容量 
-                coreThreadPoolSize: 2 # 核⼼线程池⼤⼩ 
-                maxThreadPoolSize: 4 # 最⼤线程池⼤⼩ 
+                coreThreadPoolSize: 2 # 核⼼线程池⼤小 
+                maxThreadPoolSize: 4 # 最⼤线程池⼤小 
         instances: 
             backendA: 
                 baseConfig: default 
@@ -269,10 +269,10 @@ public CompletableFuture<Object> get(Long id) {
     return CompletableFuture.supplyAsync(() -> id);
 }
 ```
-`FixedThreadPoolBulkhead`只对`CompletableFuture`⽅法有效，所以必须返回`CompletableFuture`类型。
+`FixedThreadPoolBulkhead`只对`CompletableFuture`方法有效，所以必须返回`CompletableFuture`类型。
 
 #### 测试过程
 
-4个请求进⼊线程执⾏（maxThreadPoolSize: 4 ），2个请求（queueCapacity: 2）进⼊有界队列等待，等待10秒后有线程执⾏结束，队列中的线程开始执⾏。
+4个请求进入线程执⾏（maxThreadPoolSize: 4 ），2个请求（queueCapacity: 2）进入有界队列等待，等待10秒后有线程执⾏结束，队列中的线程开始执⾏。
 
 ---

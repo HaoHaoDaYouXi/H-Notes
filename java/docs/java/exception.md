@@ -27,19 +27,19 @@
 
 常⻅的[Exception && Error](exception_error.md):
 - `NullPointerException`(空指针异常)
-- `IllegalArgumentException`(参数异常⽐如⽅法⼊参类型错误)
+- `IllegalArgumentException`(参数异常比如方法入参类型错误)
 - `NumberFormatException`(字符串转换为数字格式异常，`IllegalArgumentException`的⼦类)
 - `ArrayIndexOutOfBoundsException`(数组越界异常)
 - `ClassCastException`(类型转换异常)
 - `ArithmeticException`(算术异常)
-- `SecurityException`(安全异常⽐如权限不够)
-- `UnsupportedOperationException`(不⽀持的操作异常⽐如重复创建同⼀⽤户)
+- `SecurityException`(安全异常比如权限不够)
+- `UnsupportedOperationException`(不⽀持的操作异常比如重复创建同⼀用户)
 
-### `Throwable`类常⽤⽅法有哪些？
-- `String getMessage()`: 返回异常发⽣时的简要描述
-- `String toString()`: 返回异常发⽣时的详细信息
-- `String getLocalizedMessage()`: 返回异常对象的本地化信息。使⽤`Throwable`的⼦类覆盖这个⽅
-法，可以⽣成本地化信息。如果⼦类没有覆盖该⽅法，则该⽅法返回的信息与`getMessage()`返
+### `Throwable`类常用方法有哪些？
+- `String getMessage()`: 返回异常发生时的简要描述
+- `String toString()`: 返回异常发生时的详细信息
+- `String getLocalizedMessage()`: 返回异常对象的本地化信息。使用`Throwable`的⼦类覆盖这个方
+法，可以生成本地化信息。如果⼦类没有覆盖该方法，则该方法返回的信息与`getMessage()`返
 回的结果相同
 - `void printStackTrace()`: 在控制台上打印`Throwable`对象封装的异常信息
 
@@ -48,25 +48,25 @@
 抛出异常有三种形式，一是`throw`,一个`throws`，还有一种系统自动抛异常。
 
 ### `try catch finally`捕获异常针对性处理方式
-- `try`块：⽤于捕获异常。其后可接零个或多个`catch`块，如果没有`catch`块，则必须跟⼀个`finally`块。
-- `catch`块：⽤于处理`try`捕获到的异常。
-- `finally`块：⽆论是否捕获或处理异常，`finally`块⾥的语句都会被执⾏。当在`try`块或`catch`块中遇到`return`语句时，`finally`语句块将在⽅法返回之前被执⾏。
+- `try`块：用于捕获异常。其后可接零个或多个`catch`块，如果没有`catch`块，则必须跟⼀个`finally`块。
+- `catch`块：用于处理`try`捕获到的异常。
+- `finally`块：⽆论是否捕获或处理异常，`finally`块⾥的语句都会被执⾏。当在`try`块或`catch`块中遇到`return`语句时，`finally`语句块将在方法返回之前被执⾏。
   
-注意：不要在`finally`语句块中使⽤`return!`当`try`语句和`finally`语句中都有`return`语句时，`try`语句块中的`return`语句会被忽略。这是因为`try`语句中的`return`返回值会先被暂存在⼀个本地变量中，
+注意：不要在`finally`语句块中使用`return!`当`try`语句和`finally`语句中都有`return`语句时，`try`语句块中的`return`语句会被忽略。这是因为`try`语句中的`return`返回值会先被暂存在⼀个本地变量中，
 当执⾏到`finally`语句中的`return`之后，这个本地变量的值就变为了`finally`语句中的`return`返回值。
 
 #### `finally`中的代码⼀定会执⾏吗？
 不⼀定的，在某些情况下，`finally`中的代码不会被执⾏。
-就⽐如说`finally`之前虚拟机被终⽌运⾏的话，`finally`中的代码就不会被执⾏。
+就比如说`finally`之前虚拟机被终⽌运⾏的话，`finally`中的代码就不会被执⾏。
 在以下 2 种特殊情况下，`finally`块的代码也不会被执⾏：
 1. 程序所在的线程死亡。
 2. 关闭`CPU`。
 
-### 如何使⽤`try-with-resources`代替`try-catch-finally`？
-⾯对必须要关闭的资源，我们总是应该优先使⽤`try-with-resources`⽽不是`try-finally`。随之产⽣的代码更简短，更清晰，产⽣的异常对我们也更有⽤。
-`try-with-resources`语句让我们更容易编写必须要关闭的资源的代码，若采⽤`try-finally`则⼏乎做不到这点。
+### 如何使用`try-with-resources`代替`try-catch-finally`？
+⾯对必须要关闭的资源，我们总是应该优先使用`try-with-resources`而不是`try-finally`。随之产生的代码更简短，更清晰，产生的异常对我们也更有用。
+`try-with-resources`语句让我们更容易编写必须要关闭的资源的代码，若采用`try-finally`则⼏乎做不到这点。
 
-`Java`中类似于`InputStream`、`OutputStream`等的资源都需要我们调⽤`close()`⽅法来⼿动关闭，⼀般情况下我们都是通过`try-catch-finally`语句来实现这个需求
+`Java`中类似于`InputStream`、`OutputStream`等的资源都需要我们调用`close()`方法来⼿动关闭，⼀般情况下我们都是通过`try-catch-finally`语句来实现这个需求
 
 如下：
 ~~~java
@@ -84,7 +84,7 @@ public static void test() {
 }
 ~~~
 
-使⽤`try-with-resources`语句改造上⾯的代码:
+使用`try-with-resources`语句改造上⾯的代码:
 ~~~java
 public static void test() {
   File file=new File("/test.txt");
