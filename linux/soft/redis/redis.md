@@ -39,6 +39,9 @@
   修改 daemonize yes
   修改 requirepass 123456
   ```
+  若出现更改后启动失败可以查看日志文件（`/var/log/redis/redis.log`），若是端口权限问题，可查看`SELinux`策略相关问题</br>
+  - `getenforce`：查看`SELinux`状态，`Enforcing`强制模式，`Permissive`宽容模式，`Disabled`为关闭
+  - `grubby --update-kernel ALL --args selinux=0;`：关闭，需要重启生效
 
 ## 编译安装
 
@@ -75,6 +78,9 @@
   daemonize no         >>>   daemonize yes          # 开启守护线程
   requirepass 12345                                 # 设置密码为123456
   ```
+  若出现更改后启动失败可以查看日志文件（`/var/log/redis/redis.log`），若是端口权限问题，可查看`SELinux`策略相关问题</br>
+  - `getenforce`：查看`SELinux`状态，`Enforcing`强制模式，`Permissive`宽容模式，`Disabled`为关闭
+  - `grubby --update-kernel ALL --args selinux=0;`：关闭，需要重启生效
 
 - 通过systemctl管理redis服务，配置文件
 
