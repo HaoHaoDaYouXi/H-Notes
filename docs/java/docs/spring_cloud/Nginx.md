@@ -21,6 +21,7 @@
 ## <a id="fzjh">负载均衡</a>
 
 Nginx负载均衡支持：
+
 - [轮询（默认方式）](Nginx.md#lx)
 - [`weight`（权重方式）](Nginx.md#weight)
 - [`ip_hash`（依据`ip`分配方式）](Nginx.md#iphash)
@@ -28,10 +29,10 @@ Nginx负载均衡支持：
 - [`url_hash`（依据`URL`分配方式，使用第三方插件）](Nginx.md#urlhash)
 - [`fair`（依据响应时间方式，使用第三方插件）](Nginx.md#fair)
 
-
 ### <a id="lx">轮询（默认方式）</a>
 
 每个请求按时间顺序逐一分配到不同的后端服务器，如果后端某个服务器宕机，能自动剔除故障系统。
+
 ```nginx
 upstream test_server {
     server 192.168.0.100:9000;
@@ -44,6 +45,7 @@ upstream test_server {
 
 `weight`的值越大分配到的访问概率越高，主要用于每台服务器性能不均衡的情况下。
 其次是为在主从的情况下设置不同的权值，达到合理有效的地利用主机资源。
+
 ```nginx
 upstream test_server {
     server 192.168.0.100:9000 weight=1;
@@ -51,11 +53,13 @@ upstream test_server {
     server 192.168.0.100:9002 weight=2;
 }
 ```
+
 权重越高，在被访问的概率越大，5个请求，第一个为1个，第二个为2个，第三个为2个
 
 ### <a id="iphash">`ip_hash`（依据`ip`分配方式）</a>
 
 每个请求按访问`IP`的哈希结果分配，使来自同一个IP的访客固定访问一台后端服务器，可以有效解决动态网页存在的`session`共享问题
+
 ```nginx
 upstream test_server {
     ip_hash;
@@ -72,6 +76,7 @@ upstream test_server {
 
 但是，有些请求占用的时间很长，会导致其所在的后端负载较高。
 这种情况下，`least_conn`这种方式就可以达到更好的负载均衡效果。
+
 ```nginx
 upstream test_server {
     least_conn;
@@ -88,6 +93,7 @@ upstream test_server {
 按访问`url`的`hash`结果来分配请求，使每个`url`定向到同一个后端服务器，可以进一步提高后端缓存服务器的效率。
 
 使用`Hash`后，不能使用`weight`参数，因为`hash`是根据`url`进行分配的。
+
 ```nginx
 upstream test_server {
     hash $request_uri;
@@ -97,14 +103,15 @@ upstream test_server {
     server 192.168.0.100:9002;
 }
 ```
-`hash_method`是使用的hash算法，`crc32`是一种校验数值的算法
 
+`hash_method`是使用的hash算法，`crc32`是一种校验数值的算法
 
 ### <a id="fair">`fair`（依据响应时间方式，使用第三方插件）</a>
 
 必须安装`upstream_fair`模块。
 
 对比`weight`、`ip_hash`更加智能的负载均衡算法，`fair`算法可以根据页面大小和加载时间长短智能地进行负载均衡，响应时间短的优先分配。
+
 ```nginx
 upstream test_server {
     fair;
@@ -113,11 +120,13 @@ upstream test_server {
     server 192.168.0.100:9002;
 }
 ```
+
 哪个服务器的响应速度快，就将请求分配到那个服务器上。
 
 ## <a id="xzfw">限制访问</a>
 
 如果要限制IP访问的可以使用`if`指令，或者`geo`和`map`模块。
+
 ```nginx
 if  ($remote_addr = 192.168.0.105) {  
     return 403;  
@@ -125,6 +134,7 @@ if  ($remote_addr = 192.168.0.105) {
 ```
 
 其他限制访问的都可以使用`if`指令和`map`模块，只需要调整参数和判断就可以
+
 ```nginx
 if ($http_user_agent ~ Chrome) {   
   return 403;  
@@ -176,15 +186,15 @@ if ($http_user_agent ~ Chrome) {
 ## <a id="cdx">重定向</a>
 
 - return
-  - return code;
-  - return code http://xxx.xxx/$request_uri;
-  - return http://xxx.xxx/$request_uri;
+    - return code;
+    - return code http://xxx.xxx/$request_uri;
+    - return http://xxx.xxx/$request_uri;
 - rewrite
-  - rewrite ^/$ http://xxx.xxx permanent;
-  - last: 停止处理后续rewrite指令集，然后对当前重写的新URI在rewrite指令集上重新查找
-  - break: 停止处理后续rewrite指令集，并不在重新查找,但是当前location内剩余非rewrite语句和location外的非rewrite语句可以执行
-  - redirect: 如果replacement不是以http:// 或https://开始，返回302临时重定向
-  - permanent: 返回301永久重定向
+    - rewrite ^/$ http://xxx.xxx permanent;
+    - last: 停止处理后续rewrite指令集，然后对当前重写的新URI在rewrite指令集上重新查找
+    - break: 停止处理后续rewrite指令集，并不在重新查找,但是当前location内剩余非rewrite语句和location外的非rewrite语句可以执行
+    - redirect: 如果replacement不是以http:// 或https://开始，返回302临时重定向
+    - permanent: 返回301永久重定向
 
 ## <a id="xl">限流</a>
 
@@ -198,6 +208,7 @@ if ($http_user_agent ~ Chrome) {
 `Nginx`中使用`ngx_http_limit_req_module`模块来限制的访问频率，限制的原理实质是基于漏桶算法原理来实现的。
 
 使用`limit_req_zone`命令及`limit_req`命令限制单个`IP`的请求处理频率。
+
 ```nginx
 http {
     # 定义限流维度
@@ -212,16 +223,19 @@ http {
     }
 }
 ```
+
 `1r/s`代表`1`秒一个请求，`1r/m`一分钟接收一个请求， 如果`Nginx`这时还有别人的请求没有处理完，`Nginx`就会拒绝处理该用户请求。
 
 - `limit_req_zone`
-  - 第一个参数：`$binary_remote_addr`表示通过`remote_addr`这个标识来做限制，`binary_`的目的是缩写内存占用量，是限制同一客户端`ip`地址。
-  - 第二个参数：`zone=test:10m`表示生成一个大小为`10M`，名字为`test`的内存区域，用来存储访问的频次信息。
-  - 第三个参数：`rate=1r/s`表示允许相同标识的客户端的访问频次，这里限制的是每秒`1`次，还可以有比如`30r/m`的。
+    - 第一个参数：`$binary_remote_addr`表示通过`remote_addr`这个标识来做限制，`binary_`
+      的目的是缩写内存占用量，是限制同一客户端`ip`地址。
+    - 第二个参数：`zone=test:10m`表示生成一个大小为`10M`，名字为`test`的内存区域，用来存储访问的频次信息。
+    - 第三个参数：`rate=1r/s`表示允许相同标识的客户端的访问频次，这里限制的是每秒`1`次，还可以有比如`30r/m`的。
 - `limit_req`
-  - 第一个参数：`zone=test` 设置使用哪个配置区域来做限制，与`limit_req_zone`里的`name`对应。
-  - 第二个参数：`burst=5`，重点说明一下这个配置，burst爆发的意思，这个配置的意思是设置一个大小为`5`的缓冲区当有大量请求（爆发）过来时，超过了访问频次限制的请求可以先放到这个缓冲区内。
-  - 第三个参数：`nodelay`，如果设置，超过访问频次而且缓冲区也满了的时候就会直接返回`503`，如果没有设置，则所有请求会等待排队。
+    - 第一个参数：`zone=test` 设置使用哪个配置区域来做限制，与`limit_req_zone`里的`name`对应。
+    - 第二个参数：`burst=5`，重点说明一下这个配置，burst爆发的意思，这个配置的意思是设置一个大小为`5`
+      的缓冲区当有大量请求（爆发）过来时，超过了访问频次限制的请求可以先放到这个缓冲区内。
+    - 第三个参数：`nodelay`，如果设置，超过访问频次而且缓冲区也满了的时候就会直接返回`503`，如果没有设置，则所有请求会等待排队。
 
 正常情况下`limit_req`需要第一个参数，如果要限制突发情况，`limit_req`就需要配置第二、三个参数
 
@@ -239,18 +253,19 @@ http {
        location / {
            limit_conn testIp 10;
            limit_conn testName 100;
-           rewrite / https://haohaodayouxi.github.io/MyNotes/ permanent;
+           rewrite / https://haohaodayouxi.github.io/H-Notes/ permanent;
        }
    }
 }
 ```
 
 - `limit_conn_zone`
-  - 第一个参数：`$binary_remote_addr`表示通过`remote_addr`这个标识来做限制，`binary_`的目的是缩写内存占用量，是限制同一客户端`ip`地址。
-  - 第二个参数：`zone=testIp:10m`表示生成一个大小为`10M`，名字为`testIp`的内存区域，用来存储访问的频次信息。
+    - 第一个参数：`$binary_remote_addr`表示通过`remote_addr`这个标识来做限制，`binary_`
+      的目的是缩写内存占用量，是限制同一客户端`ip`地址。
+    - 第二个参数：`zone=testIp:10m`表示生成一个大小为`10M`，名字为`testIp`的内存区域，用来存储访问的频次信息。
 - `limit_conn`
-  - 第一个参数：`testIp`，表示使用哪个配置区域来做限制，与`limit_conn_zone`里的`name`对应。
-  - 第二个参数：`10`，表示允许同一客户端`ip`地址同时连接的个数。
+    - 第一个参数：`testIp`，表示使用哪个配置区域来做限制，与`limit_conn_zone`里的`name`对应。
+    - 第二个参数：`10`，表示允许同一客户端`ip`地址同时连接的个数。
 
 可以配置多个`limit_conn`指令。
 
@@ -283,6 +298,7 @@ location /static/ {
     try_files $uri $uri/ =404;
 }
 ```
+
 静态文件位于`/static/`目录下，通过`location /static/`匹配。
 
 对于静态文件，设置了缓存时间为`30`天，并添加了`Cache-Control`头，以指示客户端和代理服务器缓存文件。
