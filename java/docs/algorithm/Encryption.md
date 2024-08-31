@@ -7,18 +7,19 @@
 ## 加密算法分类
 
 加密算法大致可以分为两大类：
+
 - 对称加密算法
-  - 使用相同的密钥进行加密和解密。
-  - 特点是速度快，适合大量数据加密。
-  - 常见的例子包括`AES`(Advanced Encryption Standard)和`DES`(Data Encryption Standard)。
+    - 使用相同的密钥进行加密和解密。
+    - 特点是速度快，适合大量数据加密。
+    - 常见的例子包括`AES`(Advanced Encryption Standard)和`DES`(Data Encryption Standard)。
 - 非对称加密算法
-  - 使用一对密钥，一个公钥用于加密，一个私钥用于解密。
-  - 特点是安全性更高，但速度较慢。
-  - 常见的例子有`RSA`(Rivest-Shamir-Adleman)和`ECC`(Elliptic Curve Cryptography)。
+    - 使用一对密钥，一个公钥用于加密，一个私钥用于解密。
+    - 特点是安全性更高，但速度较慢。
+    - 常见的例子有`RSA`(Rivest-Shamir-Adleman)和`ECC`(Elliptic Curve Cryptography)。
 - 其他相关概念
-  - 散列函数（如`MD5`, `SHA-256`）：用于生成固定长度的摘要，常用于验证数据完整性，但不是加密算法，因为它是不可逆的。
-  - 数字签名：结合非对称加密和散列函数，用于验证消息的真实性和完整性。
-  - 密钥管理：包括密钥的生成、分发、存储和销毁，对于加密系统的安全至关重要。
+    - 散列函数（如`MD5`, `SHA-256`）：用于生成固定长度的摘要，常用于验证数据完整性，但不是加密算法，因为它是不可逆的。
+    - 数字签名：结合非对称加密和散列函数，用于验证消息的真实性和完整性。
+    - 密钥管理：包括密钥的生成、分发、存储和销毁，对于加密系统的安全至关重要。
 
 ## 应用场景
 
@@ -31,7 +32,7 @@
 `MD5`(Message-Digest Algorithm 5)是一种不可逆的哈希算法，它将任意长度的输入数据转换为固定长度的128位（16字节）的哈希值。
 MD5 主要用于数据完整性的校验，而不是用于加密。它广泛应用于密码存储、文件校验等领域。
 
-[Java代码](https://github.com/HaoHaoDaYouXi/MyCodes/tree/main/java/framework/common-util/src/main/java/com/haohaodayouxi/common/util/algorithm/md5)
+[Java代码](https://github.com/HaoHaoDaYouXi/H-Codes/tree/main/java/framework/common-util/src/main/java/com/haohaodayouxi/common/util/algorithm/md5)
 
 ### `MD5`的特点
 
@@ -50,7 +51,7 @@ MD5 主要用于数据完整性的校验，而不是用于加密。它广泛应�
 
 `AES`(Advanced Encryption Standard)是一种对称加密算法，它使用128位、192位或256位的密钥进行加密和解密。
 
-[Java代码](https://github.com/HaoHaoDaYouXi/MyCodes/tree/main/java/framework/common-util/src/main/java/com/haohaodayouxi/common/util/algorithm/aes)
+[Java代码](https://github.com/HaoHaoDaYouXi/H-Codes/tree/main/java/framework/common-util/src/main/java/com/haohaodayouxi/common/util/algorithm/aes)
 
 ### `AES`的特点
 
@@ -61,6 +62,7 @@ MD5 主要用于数据完整性的校验，而不是用于加密。它广泛应�
 ### `AES`加密过程
 
 `AES`加密过程基于一系列固定的步骤，包括：
+
 - 密钥扩展：从用户提供的密钥生成一系列子密钥。
 - 初始轮：将明文与第一个子密钥进行异或运算。
 - 多轮处理：每一轮包括四个步骤：字节替代、行移位、列混合以及密钥加法。
@@ -71,7 +73,7 @@ MD5 主要用于数据完整性的校验，而不是用于加密。它广泛应�
 `RSA`(Rivest-Shamir-Adleman)是一种非对称加密算法，它使用一对密钥，一个公钥用于加密，一个私钥用于解密。
 `RSA`是第一个既能用于数据加密又能用于数字签名的算法，其安全性基于大数分解的困难性。
 
-[Java代码](https://github.com/HaoHaoDaYouXi/MyCodes/tree/main/java/framework/common-util/src/main/java/com/haohaodayouxi/common/util/algorithm/rsa)
+[Java代码](https://github.com/HaoHaoDaYouXi/H-Codes/tree/main/java/framework/common-util/src/main/java/com/haohaodayouxi/common/util/algorithm/rsa)
 
 ### `RSA`的特点
 
@@ -83,14 +85,14 @@ MD5 主要用于数据完整性的校验，而不是用于加密。它广泛应�
 ### RSA 的工作原理
 
 - 密钥生成：
-  - 选择两个大质数 ( p ) 和 ( q )。
-  - 计算 ( n = p \times q )。
-  - 计算欧拉函数 ( \phi(n) = (p-1)(q-1) )。
-  - 选择一个与 ( \phi(n) ) 互质的整数 ( e )，作为公钥的一部分。
-  - 计算 ( d )，使得 ( de \equiv 1 \mod \phi(n) )，( d ) 作为私钥的一部分。
+    - 选择两个大质数 ( p ) 和 ( q )。
+    - 计算 ( n = p \times q )。
+    - 计算欧拉函数 ( \phi(n) = (p-1)(q-1) )。
+    - 选择一个与 ( \phi(n) ) 互质的整数 ( e )，作为公钥的一部分。
+    - 计算 ( d )，使得 ( de \equiv 1 \mod \phi(n) )，( d ) 作为私钥的一部分。
 - 加密过程：
-  - 对于明文 ( m )，使用公钥 ( (e, n) ) 进行加密：( c = m^e \mod n )。
+    - 对于明文 ( m )，使用公钥 ( (e, n) ) 进行加密：( c = m^e \mod n )。
 - 解密过程：
-  - 对于密文 ( c )，使用私钥 ( (d, n) ) 进行解密：( m = c^d \mod n )。
+    - 对于密文 ( c )，使用私钥 ( (d, n) ) 进行解密：( m = c^d \mod n )。
 
 ----
