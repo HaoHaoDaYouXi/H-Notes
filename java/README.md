@@ -119,6 +119,7 @@
     - [ThreadLocal](docs/java/thread.md#threadlocal)
         - [ThreadLocalMap](docs/java/thread.md#threadlocal_map)
         - [使用场景](docs/java/thread.md#threadlocal_sycj)
+- [虚拟线程](docs/java/VirtualThread.md)
 - [协程](docs/java/coroutine.md)
 
 ### [设计模式和原则](docs/devise/devise.md)
