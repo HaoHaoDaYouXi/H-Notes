@@ -186,7 +186,7 @@
 
 ## 总结
 
-- `spring`容器在启动的时候，先回保存所有注册进来的`Bean`的定义信息
+- `spring`容器在启动的时候，先保存所有注册进来的`Bean`的定义信息
     - `xml`注册`bean`：`<bean>`
     - 注解注册`Bean`：`@Service`、`@Repository`、`@Component`、`@Bean`、`xxx`
 - `Spring`容器会在合适的时机创建这些`Bean`
