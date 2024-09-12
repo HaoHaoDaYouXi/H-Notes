@@ -99,4 +99,23 @@ gitbook -V
 
 `./`是源文件目录，`./docs` 是输出目录
 
+### 错误
+
+若出现`cb.apply is not a function`错误
+```
+...\node_modules\gitbook-cli\node_modules\npm\node_modules\graceful-fs\polyfills.js:287
+      if (cb) cb.apply(this, arguments)
+                 ^
+
+TypeError: cb.apply is not a function
+...
+```
+此类报错可以找到对应文件`graceful-fs\polyfills.js`，把3个调用注释掉之后就正常了
+```
+// fs.stat = statFix(fs.stat)
+// fs.fstat = statFix(fs.fstat)
+// fs.lstat = statFix(fs.lstat)
+```
+
+
 ----

@@ -6038,7 +6038,19 @@
 <p><code>gitbook build</code>&#xFF0C;&#x9ED8;&#x8BA4;&#x751F;&#x6210;&#x6587;&#x4EF6;&#x5B58;&#x653E;&#x5728;<code>_book/</code>&#x76EE;&#x5F55;&#xFF0C;&#x5F53;&#x7136;&#x8F93;&#x51FA;&#x76EE;&#x5F55;&#x662F;&#x53EF;&#x914D;&#x7F6E;&#x7684;</p>
 <p><code>gitbook serve ./ ./docs</code> or <code>gitbook build ./ ./docs</code></p>
 <p><code>./</code>&#x662F;&#x6E90;&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#xFF0C;<code>./docs</code> &#x662F;&#x8F93;&#x51FA;&#x76EE;&#x5F55;</p>
-<hr>
+<h3 id="&#x9519;&#x8BEF;">&#x9519;&#x8BEF;</h3>
+<p>&#x82E5;&#x51FA;&#x73B0;<code>cb.apply is not a function</code>&#x9519;&#x8BEF;</p>
+<pre><code>...\node_modules\gitbook-cli\node_modules\npm\node_modules\graceful-fs\polyfills.js:287
+      if (cb) cb.apply(this, arguments)
+                 ^
+
+TypeError: cb.apply is not a function
+...
+</code></pre><p>&#x6B64;&#x7C7B;&#x62A5;&#x9519;&#x53EF;&#x4EE5;&#x627E;&#x5230;&#x5BF9;&#x5E94;&#x6587;&#x4EF6;<code>graceful-fs\polyfills.js</code>&#xFF0C;&#x628A;3&#x4E2A;&#x8C03;&#x7528;&#x6CE8;&#x91CA;&#x6389;&#x4E4B;&#x540E;&#x5C31;&#x6B63;&#x5E38;&#x4E86;</p>
+<pre><code>// fs.stat = statFix(fs.stat)
+// fs.fstat = statFix(fs.fstat)
+// fs.lstat = statFix(fs.lstat)
+</code></pre><hr>
 
                                 
                                 </section>
@@ -6082,7 +6094,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"GitBook","level":"1.7.3","depth":2,"next":{"title":"md","level":"1.7.4","depth":2,"path":"other/md.md","ref":"other/md.md","articles":[]},"previous":{"title":"windows脚本","level":"1.7.2.3.1","depth":4,"anchor":"#win_bat","path":"other/git/git.md","ref":"other/git/git.md#win_bat","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"HaoHaoDaYouXi","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"H-Codes","language":"zh-hans","links":{"sidebar":{"我的笔记仓库":"https://github.com/HaoHaoDaYouXi/H-Notes"}},"gitbook":"3.2.3","description":"一些知识笔记和各类学习资料"},"file":{"path":"other/git/GitBook.md","mtime":"2024-08-31T08:13:40.910Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-09-10T11:15:35.365Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"GitBook","level":"1.7.3","depth":2,"next":{"title":"md","level":"1.7.4","depth":2,"path":"other/md.md","ref":"other/md.md","articles":[]},"previous":{"title":"windows脚本","level":"1.7.2.3.1","depth":4,"anchor":"#win_bat","path":"other/git/git.md","ref":"other/git/git.md#win_bat","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"HaoHaoDaYouXi","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"H-Codes","language":"zh-hans","links":{"sidebar":{"我的笔记仓库":"https://github.com/HaoHaoDaYouXi/H-Notes"}},"gitbook":"3.2.3","description":"一些知识笔记和各类学习资料"},"file":{"path":"other/git/GitBook.md","mtime":"2024-09-12T16:21:50.021Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-09-12T16:21:52.305Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
