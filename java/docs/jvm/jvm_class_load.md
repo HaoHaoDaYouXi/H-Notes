@@ -56,9 +56,10 @@ JVM 类加载机制分为五个部分：加载，验证，准备，解析，初�
 
 
 ## 类加载器
-   虚拟机设计团队把加载动作放到 JVM 外部实现，以便让应用程序决定如何获取所需的类，JVM 提
-   供了 3 种类加载器：
 
+虚拟机设计团队把加载动作放到 JVM 外部实现，以便让应用程序决定如何获取所需的类
+
+JVM 提供了 3 种类加载器：
 - 启动类加载器(Bootstrap ClassLoader)
     - 负责加载 JAVA_HOME\lib 目录中的，或通过-Xbootclasspath 参数指定路径中的，且被虚拟机认可（按文件名识别，如 rt.jar）的类。
 - 扩展类加载器(Extension ClassLoader)
@@ -67,6 +68,7 @@ JVM 类加载机制分为五个部分：加载，验证，准备，解析，初�
   - 负责加载用户路径（classpath）上的类库。
 
 ### 双亲委派
+
 JVM 通过双亲委派模型进行类的加载，当然我们也可以通过继承 java.lang.ClassLoader 实现自定义的类加载器。
 
 ![jvm_app_class_load.png](img/jvm_app_class_load.png)
@@ -78,3 +80,5 @@ JVM 通过双亲委派模型进行类的加载，当然我们也可以通过继�
 最终都是委托给顶层的启动类加载器进行加载，这样就保证了使用不同的类加载器最终得到的都是同样一个 Object 对象。
 
 ![jvm_app_class_load_process.png](img/jvm_app_class_load_process.png)
+
+----

@@ -26,7 +26,7 @@
     - [堆](docs/jvm/jvm_memory.md#d)
         - [堆栈的区别？队列和栈的区别？](docs/jvm/jvm_queue_stack_heap.md)
     - [方法区](docs/jvm/jvm_memory.md#ffq)
-- [Java垃圾回收机制(GC)？](docs/jvm/gc/gc.md)
+- [Java垃圾回收机制(GC)](docs/jvm/gc/gc.md)
     - [如何确定哪些是垃圾](docs/jvm/gc/which_garbage.md)
     - [垃圾回收算法](docs/jvm/gc/algorithm.md)
         - [标记清除算法](docs/jvm/gc/algorithm.md#bjqcsf)
