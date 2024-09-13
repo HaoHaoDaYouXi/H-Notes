@@ -19,22 +19,22 @@
 
 ## `Resilience4j`和`Hystrix`的不同
 
-`Hystrix`使用`HystrixCommand`来调用外部的系统，而`R4j`提供了⼀些⾼阶函数，例如断路器、限流器、隔离机制等，这些函数作为装饰器对函数式接⼝、`lambda`表达式、函数引用进⾏装饰。
+`Hystrix`使用`HystrixCommand`来调用外部的系统，而`R4j`提供了一些⾼阶函数，例如断路器、限流器、隔离机制等，这些函数作为装饰器对函数式接⼝、`lambda`表达式、函数引用进行装饰。
 
 此外，R4j库还提供了失败重试和缓存调用结果的装饰器。
 
-你可以在函数式接⼝、`lambda`表达式、函数引用上叠加地使用⼀个或多个装饰器，这意味着隔离机制、限流器、重试机制等能够进⾏组合使用。
+你可以在函数式接⼝、`lambda`表达式、函数引用上叠加地使用一个或多个装饰器，这意味着隔离机制、限流器、重试机制等能够进行组合使用。
 
-这么做的优点在于，你可以根据需要选择特定的装饰器。任何被装饰的方法都可以同步或异步执⾏，异步执⾏可以采用`CompletableFuture`或`RxJava`。
+这么做的优点在于，你可以根据需要选择特定的装饰器。任何被装饰的方法都可以同步或异步执行，异步执行可以采用`CompletableFuture`或`RxJava`。
 
 当有很多超过规定响应时间的请求时，在远程系统没有响应和引发异常之前，断路器将会开启。
 
-当Hystrix处于半开状态时，`Hystrix`根据只执⾏⼀次请求的结果来决定是否关闭断路器。
-而`R4j`允许执⾏可配置次数的请求，将请求的结果和配置的阈值进⾏比较来决定是否关闭断路器。
+当Hystrix处于半开状态时，`Hystrix`根据只执行一次请求的结果来决定是否关闭断路器。
+而`R4j`允许执行可配置次数的请求，将请求的结果和配置的阈值进行比较来决定是否关闭断路器。
 
-`R4j`提供了⾃定义的`Reactor`和`Rx Java`操作符对断路器、隔离机制、限流器中任何的反应式类型进⾏装饰。
+`R4j`提供了⾃定义的`Reactor`和`Rx Java`操作符对断路器、隔离机制、限流器中任何的反应式类型进行装饰。
 
-`Hystrix`和`R4j`都发出⼀个事件流，系统可以对发出的事件进⾏监听，得到相关的执⾏结果和延迟的时间统计数据都是⼗分有用的。
+`Hystrix`和`R4j`都发出一个事件流，系统可以对发出的事件进行监听，得到相关的执行结果和延迟的时间统计数据都是⼗分有用的。
 
 
 ## `Resilience4j`组件
@@ -119,7 +119,7 @@ resilience4j:
       backendB:
         failureRateThreshold: 50
         slowCallDurationThreshold: 2s #慢调用时间阈值，⾼于这个阈值的呼叫视为慢调用，并增加慢调用比例。 
-        slowCallRateThreshold: 30 #慢调用百分比阈值，断路器把调用时间⼤于 slowCallDurationThreshold，视为慢调用，当慢调用比例⼤于阈值，断路器打开，并进⾏服务降级
+        slowCallRateThreshold: 30 #慢调用百分比阈值，断路器把调用时间⼤于 slowCallDurationThreshold，视为慢调用，当慢调用比例⼤于阈值，断路器打开，并进行服务降级
         slidingWindowSize: 10
         slidingWindowType: TIME_BASED
         minimumNumberOfCalls: 2
@@ -146,7 +146,7 @@ public Response<Object> fallback(Integer id) {
 
 ### 测试过程
 
-服务⽆法调用，所有请求报错，这时第⼀次并发发送20次请求，触发异常比例熔断，
+服务⽆法调用，所有请求报错，这时第一次并发发送20次请求，触发异常比例熔断，
 断路器进入打开状态，2s后（waitDurationInOpenState: 2s），
 断路器⾃动进入半开状态（automaticTransitionFromOpenToHalfOpenEnabled: true），
 再次发送请求断路器处于半开状态，允许3次请求通过（permittedNumberOfCallsInHalfOpenState: 3），
@@ -155,8 +155,8 @@ public Response<Object> fallback(Integer id) {
 
 慢比例调用熔断测试，修改代码，使用`backendB`熔断器。
 
-第⼀次发送并发发送了20个请求，触发了慢比例熔断，但是因为没有配置（automaticTransitionFromOpenToHalfOpenEnabled: true），
-⽆法⾃动从打开状态转为半开状态，需要浏览器中执⾏⼀次请求，这时，断路器才能从打开状态进入半开状态，接下来进入半开状态，
+第一次发送并发发送了20个请求，触发了慢比例熔断，但是因为没有配置（automaticTransitionFromOpenToHalfOpenEnabled: true），
+⽆法⾃动从打开状态转为半开状态，需要浏览器中执行一次请求，这时，断路器才能从打开状态进入半开状态，接下来进入半开状态，
 根据配置，允许2次请求在半开状态通过（permittedNumberOfCallsInHalfOpenState: 2）。
 
 ## 限流器（Rate Limiter）
@@ -168,8 +168,8 @@ resilience4j:
     ratelimiter: 
         configs: 
             default: 
-                limitRefreshPeriod: 1s # 限流器每隔1s刷新⼀次，将允许处理的最⼤请求重置为2 
-                limitForPeriod: 2 #在⼀个刷新周期内，允许执⾏的最⼤请求数 
+                limitRefreshPeriod: 1s # 限流器每隔1s刷新一次，将允许处理的最⼤请求重置为2 
+                limitForPeriod: 2 #在一个刷新周期内，允许执行的最⼤请求数 
                 timeoutDuration: 5 # 线程等待权限的默认等待时间 
         instances: 
             backendA: 
@@ -193,9 +193,9 @@ public Response<Object> getById(@PathVariable("id") Long id) {
 
 ### 测试过程
 
-因为在⼀个刷新周期1s（limitRefreshPeriod: 1s），允许执⾏的最⼤请求数为 2（limitForPeriod: 2），等待令牌时间5s（timeoutDuration: 5）。
+因为在一个刷新周期1s（limitRefreshPeriod: 1s），允许执行的最⼤请求数为 2（limitForPeriod: 2），等待令牌时间5s（timeoutDuration: 5）。
 
-并发发送20个请求后，只有2个请求拿到令牌执⾏，另外2个请求等5秒后拿到令牌，其他16个请求直接降级。
+并发发送20个请求后，只有2个请求拿到令牌执行，另外2个请求等5秒后拿到令牌，其他16个请求直接降级。
 
 ## 隔离（Bulkhead）
 
@@ -208,7 +208,7 @@ resilience4j:
     bulkhead: 
         configs: 
             default: 
-                maxConcurrentCalls: 5 # 隔离允许并发线程执⾏的最⼤数量 
+                maxConcurrentCalls: 5 # 隔离允许并发线程执行的最⼤数量 
                 maxWaitDuration: 20ms # 当达到并发调⽤数量时，新的线程的阻塞时间 
         instances: 
             backendA: 
@@ -232,7 +232,7 @@ type默认为Bulkhead.Type.SEMAPHORE，表示信号量隔离。
 
 #### 测试过程
 
-因为并发线程数为5（maxConcurrentCalls: 5），只有5个线程进入执⾏，其他请求降直接降级。
+因为并发线程数为5（maxConcurrentCalls: 5），只有5个线程进入执行，其他请求降直接降级。
 
 ### FixedThreadPoolBulkhead
 
@@ -273,6 +273,6 @@ public CompletableFuture<Object> get(Long id) {
 
 #### 测试过程
 
-4个请求进入线程执⾏（maxThreadPoolSize: 4 ），2个请求（queueCapacity: 2）进入有界队列等待，等待10秒后有线程执⾏结束，队列中的线程开始执⾏。
+4个请求进入线程执行（maxThreadPoolSize: 4 ），2个请求（queueCapacity: 2）进入有界队列等待，等待10秒后有线程执行结束，队列中的线程开始执行。
 
 ---

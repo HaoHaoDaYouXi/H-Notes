@@ -28,11 +28,11 @@
 ## <a id="bean_zyy">Bean的作用域</a>
 `Spring`中`Bean`的作用域通常有：
 - `singleton`：单例，这种`bean`范围是默认的，这种范围确保不管接受到多少个请求，每个容器中只有一个`bean`的实例，单例的模式由`BeanFactory`自身来维护。
-- `prototype`：原形，范围与单例范围相反，每次获取都会创建⼀个新的`bean`实例，连续`getBean()`两次，是不同的`Bean`实例。
+- `prototype`：原形，范围与单例范围相反，每次获取都会创建一个新的`bean`实例，连续`getBean()`两次，是不同的`Bean`实例。
 - `request`(`Web`应用使用)：请求，在请求`bean`范围内会每一个来自客户端的网络请求创建一个实例，在请求完成以后，`bean`会失效并被垃圾回收器回收
 - `session`(`Web`应用使用)：会话，与`request`范围类似，确保每个`session`中有一个`bean`的实例，在`session`过期后，`bean`会随之失效。
 - `application/global-session`(`Web`应用使用)：全局会话，在一个全局的`Http Session`中，容器会返回该`bean`的同一个实例，仅在使用`portlet context`时有效。
-- `websocket`(`Web`应用使用)：网络通信，在`WebSocket`会话范围内会创建⼀个新的`bean`。
+- `websocket`(`Web`应用使用)：网络通信，在`WebSocket`会话范围内会创建一个新的`bean`。
 
 ## <a id="bean_smzq">Bean的生命周期</a>
 
@@ -160,9 +160,9 @@ xml配置
 
 #### **声明`bean`**
 
-- `@Component`：通用的注解，可标注任意类为`Spring`组件。如果⼀个`Bean`不清楚属于哪一层，可以使用`@Component`注解标注。
+- `@Component`：通用的注解，可标注任意类为`Spring`组件。如果一个`Bean`不清楚属于哪一层，可以使用`@Component`注解标注。
 - `@Repository`: 对应持久层即`Dao`层，主要用于数据库相关操作。
-- `@Service`: 对应服务层，主要涉及⼀些复杂的逻辑，需要用到`Dao`层。
+- `@Service`: 对应服务层，主要涉及一些复杂的逻辑，需要用到`Dao`层。
 - `@Controller`: 对应`Spring MVC`控制层，主要用户接受用户请求并调用`Service`层返回数据给前端。
 
 ##### `@Component`和`@Bean`的区别

@@ -1,6 +1,6 @@
 # Spring
 
-`Spring`是⼀款开源的轻量级`Java`开发框架，旨在提⾼开发⼈员的开发效率以及系统的可维护性。
+`Spring`是一款开源的轻量级`Java`开发框架，旨在提⾼开发⼈员的开发效率以及系统的可维护性。
 
 `Spring`框架指的是[`Spring Framework`](https://github.com/spring-projects/spring-framework)
 
@@ -45,25 +45,25 @@ spring6.1.x版本：https://docs.spring.io/spring-framework/reference/6.1-SNAPSH
 
 ### `AOP`
 - `spring-aspects`：该模块为与`AspectJ`的集成提供⽀持。
-- `spring-aop`：提供了⾯向切⾯的编程实现。
+- `spring-aop`：提供了面向切面的编程实现。
 - `spring-instrument`：提供了为`JVM`添加代理（`agent`）的功能。
-  具体来讲，它为`Tomcat`提供了⼀个织入代理，能够为`Tomcat`传递类文件，就像这些文件是被类加载器加载的⼀样。
+  具体来讲，它为`Tomcat`提供了一个织入代理，能够为`Tomcat`传递类文件，就像这些文件是被类加载器加载的一样。
 
 ### `Data Access/Integration`
 - `spring-jdbc`：提供了对数据库访问的抽象`JDBC`。不同的数据库都有⾃⼰独⽴的`API`用于操作数据库，而`ava`程序只需要和`JDBC API`交互，这样就屏蔽了数据库的影响。
 - `spring-tx`：提供对事务的⽀持。
 - `spring-orm`： 提供对`Hibernate`、`JPA`、`iBatis`等`ORM`框架的⽀持。
-- `spring-oxm`：提供⼀个抽象层⽀撑`OXM`(`Object-to-XML-Mapping`)，例如：`JAXB`、`Castor`、`XMLBeans`、`JiBX`和`XStream`等。
+- `spring-oxm`：提供一个抽象层⽀撑`OXM`(`Object-to-XML-Mapping`)，例如：`JAXB`、`Castor`、`XMLBeans`、`JiBX`和`XStream`等。
 - `spring-jms`: 消息服务。⾃`Spring Framework 4.1`以后，它还提供了对`spring-messaging`模块的继承。
 
 ### `Spring Web`
-- `spring-web`：对`Web`功能的实现提供⼀些最基础的⽀持。
+- `spring-web`：对`Web`功能的实现提供一些最基础的⽀持。
 - `spring-webmvc`： 提供对`Spring MVC`的实现。
-- `spring-websocket`： 提供了对`WebSocket`的⽀持，`WebSocket`可以让客户端和服务端进⾏双向通信。
+- `spring-websocket`： 提供了对`WebSocket`的⽀持，`WebSocket`可以让客户端和服务端进行双向通信。
 - `spring-webflux`：提供对`WebFlux`的⽀持。`WebFlux`是`Spring Framework 5.0`中引入的新的响应式框架。与`Spring MVC`不同，它不需要`Servlet API`，是完全异步。
 
 ### `Messaging`
-- `spring-messaging`是从`Spring4.0`开始新加入的⼀个模块，主要职责是为`Spring`框架集成⼀些基础的报文传送应用。
+- `spring-messaging`是从`Spring4.0`开始新加入的一个模块，主要职责是为`Spring`框架集成一些基础的报文传送应用。
 
 ### Spring Test
 - `Spring`团队提倡测试驱动开发（`TDD`）。有了控制反转 (`IoC`)的帮助，单元测试和集成测试变得更简单。
