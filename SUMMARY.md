@@ -409,5 +409,6 @@
         - [scydtj](other/git/git.md#scydtj)
         - [git 提交和更新脚本命令](other/git/git.md#tjgxml)
             - [windows脚本](other/git/git.md#win_bat)
-    - [GitBook](other/git/GitBook.md)
-    - [md](other/md.md)
+    - [GitBook 安装和使用](other/git/GitBook.md)
+    - [Markdown语法](other/md.md)
+    - [npm转换pnpm](other/npmToPnpm.md)

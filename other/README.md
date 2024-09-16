@@ -9,5 +9,6 @@
     - [删除远端提交](git/git.md#scydtj)
     - [git 提交和更新脚本命令](git/git.md#tjgxml)
         - [windows脚本](git/git.md#win_bat)
-- [GitBook](git/GitBook.md)
-- [md](md.md)
+- [GitBook 安装和使用](git/GitBook.md)
+- [Markdown语法](md.md)
+- [npm转换pnpm](npmToPnpm.md)
