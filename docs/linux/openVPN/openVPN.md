@@ -14,7 +14,7 @@
 
 ## OpenVPN服务端搭建部署
 
-- ### 安装配置证书软件
+### 安装配置证书软件
 ~~~
 [root@a1 ~]# yum -y install easy-rsa
 [root@a1 ~]# mkdir /opt/easy-rsa
@@ -41,7 +41,7 @@ set_var EASYRSA_REQ_EMAIL "888888@qq.comm"
 set_var EASYRSA_NS_SUPPORT "yes"
 ~~~
 
-- ### 创建证书
+### 创建证书
 ~~~
 [root@a1 easy-rsa]# ./easyrsa init-pki    #1、初始化，在当前目录创建PKI目录，用于存储整数
 [root@a1 easy-rsa]# ./easyrsa build-ca    #2、创建根证书，会提示设置密码，用于ca对之后生成的server和client证书签名时使用，其他提示内容直接回车即可
@@ -76,7 +76,7 @@ Re-Enter New CA Key Passphrase:
 │   │   └── server.key        #服务端私钥
 ~~~
 
-- ### 安装openvpn并写入服务端配置文件
+### 安装openvpn并写入服务端配置文件
 ~~~
 [root@a1 easy-rsa]# yum -y install openvpn
 [root@a1 easy-rsa]# cat /etc/openvpn/server.conf
@@ -102,7 +102,7 @@ duplicate-cn                                 #客户端密钥（证书和私钥�
 comp-lzo                                     #启动lzo数据压缩格式
 ~~~
 
-- ### 启动并检查端口
+### 启动并检查端口
 ~~~
 [root@a1 easy-rsa]# systemctl start openvpn@server
 [root@a1 easy-rsa]# systemctl enable openvpn@server
@@ -122,7 +122,8 @@ root      47202  40565  0 11:01 pts/0    00:00:00 grep --color=auto openvpn
 ~~~
 
 ## OpenVPN客户端配置（linux端）
-- ### 配置openvpn
+
+### 配置openvpn
 ~~~
 [root@a2 ~]# yum -y install openvpn
 [root@a2 ~]# cat /etc/openvpn/client.conf
@@ -147,7 +148,8 @@ comp-lzo
 [root@a2 ~]# systemctl enable openvpn@client
 Created symlink from /etc/systemd/system/multi-user.target.wants/openvpn@client.service to /usr/lib/systemd/system/openvpn@.service.
 ~~~
-- ### 测试连接
+
+### 测试连接
 ~~~
 [root@a2 ~]# ifdown eth1    #关闭内网IP
 [root@a2 ~]# ip a
@@ -182,19 +184,18 @@ rtt min/avg/max/mdev = 0.686/0.908/1.130/0.222 ms
 ~~~
 
 ## OpenVPN客户端搭建部署（windows端）
-- ### 安装OpenVPN软件
+### 安装OpenVPN软件
 [打开git地址下载](https://github.com/OpenVPN/openvpn)
 
-- ### 配置OpenVPN
-
+### 配置OpenVPN
 ![config.png](img/config.png)
-
 将ca根证书、client.key、client.crt放入config目录
 ~~~
 [root@a1 easy-rsa]# sz pki/ca.crt
 [root@a1 easy-rsa]# sz pki/private/client.key
 [root@a1 easy-rsa]# sz pki/issued/client.crt
 ~~~
+
 再创建client.ovpn，写入如下内容
 ~~~
 client
@@ -215,7 +216,7 @@ comp-lzo
 
 ![dir.png](img/dir.png)
 
-- ### 连接测试
+### 连接测试
 
 双击打开OpenVPN（桌面快捷方式）右下角出现图标，右键连接
 
@@ -252,7 +253,7 @@ Last login: Sat May 20 09:07:58 2023 from 10.0.0.1
 [root@a1 ~]#
 ~~~
 
-- ### 直连其他内网服务器
+### 直连其他内网服务器
 首先确保我们的openvpn服务端开启了内核转发
 ~~~
 [root@a1 ~]# echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf    #确保openvpn开启了ip转发
@@ -291,8 +292,10 @@ Last login: Sun May 21 12:47:51 2023 from 10.0.0.1
 ~~~
 
 ## Openvpn密码认证
+
 ### 服务端配置
-- ### 修改服务端配置文件为支持密码认证
+
+#### 修改服务端配置文件为支持密码认证
 ~~~
 [root@a1 ~]# cat /etc/openvpn/server.conf        #添加配置文件
 ......
@@ -300,7 +303,8 @@ script-security 3                                   #允许使用自定义脚本
 auth-user-pass-verify /etc/openvpn/check.sh via-env #指定认证脚本
 username-as-common-name                             #用户密码登陆方式验证
 ~~~
-- ### 编写脚本文件
+
+#### 编写脚本文件
 ~~~
 [root@a1 ~]# cat /etc/openvpn/check.sh           #
 #!/bin/bash
@@ -323,19 +327,23 @@ fi
 echo "${TIME_STAMP}: Incorrect password: username=\"${username}\", password=\"${password}\"." >> ${LOG_FILE}
 exit 1
 ~~~
-- ### 给脚本执行权限
+
+#### 给脚本执行权限
 ~~~
 [root@a1 ~]# chmod +x /etc/openvpn/check.sh
 ~~~
-- ### 创建用户密码，空格为分割符
+
+#### 创建用户密码，空格为分割符
 ~~~
 [root@a1 ~]# cat /etc/openvpn/openvpnfile
 koten 1
 ~~~
-- ### 重启服务端
+
+#### 重启服务端
 ~~~
 [root@a1 ~]# systemctl restart openvpn@server
 ~~~
+
 ### linux客户端配置
 在/etc/openvpn/client.conf最下面加上auth-user-pass
 ~~~
@@ -376,6 +384,7 @@ PING 192.168.1.5 (192.168.1.5) 56(84) bytes of data.
 --- 192.168.1.5 ping statistics ---
 4 packets transmitted, 0 received, 100% packet loss, time 3001ms
 ~~~
+
 ### windows客户端配置
 先Disconnect断开连接，注意要先断开，否则容易报错，再修改配置文件
 
@@ -411,3 +420,6 @@ auth-user-pass
 来自 192.168.1.5 的回复: 字节=32 时间<1ms TTL=64
 ......
 ~~~
+
+
+----

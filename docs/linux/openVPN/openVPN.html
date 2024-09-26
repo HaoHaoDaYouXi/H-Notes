@@ -6045,8 +6045,7 @@
 </tbody>
 </table>
 <h2 id="openvpn&#x670D;&#x52A1;&#x7AEF;&#x642D;&#x5EFA;&#x90E8;&#x7F72;">OpenVPN&#x670D;&#x52A1;&#x7AEF;&#x642D;&#x5EFA;&#x90E8;&#x7F72;</h2>
-<ul>
-<li><h3 id="&#x5B89;&#x88C5;&#x914D;&#x7F6E;&#x8BC1;&#x4E66;&#x8F6F;&#x4EF6;">&#x5B89;&#x88C5;&#x914D;&#x7F6E;&#x8BC1;&#x4E66;&#x8F6F;&#x4EF6;</h3>
+<h3 id="&#x5B89;&#x88C5;&#x914D;&#x7F6E;&#x8BC1;&#x4E66;&#x8F6F;&#x4EF6;">&#x5B89;&#x88C5;&#x914D;&#x7F6E;&#x8BC1;&#x4E66;&#x8F6F;&#x4EF6;</h3>
 <pre><code>[root@a1 ~]# yum -y install easy-rsa
 [root@a1 ~]# mkdir /opt/easy-rsa
 [root@a1 easy-rsa]# rpm -ql easy-rsa    #&#x67E5;&#x770B;&#x5DF2;&#x5B89;&#x88C5;&#x7684;RPM&#x5305;&#x4E2D;&#x540D;&#x4E3A; easy-rsa &#x7684;&#x6587;&#x4EF6;&#x5217;&#x8868;
@@ -6070,8 +6069,7 @@ set_var EASYRSA_REQ_CITY &quot;Shanghai&quot;
 set_var EASYRSA_REQ_ORG &quot;koten&quot;
 set_var EASYRSA_REQ_EMAIL &quot;888888@qq.comm&quot;
 set_var EASYRSA_NS_SUPPORT &quot;yes&quot;
-</code></pre></li>
-<li><h3 id="&#x521B;&#x5EFA;&#x8BC1;&#x4E66;">&#x521B;&#x5EFA;&#x8BC1;&#x4E66;</h3>
+</code></pre><h3 id="&#x521B;&#x5EFA;&#x8BC1;&#x4E66;">&#x521B;&#x5EFA;&#x8BC1;&#x4E66;</h3>
 <pre><code>[root@a1 easy-rsa]# ./easyrsa init-pki    #1&#x3001;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x5728;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x521B;&#x5EFA;PKI&#x76EE;&#x5F55;&#xFF0C;&#x7528;&#x4E8E;&#x5B58;&#x50A8;&#x6574;&#x6570;
 [root@a1 easy-rsa]# ./easyrsa build-ca    #2&#x3001;&#x521B;&#x5EFA;&#x6839;&#x8BC1;&#x4E66;&#xFF0C;&#x4F1A;&#x63D0;&#x793A;&#x8BBE;&#x7F6E;&#x5BC6;&#x7801;&#xFF0C;&#x7528;&#x4E8E;ca&#x5BF9;&#x4E4B;&#x540E;&#x751F;&#x6210;&#x7684;server&#x548C;client&#x8BC1;&#x4E66;&#x7B7E;&#x540D;&#x65F6;&#x4F7F;&#x7528;&#xFF0C;&#x5176;&#x4ED6;&#x63D0;&#x793A;&#x5185;&#x5BB9;&#x76F4;&#x63A5;&#x56DE;&#x8F66;&#x5373;&#x53EF;
 Enter New CA Key Passphrase:         #&#x6CE8;&#x610F;&#x5BC6;&#x7801;&#x4E0D;&#x80FD;&#x592A;&#x77ED;&#xFF0C;&#x6211;&#x8FD9;&#x8FB9;&#x8BBE;&#x7F6E;&#x7684;&#x662F;123456
@@ -6103,8 +6101,7 @@ Re-Enter New CA Key Passphrase:
 &#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; ca.key
 &#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; client.key        #&#x5BA2;&#x6237;&#x7AEF;&#x79C1;&#x94A5;
 &#x2502;   &#x2502;   &#x2514;&#x2500;&#x2500; server.key        #&#x670D;&#x52A1;&#x7AEF;&#x79C1;&#x94A5;
-</code></pre></li>
-<li><h3 id="&#x5B89;&#x88C5;openvpn&#x5E76;&#x5199;&#x5165;&#x670D;&#x52A1;&#x7AEF;&#x914D;&#x7F6E;&#x6587;&#x4EF6;">&#x5B89;&#x88C5;openvpn&#x5E76;&#x5199;&#x5165;&#x670D;&#x52A1;&#x7AEF;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</h3>
+</code></pre><h3 id="&#x5B89;&#x88C5;openvpn&#x5E76;&#x5199;&#x5165;&#x670D;&#x52A1;&#x7AEF;&#x914D;&#x7F6E;&#x6587;&#x4EF6;">&#x5B89;&#x88C5;openvpn&#x5E76;&#x5199;&#x5165;&#x670D;&#x52A1;&#x7AEF;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</h3>
 <pre><code>[root@a1 easy-rsa]# yum -y install openvpn
 [root@a1 easy-rsa]# cat /etc/openvpn/server.conf
 port 1194                                    #&#x7AEF;&#x53E3;
@@ -6127,8 +6124,7 @@ persist-key                                  #&#x901A;&#x8FC7;keepalive&#x68C0;&
 persist-tun                                  #&#x68C0;&#x6D4B;&#x8D85;&#x65F6;&#x540E;&#xFF0C;&#x91CD;&#x65B0;&#x542F;&#x52A8;VPN&#xFF0C;&#x4E00;&#x76F4;&#x4FDD;&#x6301;tun&#x662F;linkup&#x7684;&#xFF0C;&#x5426;&#x5219;&#x7F51;&#x7EDC;&#x4F1A;&#x5148;linkdown&#x7136;&#x540E;&#x518D;linkup
 duplicate-cn                                 #&#x5BA2;&#x6237;&#x7AEF;&#x5BC6;&#x94A5;&#xFF08;&#x8BC1;&#x4E66;&#x548C;&#x79C1;&#x94A5;&#xFF09;&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x91CD;&#x590D;
 comp-lzo                                     #&#x542F;&#x52A8;lzo&#x6570;&#x636E;&#x538B;&#x7F29;&#x683C;&#x5F0F;
-</code></pre></li>
-<li><h3 id="&#x542F;&#x52A8;&#x5E76;&#x68C0;&#x67E5;&#x7AEF;&#x53E3;">&#x542F;&#x52A8;&#x5E76;&#x68C0;&#x67E5;&#x7AEF;&#x53E3;</h3>
+</code></pre><h3 id="&#x542F;&#x52A8;&#x5E76;&#x68C0;&#x67E5;&#x7AEF;&#x53E3;">&#x542F;&#x52A8;&#x5E76;&#x68C0;&#x67E5;&#x7AEF;&#x53E3;</h3>
 <pre><code>[root@a1 easy-rsa]# systemctl start openvpn@server
 [root@a1 easy-rsa]# systemctl enable openvpn@server
 Created symlink from /etc/systemd/system/multi-user.target.wants/openvpn@server.service to /usr/lib/systemd/system/openvpn@.service.
@@ -6144,13 +6140,9 @@ udp    UNCONN     0      0         *:1194                  *:*                  
 [root@a1 easy-rsa]# ps -ef|grep openvpn    #&#x68C0;&#x67E5;pid
 root      47104      1  0 10:59 ?        00:00:00 /usr/sbin/openvpn --cd /etc/openvpn/ --config server.conf
 root      47202  40565  0 11:01 pts/0    00:00:00 grep --color=auto openvpn
-</code></pre></li>
-</ul>
-<h2 id="openvpn&#x5BA2;&#x6237;&#x7AEF;&#x914D;&#x7F6E;&#xFF08;linux&#x7AEF;&#xFF09;">OpenVPN&#x5BA2;&#x6237;&#x7AEF;&#x914D;&#x7F6E;&#xFF08;linux&#x7AEF;&#xFF09;</h2>
-<ul>
-<li><h3 id="&#x914D;&#x7F6E;openvpn">&#x914D;&#x7F6E;openvpn</h3>
-~~~
-[root@a2 ~]# yum -y install openvpn
+</code></pre><h2 id="openvpn&#x5BA2;&#x6237;&#x7AEF;&#x914D;&#x7F6E;&#xFF08;linux&#x7AEF;&#xFF09;">OpenVPN&#x5BA2;&#x6237;&#x7AEF;&#x914D;&#x7F6E;&#xFF08;linux&#x7AEF;&#xFF09;</h2>
+<h3 id="&#x914D;&#x7F6E;openvpn">&#x914D;&#x7F6E;openvpn</h3>
+<pre><code>[root@a2 ~]# yum -y install openvpn
 [root@a2 ~]# cat /etc/openvpn/client.conf
 client
 dev tun
@@ -6163,32 +6155,33 @@ cert client.crt
 key client.key
 verb 3
 persist-key
-comp-lzo</li>
-</ul>
-<p>[root@a1 pki]# scp private/client.key 192.168.1.6:/etc/openvpn/
+comp-lzo
+
+[root@a1 pki]# scp private/client.key 192.168.1.6:/etc/openvpn/
 [root@a1 pki]# scp issued/client.crt  192.168.1.6:/etc/openvpn/
-[root@a1 pki]# scp ca.crt 192.168.1.6:/etc/openvpn/</p>
-<p>[root@a2 ~]# systemctl start openvpn@client
+[root@a1 pki]# scp ca.crt 192.168.1.6:/etc/openvpn/
+
+[root@a2 ~]# systemctl start openvpn@client
 [root@a2 ~]# systemctl enable openvpn@client
-Created symlink from /etc/systemd/system/multi-user.target.wants/openvpn@client.service to /usr/lib/systemd/system/openvpn@.service.</p>
-<pre><code>- ### &#x6D4B;&#x8BD5;&#x8FDE;&#x63A5;
-</code></pre><p>[root@a2 ~]# ifdown eth1    #&#x5173;&#x95ED;&#x5185;&#x7F51;IP
+Created symlink from /etc/systemd/system/multi-user.target.wants/openvpn@client.service to /usr/lib/systemd/system/openvpn@.service.
+</code></pre><h3 id="&#x6D4B;&#x8BD5;&#x8FDE;&#x63A5;">&#x6D4B;&#x8BD5;&#x8FDE;&#x63A5;</h3>
+<pre><code>[root@a2 ~]# ifdown eth1    #&#x5173;&#x95ED;&#x5185;&#x7F51;IP
 [root@a2 ~]# ip a
-1: lo: <loopback,up,lower_up> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
 inet 127.0.0.1/8 scope host lo
 valid_lft forever preferred_lft forever
 inet6 ::1/128 scope host
 valid_lft forever preferred_lft forever
-2: eth0: <broadcast,multicast,up,lower_up> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
 link/ether 00:0c:29:36:19:29 brd ff:ff:ff:ff:ff:ff
 inet 10.0.0.6/24 brd 10.0.0.255 scope global eth0
 valid_lft forever preferred_lft forever
 inet6 fe80::20c:29ff:fe36:1929/64 scope link
 valid_lft forever preferred_lft forever
-3: eth1: <broadcast,multicast> mtu 1500 qdisc pfifo_fast state DOWN group default qlen 1000
+3: eth1: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc pfifo_fast state DOWN group default qlen 1000
 link/ether 00:0c:29:36:19:33 brd ff:ff:ff:ff:ff:ff
-4: tun0: <pointopoint,multicast,noarp,up,lower_up> mtu 1500 qdisc pfifo_fast state UNKNOWN group default qlen 100
+4: tun0: &lt;POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN group default qlen 100
 link/none
 inet 10.8.0.6 peer 10.8.0.5/32 scope global tun0
 valid_lft forever preferred_lft forever
@@ -6201,22 +6194,18 @@ PING 192.168.1.5 (192.168.1.5) 56(84) bytes of data.
 ^C
 --- 192.168.1.5 ping statistics ---
 2 packets transmitted, 2 received, 0% packet loss, time 1001ms
-rtt min/avg/max/mdev = 0.686/0.908/1.130/0.222 ms</pointopoint,multicast,noarp,up,lower_up></broadcast,multicast></broadcast,multicast,up,lower_up></loopback,up,lower_up></p>
-<pre><code>
-## OpenVPN&#x5BA2;&#x6237;&#x7AEF;&#x642D;&#x5EFA;&#x90E8;&#x7F72;&#xFF08;windows&#x7AEF;&#xFF09;
-- ### &#x5B89;&#x88C5;OpenVPN&#x8F6F;&#x4EF6;
-[&#x6253;&#x5F00;git&#x5730;&#x5740;&#x4E0B;&#x8F7D;](https://github.com/OpenVPN/openvpn)
-
-- ### &#x914D;&#x7F6E;OpenVPN
-
-![config.png](img/config.png)
-
-&#x5C06;ca&#x6839;&#x8BC1;&#x4E66;&#x3001;client.key&#x3001;client.crt&#x653E;&#x5165;config&#x76EE;&#x5F55;
-</code></pre><p>[root@a1 easy-rsa]# sz pki/ca.crt
+rtt min/avg/max/mdev = 0.686/0.908/1.130/0.222 ms
+</code></pre><h2 id="openvpn&#x5BA2;&#x6237;&#x7AEF;&#x642D;&#x5EFA;&#x90E8;&#x7F72;&#xFF08;windows&#x7AEF;&#xFF09;">OpenVPN&#x5BA2;&#x6237;&#x7AEF;&#x642D;&#x5EFA;&#x90E8;&#x7F72;&#xFF08;windows&#x7AEF;&#xFF09;</h2>
+<h3 id="&#x5B89;&#x88C5;openvpn&#x8F6F;&#x4EF6;">&#x5B89;&#x88C5;OpenVPN&#x8F6F;&#x4EF6;</h3>
+<p><a href="https://github.com/OpenVPN/openvpn" target="_blank">&#x6253;&#x5F00;git&#x5730;&#x5740;&#x4E0B;&#x8F7D;</a></p>
+<h3 id="&#x914D;&#x7F6E;openvpn">&#x914D;&#x7F6E;OpenVPN</h3>
+<p><img src="img/config.png" alt="config.png">
+&#x5C06;ca&#x6839;&#x8BC1;&#x4E66;&#x3001;client.key&#x3001;client.crt&#x653E;&#x5165;config&#x76EE;&#x5F55;</p>
+<pre><code>[root@a1 easy-rsa]# sz pki/ca.crt
 [root@a1 easy-rsa]# sz pki/private/client.key
-[root@a1 easy-rsa]# sz pki/issued/client.crt</p>
-<pre><code>&#x518D;&#x521B;&#x5EFA;client.ovpn&#xFF0C;&#x5199;&#x5165;&#x5982;&#x4E0B;&#x5185;&#x5BB9;
-</code></pre><p>client
+[root@a1 easy-rsa]# sz pki/issued/client.crt
+</code></pre><p>&#x518D;&#x521B;&#x5EFA;client.ovpn&#xFF0C;&#x5199;&#x5165;&#x5982;&#x4E0B;&#x5185;&#x5BB9;</p>
+<pre><code>client
 dev tun
 proto udp
 remote 10.0.0.5 1194        #&#x6CE8;&#x610F;&#x6B64;&#x5904;&#x66F4;&#x6539;&#x4E3A;openvpn&#x670D;&#x52A1;&#x7AEF;&#x4EE3;&#x7801;
@@ -6227,89 +6216,89 @@ cert client.crt
 key client.key
 verb 3
 persist-key
-comp-lzo</p>
-<pre><code>
-&#x76EE;&#x5F55;&#x6700;&#x7EC8;&#x72B6;&#x6001;
+comp-lzo
+</code></pre><p>&#x76EE;&#x5F55;&#x6700;&#x7EC8;&#x72B6;&#x6001;</p>
+<p><img src="img/dir.png" alt="dir.png"></p>
+<h3 id="&#x8FDE;&#x63A5;&#x6D4B;&#x8BD5;">&#x8FDE;&#x63A5;&#x6D4B;&#x8BD5;</h3>
+<p>&#x53CC;&#x51FB;&#x6253;&#x5F00;OpenVPN&#xFF08;&#x684C;&#x9762;&#x5FEB;&#x6377;&#x65B9;&#x5F0F;&#xFF09;&#x53F3;&#x4E0B;&#x89D2;&#x51FA;&#x73B0;&#x56FE;&#x6807;&#xFF0C;&#x53F3;&#x952E;&#x8FDE;&#x63A5;</p>
+<p><img src="img/connect.png" alt="img.png"></p>
+<p>&#x7B49;&#x5F85;&#x8FDB;&#x5EA6;&#x8D70;&#x5B8C;&#x4F1A;&#x81EA;&#x52A8;&#x8FDE;&#x63A5;</p>
+<p>&#x67E5;&#x770B;&#x7F51;&#x7EDC;&#x8FDE;&#x63A5;&#xFF0C;&#x53D1;&#x73B0;&#x591A;&#x4E86;&#x4EE5;&#x592A;&#x7F51;3</p>
+<p>&#x53F3;&#x952E;&#xFF0C;&#x72B6;&#x6001;&#xFF0C;&#x8BE6;&#x7EC6;&#x4FE1;&#x606F;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;ipv4&#x5730;&#x5740;&#x662F;10.8.0.6&#x662F;&#x6211;&#x4EEC;&#x914D;&#x7F6E;&#x7684;&#x90A3;&#x4E2A;&#x6BB5;&#x7684;&#x5730;&#x5740;</p>
+<p>Xshell&#x65B0;&#x5F00;&#x4E2A;&#x672C;&#x5730;&#x4F1A;&#x8BDD;&#xFF0C;&#x53D1;&#x73B0;&#x53EF;&#x4EE5;ping&#x901A;openvpn&#x670D;&#x52A1;&#x7AEF;&#x7684;&#x5185;&#x7F51;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x8FDB;&#x884C;ssh&#x8FDE;&#x63A5;&#xFF0C;&#x5F53;&#x51FA;&#x5DEE;&#x5728;&#x5916;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x5148;&#x8FDE;&#x901A;openvpn&#x5185;&#x7F51;&#x518D;&#x8FDE;&#x63A5;&#x8981;&#x5DE5;&#x4F5C;&#x7684;&#x670D;&#x52A1;&#x5668;&#x7684;&#x5185;&#x7F51;&#x3002;</p>
+<pre><code>[c:\~]$ ping 192.168.1.5
 
-![dir.png](img/dir.png)
-
-- ### &#x8FDE;&#x63A5;&#x6D4B;&#x8BD5;
-
-&#x53CC;&#x51FB;&#x6253;&#x5F00;OpenVPN&#xFF08;&#x684C;&#x9762;&#x5FEB;&#x6377;&#x65B9;&#x5F0F;&#xFF09;&#x53F3;&#x4E0B;&#x89D2;&#x51FA;&#x73B0;&#x56FE;&#x6807;&#xFF0C;&#x53F3;&#x952E;&#x8FDE;&#x63A5;
-
-![img.png](img/connect.png)
-
-&#x7B49;&#x5F85;&#x8FDB;&#x5EA6;&#x8D70;&#x5B8C;&#x4F1A;&#x81EA;&#x52A8;&#x8FDE;&#x63A5;
-
-&#x67E5;&#x770B;&#x7F51;&#x7EDC;&#x8FDE;&#x63A5;&#xFF0C;&#x53D1;&#x73B0;&#x591A;&#x4E86;&#x4EE5;&#x592A;&#x7F51;3
-
-&#x53F3;&#x952E;&#xFF0C;&#x72B6;&#x6001;&#xFF0C;&#x8BE6;&#x7EC6;&#x4FE1;&#x606F;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;ipv4&#x5730;&#x5740;&#x662F;10.8.0.6&#x662F;&#x6211;&#x4EEC;&#x914D;&#x7F6E;&#x7684;&#x90A3;&#x4E2A;&#x6BB5;&#x7684;&#x5730;&#x5740;
-
-Xshell&#x65B0;&#x5F00;&#x4E2A;&#x672C;&#x5730;&#x4F1A;&#x8BDD;&#xFF0C;&#x53D1;&#x73B0;&#x53EF;&#x4EE5;ping&#x901A;openvpn&#x670D;&#x52A1;&#x7AEF;&#x7684;&#x5185;&#x7F51;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x8FDB;&#x884C;ssh&#x8FDE;&#x63A5;&#xFF0C;&#x5F53;&#x51FA;&#x5DEE;&#x5728;&#x5916;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x5148;&#x8FDE;&#x901A;openvpn&#x5185;&#x7F51;&#x518D;&#x8FDE;&#x63A5;&#x8981;&#x5DE5;&#x4F5C;&#x7684;&#x670D;&#x52A1;&#x5668;&#x7684;&#x5185;&#x7F51;&#x3002;
-</code></pre><p>[c:~]$ ping 192.168.1.5</p>
-<p>&#x6B63;&#x5728; Ping 192.168.1.5 &#x5177;&#x6709; 32 &#x5B57;&#x8282;&#x7684;&#x6570;&#x636E;:
+&#x6B63;&#x5728; Ping 192.168.1.5 &#x5177;&#x6709; 32 &#x5B57;&#x8282;&#x7684;&#x6570;&#x636E;:
 &#x6765;&#x81EA; 192.168.1.5 &#x7684;&#x56DE;&#x590D;: &#x5B57;&#x8282;=32 &#x65F6;&#x95F4;=1ms TTL=64
 &#x6765;&#x81EA; 192.168.1.5 &#x7684;&#x56DE;&#x590D;: &#x5B57;&#x8282;=32 &#x65F6;&#x95F4;&lt;1ms TTL=64
-&#x6765;&#x81EA; 192.168.1.5 &#x7684;&#x56DE;&#x590D;: &#x5B57;&#x8282;=32 &#x65F6;&#x95F4;&lt;1ms TTL=64</p>
-<p>192.168.1.5 &#x7684; Ping &#x7EDF;&#x8BA1;&#x4FE1;&#x606F;:
+&#x6765;&#x81EA; 192.168.1.5 &#x7684;&#x56DE;&#x590D;: &#x5B57;&#x8282;=32 &#x65F6;&#x95F4;&lt;1ms TTL=64
+
+192.168.1.5 &#x7684; Ping &#x7EDF;&#x8BA1;&#x4FE1;&#x606F;:
 &#x6570;&#x636E;&#x5305;: &#x5DF2;&#x53D1;&#x9001; = 3&#xFF0C;&#x5DF2;&#x63A5;&#x6536; = 3&#xFF0C;&#x4E22;&#x5931; = 0 (0% &#x4E22;&#x5931;)&#xFF0C;
 &#x5F80;&#x8FD4;&#x884C;&#x7A0B;&#x7684;&#x4F30;&#x8BA1;&#x65F6;&#x95F4;(&#x4EE5;&#x6BEB;&#x79D2;&#x4E3A;&#x5355;&#x4F4D;):
 &#x6700;&#x77ED; = 0ms&#xFF0C;&#x6700;&#x957F; = 1ms&#xFF0C;&#x5E73;&#x5747; = 0ms
 ^C
-[c:~]$ ssh 192.168.1.5</p>
-<p>Connecting to 192.168.1.5:22...
+[c:\~]$ ssh 192.168.1.5
+
+
+Connecting to 192.168.1.5:22...
 Connection established.
-To escape to local shell, press Ctrl+Alt+].</p>
-<p>Last login: Sat May 20 09:07:58 2023 from 10.0.0.1
-[root@a1 ~]#</p>
-<pre><code>
-- ### &#x76F4;&#x8FDE;&#x5176;&#x4ED6;&#x5185;&#x7F51;&#x670D;&#x52A1;&#x5668;
-&#x9996;&#x5148;&#x786E;&#x4FDD;&#x6211;&#x4EEC;&#x7684;openvpn&#x670D;&#x52A1;&#x7AEF;&#x5F00;&#x542F;&#x4E86;&#x5185;&#x6838;&#x8F6C;&#x53D1;
-</code></pre><p>[root@a1 ~]# echo &quot;net.ipv4.ip_forward = 1&quot; &gt;&gt; /etc/sysctl.conf    #&#x786E;&#x4FDD;openvpn&#x5F00;&#x542F;&#x4E86;ip&#x8F6C;&#x53D1;
+To escape to local shell, press Ctrl+Alt+].
+
+Last login: Sat May 20 09:07:58 2023 from 10.0.0.1
+[root@a1 ~]#
+</code></pre><h3 id="&#x76F4;&#x8FDE;&#x5176;&#x4ED6;&#x5185;&#x7F51;&#x670D;&#x52A1;&#x5668;">&#x76F4;&#x8FDE;&#x5176;&#x4ED6;&#x5185;&#x7F51;&#x670D;&#x52A1;&#x5668;</h3>
+<p>&#x9996;&#x5148;&#x786E;&#x4FDD;&#x6211;&#x4EEC;&#x7684;openvpn&#x670D;&#x52A1;&#x7AEF;&#x5F00;&#x542F;&#x4E86;&#x5185;&#x6838;&#x8F6C;&#x53D1;</p>
+<pre><code>[root@a1 ~]# echo &quot;net.ipv4.ip_forward = 1&quot; &gt;&gt; /etc/sysctl.conf    #&#x786E;&#x4FDD;openvpn&#x5F00;&#x542F;&#x4E86;ip&#x8F6C;&#x53D1;
 [root@a1~]# sysctl -p
-net.ipv4.ip_forward = 1</p>
-<pre><code>&#x5C1D;&#x8BD5;ping&#x5176;&#x4ED6;&#x5185;&#x7F51;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x4F1A;&#x663E;&#x793A;&#x8BF7;&#x6C42;&#x8D85;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x5728;&#x5176;&#x4ED6;&#x5185;&#x7F51;&#x670D;&#x52A1;&#x5668;&#x6DFB;&#x52A0;&#x7F51;&#x5173;&#x540E;&#xFF0C;&#x624D;&#x53EF;&#x4EE5;ping&#x901A;&#xFF0C;&#x624D;&#x53EF;&#x4EE5;&#x76F4;&#x8FDE;&#x3002;
-</code></pre><p>[c:~]$ ping 192.168.1.6            #1&#x3001;&#x65E0;&#x6CD5;ping&#x901A;&#x5176;&#x4ED6;&#x5185;&#x7F51;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x65E0;&#x6CD5;&#x76F4;&#x8FDE;</p>
-<p>&#x6B63;&#x5728; Ping 192.168.1.6 &#x5177;&#x6709; 32 &#x5B57;&#x8282;&#x7684;&#x6570;&#x636E;:
+net.ipv4.ip_forward = 1
+</code></pre><p>&#x5C1D;&#x8BD5;ping&#x5176;&#x4ED6;&#x5185;&#x7F51;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x4F1A;&#x663E;&#x793A;&#x8BF7;&#x6C42;&#x8D85;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x5728;&#x5176;&#x4ED6;&#x5185;&#x7F51;&#x670D;&#x52A1;&#x5668;&#x6DFB;&#x52A0;&#x7F51;&#x5173;&#x540E;&#xFF0C;&#x624D;&#x53EF;&#x4EE5;ping&#x901A;&#xFF0C;&#x624D;&#x53EF;&#x4EE5;&#x76F4;&#x8FDE;&#x3002;</p>
+<pre><code>[c:\~]$ ping 192.168.1.6            #1&#x3001;&#x65E0;&#x6CD5;ping&#x901A;&#x5176;&#x4ED6;&#x5185;&#x7F51;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x65E0;&#x6CD5;&#x76F4;&#x8FDE;
+
+&#x6B63;&#x5728; Ping 192.168.1.6 &#x5177;&#x6709; 32 &#x5B57;&#x8282;&#x7684;&#x6570;&#x636E;:
 &#x8BF7;&#x6C42;&#x8D85;&#x65F6;&#x3002;
-......</p>
-<p>[root@a2 ~]# yum -y install tcpdump          #2&#x3001;&#x5B89;&#x88C5;tcpdump&#x5C1D;&#x8BD5;&#x76D1;&#x63A7;&#x6D41;&#x91CF;
+......
+
+[root@a2 ~]# yum -y install tcpdump          #2&#x3001;&#x5B89;&#x88C5;tcpdump&#x5C1D;&#x8BD5;&#x76D1;&#x63A7;&#x6D41;&#x91CF;
 [root@a2 ~]# tcpdump -i eth1 -nn not icmp    #3&#x3001;windows&#x7AEF;&#x518D;&#x6B21;ping&#xFF0C;&#x867D;&#x7136;ping&#x663E;&#x793A;&#x8BF7;&#x6C42;&#x8D85;&#x65F6;&#xFF0C;&#x4F46;&#x662F;tcp&#x76D1;&#x63A7;&#x6709;&#x6D41;&#x91CF;&#x8FDB;&#x5165;&#xFF0C;&#x8BF4;&#x660E;&#x53EA;&#x80FD;&#x63A5;&#x6536;&#xFF0C;&#x4E0D;&#x80FD;&#x8FD4;&#x56DE;
 12:47:58.759367 IP 10.8.0.10 &gt; 192.168.1.6: ICMP echo request, id 1, seq 514, length 40
 12:48:03.290454 IP 10.8.0.10 &gt; 192.168.1.6: ICMP echo request, id 1, seq 515, length 40
 ......
-[root@a2 ~]# route add -net 10.8.0.0 netmask 255.255.255.0 gw 192.168.1.5    #4&#x3001;&#x6DFB;&#x52A0;&#x8DEF;&#x7531;&#xFF0C;&#x4E34;&#x65F6;&#x751F;&#x6548;&#xFF0C;&#x53EF;&#x4EE5;&#x52A0;&#x5165;/etc/rc.local&#x5B9E;&#x73B0;&#x6C38;&#x4E45;&#x751F;&#x6548;</p>
-<p>[c:~]$ ping 192.168.1.6            #5&#x3001;&#x672C;&#x5730;&#x6210;&#x529F;ping&#x901A;</p>
-<p>&#x6B63;&#x5728; Ping 192.168.1.6 &#x5177;&#x6709; 32 &#x5B57;&#x8282;&#x7684;&#x6570;&#x636E;:
+[root@a2 ~]# route add -net 10.8.0.0 netmask 255.255.255.0 gw 192.168.1.5    #4&#x3001;&#x6DFB;&#x52A0;&#x8DEF;&#x7531;&#xFF0C;&#x4E34;&#x65F6;&#x751F;&#x6548;&#xFF0C;&#x53EF;&#x4EE5;&#x52A0;&#x5165;/etc/rc.local&#x5B9E;&#x73B0;&#x6C38;&#x4E45;&#x751F;&#x6548;
+
+[c:\~]$ ping 192.168.1.6            #5&#x3001;&#x672C;&#x5730;&#x6210;&#x529F;ping&#x901A;
+
+&#x6B63;&#x5728; Ping 192.168.1.6 &#x5177;&#x6709; 32 &#x5B57;&#x8282;&#x7684;&#x6570;&#x636E;:
 &#x6765;&#x81EA; 192.168.1.6 &#x7684;&#x56DE;&#x590D;: &#x5B57;&#x8282;=32 &#x65F6;&#x95F4;=1ms TTL=63
 &#x6765;&#x81EA; 192.168.1.6 &#x7684;&#x56DE;&#x590D;: &#x5B57;&#x8282;=32 &#x65F6;&#x95F4;=2ms TTL=63
 ......
-[c:~]$ ssh 192.168.1.6        #6&#x3001;&#x76F4;&#x8FDE;&#x4E5F;&#x6CA1;&#x6709;&#x95EE;&#x9898;</p>
-<p>Connecting to 192.168.1.6:22...
+[c:\~]$ ssh 192.168.1.6        #6&#x3001;&#x76F4;&#x8FDE;&#x4E5F;&#x6CA1;&#x6709;&#x95EE;&#x9898;
+
+Connecting to 192.168.1.6:22...
 Connection established.
-To escape to local shell, press Ctrl+Alt+].</p>
-<p>Last login: Sun May 21 12:47:51 2023 from 10.0.0.1
-[root@a2 ~]#</p>
-<pre><code>
-## Openvpn&#x5BC6;&#x7801;&#x8BA4;&#x8BC1;
-### &#x670D;&#x52A1;&#x7AEF;&#x914D;&#x7F6E;
-- ### &#x4FEE;&#x6539;&#x670D;&#x52A1;&#x7AEF;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E3A;&#x652F;&#x6301;&#x5BC6;&#x7801;&#x8BA4;&#x8BC1;
-</code></pre><p>[root@a1 ~]# cat /etc/openvpn/server.conf        #&#x6DFB;&#x52A0;&#x914D;&#x7F6E;&#x6587;&#x4EF6;
+To escape to local shell, press Ctrl+Alt+].
+
+Last login: Sun May 21 12:47:51 2023 from 10.0.0.1
+[root@a2 ~]#
+</code></pre><h2 id="openvpn&#x5BC6;&#x7801;&#x8BA4;&#x8BC1;">Openvpn&#x5BC6;&#x7801;&#x8BA4;&#x8BC1;</h2>
+<h3 id="&#x670D;&#x52A1;&#x7AEF;&#x914D;&#x7F6E;">&#x670D;&#x52A1;&#x7AEF;&#x914D;&#x7F6E;</h3>
+<h4 id="&#x4FEE;&#x6539;&#x670D;&#x52A1;&#x7AEF;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E3A;&#x652F;&#x6301;&#x5BC6;&#x7801;&#x8BA4;&#x8BC1;">&#x4FEE;&#x6539;&#x670D;&#x52A1;&#x7AEF;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E3A;&#x652F;&#x6301;&#x5BC6;&#x7801;&#x8BA4;&#x8BC1;</h4>
+<pre><code>[root@a1 ~]# cat /etc/openvpn/server.conf        #&#x6DFB;&#x52A0;&#x914D;&#x7F6E;&#x6587;&#x4EF6;
 ......
 script-security 3                                   #&#x5141;&#x8BB8;&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x811A;&#x672C;
 auth-user-pass-verify /etc/openvpn/check.sh via-env #&#x6307;&#x5B9A;&#x8BA4;&#x8BC1;&#x811A;&#x672C;
-username-as-common-name                             #&#x7528;&#x6237;&#x5BC6;&#x7801;&#x767B;&#x9646;&#x65B9;&#x5F0F;&#x9A8C;&#x8BC1;</p>
-<pre><code>- ### &#x7F16;&#x5199;&#x811A;&#x672C;&#x6587;&#x4EF6;
-</code></pre><p>[root@a1 ~]# cat /etc/openvpn/check.sh           #</p>
-<h1 id="binbash">!/bin/bash</h1>
-<p>PASSFILE=&quot;/etc/openvpn/openvpnfile&quot;   #&#x5BC6;&#x7801;&#x6587;&#x4EF6; &#x7528;&#x6237;&#x540D; &#x5BC6;&#x7801;&#x660E;&#x6587;
+username-as-common-name                             #&#x7528;&#x6237;&#x5BC6;&#x7801;&#x767B;&#x9646;&#x65B9;&#x5F0F;&#x9A8C;&#x8BC1;
+</code></pre><h4 id="&#x7F16;&#x5199;&#x811A;&#x672C;&#x6587;&#x4EF6;">&#x7F16;&#x5199;&#x811A;&#x672C;&#x6587;&#x4EF6;</h4>
+<pre><code>[root@a1 ~]# cat /etc/openvpn/check.sh           #
+#!/bin/bash
+PASSFILE=&quot;/etc/openvpn/openvpnfile&quot;   #&#x5BC6;&#x7801;&#x6587;&#x4EF6; &#x7528;&#x6237;&#x540D; &#x5BC6;&#x7801;&#x660E;&#x6587;
 LOG_FILE=&quot;/var/log/openvpn-password.log&quot;  #&#x7528;&#x6237;&#x767B;&#x5F55;&#x60C5;&#x51B5;&#x7684;&#x65E5;&#x5FD7;
-TIME_STAMP=<code>date &quot;+%Y-%m-%d %T&quot;</code>
+TIME_STAMP=`date &quot;+%Y-%m-%d %T&quot;`
 if [ ! -r &quot;${PASSFILE}&quot; ]; then
 echo &quot;${TIME_STAMP}: Could not open password file \&quot;${PASSFILE}\&quot; for reading.&quot; &gt;&gt; ${LOG_FILE}
 exit 1
 fi
-CORRECT_PASSWORD=<code>awk &apos;!/^;/&amp;&amp;!/^#/&amp;&amp;$1==&quot;&apos;${username}&apos;&quot;{print $2;exit}&apos;    ${PASSFILE}</code>
+CORRECT_PASSWORD=`awk &apos;!/^;/&amp;&amp;!/^#/&amp;&amp;$1==&quot;&apos;${username}&apos;&quot;{print $2;exit}&apos;    ${PASSFILE}`
 if [ &quot;${CORRECT_PASSWORD}&quot; = &quot;&quot; ]; then
 echo &quot;${TIME_STAMP}: User does not exist: username=\&quot;${username}\&quot;,password=\&quot;${password}\&quot;.&quot; &gt;&gt; ${LOG_FILE}
 exit 1
@@ -6319,17 +6308,17 @@ echo &quot;${TIME_STAMP}: Successful authentication: username=\&quot;${username}
 exit 0
 fi
 echo &quot;${TIME_STAMP}: Incorrect password: username=\&quot;${username}\&quot;, password=\&quot;${password}\&quot;.&quot; &gt;&gt; ${LOG_FILE}
-exit 1</p>
-<pre><code>- ### &#x7ED9;&#x811A;&#x672C;&#x6267;&#x884C;&#x6743;&#x9650;
-</code></pre><p>[root@a1 ~]# chmod +x /etc/openvpn/check.sh</p>
-<pre><code>- ### &#x521B;&#x5EFA;&#x7528;&#x6237;&#x5BC6;&#x7801;&#xFF0C;&#x7A7A;&#x683C;&#x4E3A;&#x5206;&#x5272;&#x7B26;
-</code></pre><p>[root@a1 ~]# cat /etc/openvpn/openvpnfile
-koten 1</p>
-<pre><code>- ### &#x91CD;&#x542F;&#x670D;&#x52A1;&#x7AEF;
-</code></pre><p>[root@a1 ~]# systemctl restart openvpn@server</p>
-<pre><code>### linux&#x5BA2;&#x6237;&#x7AEF;&#x914D;&#x7F6E;
-&#x5728;/etc/openvpn/client.conf&#x6700;&#x4E0B;&#x9762;&#x52A0;&#x4E0A;auth-user-pass
-</code></pre><p>[root@a2 ~]# cat /etc/openvpn/client.conf
+exit 1
+</code></pre><h4 id="&#x7ED9;&#x811A;&#x672C;&#x6267;&#x884C;&#x6743;&#x9650;">&#x7ED9;&#x811A;&#x672C;&#x6267;&#x884C;&#x6743;&#x9650;</h4>
+<pre><code>[root@a1 ~]# chmod +x /etc/openvpn/check.sh
+</code></pre><h4 id="&#x521B;&#x5EFA;&#x7528;&#x6237;&#x5BC6;&#x7801;&#xFF0C;&#x7A7A;&#x683C;&#x4E3A;&#x5206;&#x5272;&#x7B26;">&#x521B;&#x5EFA;&#x7528;&#x6237;&#x5BC6;&#x7801;&#xFF0C;&#x7A7A;&#x683C;&#x4E3A;&#x5206;&#x5272;&#x7B26;</h4>
+<pre><code>[root@a1 ~]# cat /etc/openvpn/openvpnfile
+koten 1
+</code></pre><h4 id="&#x91CD;&#x542F;&#x670D;&#x52A1;&#x7AEF;">&#x91CD;&#x542F;&#x670D;&#x52A1;&#x7AEF;</h4>
+<pre><code>[root@a1 ~]# systemctl restart openvpn@server
+</code></pre><h3 id="linux&#x5BA2;&#x6237;&#x7AEF;&#x914D;&#x7F6E;">linux&#x5BA2;&#x6237;&#x7AEF;&#x914D;&#x7F6E;</h3>
+<p>&#x5728;/etc/openvpn/client.conf&#x6700;&#x4E0B;&#x9762;&#x52A0;&#x4E0A;auth-user-pass</p>
+<pre><code>[root@a2 ~]# cat /etc/openvpn/client.conf
 client
 dev tun
 proto udp
@@ -6342,11 +6331,11 @@ key client.key
 verb 3
 persist-key
 comp-lzo
-auth-user-pass</p>
-<pre><code>&#x91CD;&#x542F;&#x6D4B;&#x8BD5;&#x8FDE;&#x63A5;&#xFF0C;&#x91CD;&#x542F;&#x670D;&#x52A1;&#x7684;&#x65F6;&#x5019;&#x9700;&#x8981;&#x8F93;&#x5165;&#x5BC6;&#x7801;
-</code></pre><p>[root@a2 ~]# systemctl restart openvpn@client    #&#x91CD;&#x542F;&#x65F6;&#x5019;&#x8F93;&#x5165;&#x5BC6;&#x7801;
+auth-user-pass
+</code></pre><p>&#x91CD;&#x542F;&#x6D4B;&#x8BD5;&#x8FDE;&#x63A5;&#xFF0C;&#x91CD;&#x542F;&#x670D;&#x52A1;&#x7684;&#x65F6;&#x5019;&#x9700;&#x8981;&#x8F93;&#x5165;&#x5BC6;&#x7801;</p>
+<pre><code>[root@a2 ~]# systemctl restart openvpn@client    #&#x91CD;&#x542F;&#x65F6;&#x5019;&#x8F93;&#x5165;&#x5BC6;&#x7801;
 Enter Auth Username: koten
-Enter Auth Password: <em>
+Enter Auth Password: *
 [root@a2 ~]# ping 192.168.1.5    #&#x5BC6;&#x7801;&#x6B63;&#x786E;&#x53EF;&#x4EE5;ping&#x901A;
 PING 192.168.1.5 (192.168.1.5) 56(84) bytes of data.
 64 bytes from 192.168.1.5: icmp_seq=1 ttl=64 time=0.590 ms
@@ -6355,20 +6344,19 @@ PING 192.168.1.5 (192.168.1.5) 56(84) bytes of data.
 --- 192.168.1.5 ping statistics ---
 2 packets transmitted, 2 received, 0% packet loss, time 1000ms
 rtt min/avg/max/mdev = 0.590/0.850/1.110/0.260 ms
-[root@a2 ~]# systemctl restart openvpn@client<br>Enter Auth Username: 1
-Enter Auth Password: </em>
+[root@a2 ~]# systemctl restart openvpn@client    
+Enter Auth Username: 1
+Enter Auth Password: *
 [root@a2 ~]# ping 192.168.1.5    #&#x5BC6;&#x7801;&#x9519;&#x8BEF;&#x4E0D;&#x80FD;ping&#x901A;
 PING 192.168.1.5 (192.168.1.5) 56(84) bytes of data.
 ^C
 --- 192.168.1.5 ping statistics ---
-4 packets transmitted, 0 received, 100% packet loss, time 3001ms</p>
-<pre><code>### windows&#x5BA2;&#x6237;&#x7AEF;&#x914D;&#x7F6E;
-&#x5148;Disconnect&#x65AD;&#x5F00;&#x8FDE;&#x63A5;&#xFF0C;&#x6CE8;&#x610F;&#x8981;&#x5148;&#x65AD;&#x5F00;&#xFF0C;&#x5426;&#x5219;&#x5BB9;&#x6613;&#x62A5;&#x9519;&#xFF0C;&#x518D;&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x6587;&#x4EF6;
-
-![editConfig.png](img/editConfig.png)
-
-&#x6700;&#x5E95;&#x884C;&#x6DFB;&#x52A0;auth-user-pass&#xFF0C;&#x6CE8;&#x610F;&#x8BE5;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E0D;&#x8981;&#x6709;&#x591A;&#x4F59;&#x7A7A;&#x683C;&#xFF0C;&#x5426;&#x5219;&#x53EF;&#x80FD;&#x4F1A;&#x62A5;&#x9519;
-</code></pre><p>client
+4 packets transmitted, 0 received, 100% packet loss, time 3001ms
+</code></pre><h3 id="windows&#x5BA2;&#x6237;&#x7AEF;&#x914D;&#x7F6E;">windows&#x5BA2;&#x6237;&#x7AEF;&#x914D;&#x7F6E;</h3>
+<p>&#x5148;Disconnect&#x65AD;&#x5F00;&#x8FDE;&#x63A5;&#xFF0C;&#x6CE8;&#x610F;&#x8981;&#x5148;&#x65AD;&#x5F00;&#xFF0C;&#x5426;&#x5219;&#x5BB9;&#x6613;&#x62A5;&#x9519;&#xFF0C;&#x518D;&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</p>
+<p><img src="img/editConfig.png" alt="editConfig.png"></p>
+<p>&#x6700;&#x5E95;&#x884C;&#x6DFB;&#x52A0;auth-user-pass&#xFF0C;&#x6CE8;&#x610F;&#x8BE5;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E0D;&#x8981;&#x6709;&#x591A;&#x4F59;&#x7A7A;&#x683C;&#xFF0C;&#x5426;&#x5219;&#x53EF;&#x80FD;&#x4F1A;&#x62A5;&#x9519;</p>
+<pre><code>client
 dev tun
 proto udp
 remote 10.0.0.5 1194
@@ -6380,19 +6368,17 @@ key client.key
 verb 3
 persist-key
 comp-lzo
-auth-user-pass</p>
-<pre><code>
-&#x518D;&#x6B21;&#x8FDE;&#x63A5;&#xFF0C;&#x53D1;&#x73B0;&#x9700;&#x8981;&#x8F93;&#x5165;&#x8D26;&#x53F7;&#x5BC6;&#x7801;
+auth-user-pass
+</code></pre><p>&#x518D;&#x6B21;&#x8FDE;&#x63A5;&#xFF0C;&#x53D1;&#x73B0;&#x9700;&#x8981;&#x8F93;&#x5165;&#x8D26;&#x53F7;&#x5BC6;&#x7801;</p>
+<p>&#x518D;&#x6B21;&#x8F93;&#x5165;&#x5BC6;&#x7801;&#x6210;&#x529F;&#x8FDE;&#x63A5;</p>
+<p>&#x518D;&#x6B21;&#x5C1D;&#x8BD5;ping&#xFF0C;&#x6210;&#x529F;ping&#x901A;</p>
+<pre><code>[c:\~]$ ping 192.168.1.5
 
-&#x518D;&#x6B21;&#x8F93;&#x5165;&#x5BC6;&#x7801;&#x6210;&#x529F;&#x8FDE;&#x63A5;
-
-&#x518D;&#x6B21;&#x5C1D;&#x8BD5;ping&#xFF0C;&#x6210;&#x529F;ping&#x901A;
-</code></pre><p>[c:~]$ ping 192.168.1.5</p>
-<p>&#x6B63;&#x5728; Ping 192.168.1.5 &#x5177;&#x6709; 32 &#x5B57;&#x8282;&#x7684;&#x6570;&#x636E;:
+&#x6B63;&#x5728; Ping 192.168.1.5 &#x5177;&#x6709; 32 &#x5B57;&#x8282;&#x7684;&#x6570;&#x636E;:
 &#x6765;&#x81EA; 192.168.1.5 &#x7684;&#x56DE;&#x590D;: &#x5B57;&#x8282;=32 &#x65F6;&#x95F4;=1ms TTL=64
 &#x6765;&#x81EA; 192.168.1.5 &#x7684;&#x56DE;&#x590D;: &#x5B57;&#x8282;=32 &#x65F6;&#x95F4;&lt;1ms TTL=64
 ......
-~~~</p>
+</code></pre><hr>
 
                                 
                                 </section>
@@ -6436,7 +6422,7 @@ auth-user-pass</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"openVPN 安装","level":"1.3.14","depth":2,"next":{"title":"go","level":"1.4","depth":1,"path":"go/README.md","ref":"go/README.md","articles":[{"title":"scan_files","level":"1.4.1","depth":2,"path":"go/scan_file/scan_file.md","ref":"go/scan_file/scan_file.md","articles":[]}]},"previous":{"title":"safe-rm 安装","level":"1.3.13","depth":2,"path":"linux/soft/safe-rm/safe-rm.md","ref":"linux/soft/safe-rm/safe-rm.md","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"HaoHaoDaYouXi","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"H-Codes","language":"zh-hans","links":{"sidebar":{"我的笔记仓库":"https://github.com/HaoHaoDaYouXi/H-Notes"}},"gitbook":"3.2.3","description":"一些知识笔记和各类学习资料"},"file":{"path":"linux/openVPN/openVPN.md","mtime":"2024-05-12T13:00:41.420Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-09-26T01:03:07.470Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"openVPN 安装","level":"1.3.14","depth":2,"next":{"title":"go","level":"1.4","depth":1,"path":"go/README.md","ref":"go/README.md","articles":[{"title":"scan_files","level":"1.4.1","depth":2,"path":"go/scan_file/scan_file.md","ref":"go/scan_file/scan_file.md","articles":[]}]},"previous":{"title":"safe-rm 安装","level":"1.3.13","depth":2,"path":"linux/soft/safe-rm/safe-rm.md","ref":"linux/soft/safe-rm/safe-rm.md","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"HaoHaoDaYouXi","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"H-Codes","language":"zh-hans","links":{"sidebar":{"我的笔记仓库":"https://github.com/HaoHaoDaYouXi/H-Notes"}},"gitbook":"3.2.3","description":"一些知识笔记和各类学习资料"},"file":{"path":"linux/openVPN/openVPN.md","mtime":"2024-09-26T01:31:18.915Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-09-26T01:31:21.262Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
