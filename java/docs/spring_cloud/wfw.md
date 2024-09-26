@@ -236,7 +236,7 @@
 
 目前主流的`OpenFeign`就是`HTTP`方式，`Dubbo`是`RPC`方式。
 
-# API网关
+# <a id="apiwg">API网关</a>
 `API`网关是系统对外的访问入口。例如常见的`Nginx`就是`API`网关，它更多是服务器对外的网关。
 
 微服务中的`API`网关，功能更多的是：

@@ -166,7 +166,7 @@
             - [服务注册发现](java/docs/spring_cloud/wfw.md#服务注册与发现)
             - [服务配置与管理](java/docs/spring_cloud/wfw.md#服务配置与管理)
             - [服务调用](java/docs/spring_cloud/wfw.md#服务调用)
-            - [API网关](java/docs/spring_cloud/wfw.md#API网关)
+            - [API网关](java/docs/spring_cloud/wfw.md#apiwg)
             - [负载均衡](java/docs/spring_cloud/wfw.md#负载均衡)
             - [熔断器](java/docs/spring_cloud/wfw.md#熔断器)
         - [SpringCloud](java/docs/spring_cloud/spring_cloud.md)
