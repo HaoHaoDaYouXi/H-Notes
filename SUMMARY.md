@@ -396,6 +396,7 @@
 - [go](go/README.md)
     - [scan_files](go/scan_file/scan_file.md)
 - [python](python/README.md)
+    - [conda](python/conda/conda.md)
     - [Anaconda](python/conda/anaconda.md)
         - [Anaconda升级和卸载](python/conda/anaconda.md#sjhxz)
         - [Anaconda安装最新的TensorFlow版本](python/conda/anaconda.md#azxbb)

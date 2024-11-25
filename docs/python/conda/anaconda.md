@@ -1,5 +1,59 @@
 # Anaconda
 
+## <a id="an_anaconda">centos 安装Anaconda</a>
+
+### 下载Anaconda
+
+首先，你需要下载Anaconda的安装脚本。可以使用wget命令从Anaconda的官网获取最新版本的安装脚本。
+
+如果官网进不去，或者下载太慢，可以在清华大学开源软件镜像站下载：[清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/)，从中选择适合自己的版本进行下载
+
+打开终端并运行以下命令：
+```shell
+wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2024.10-1-Linux-x86_64.sh
+```
+
+### 运行安装脚本
+
+下载完成后，给安装脚本添加执行权限，并运行它：
+```shell
+chmod +x Anaconda3-2024.10-1-Linux-x86_64.sh
+./Anaconda3-2024.10-1-Linux-x86_64.sh
+```
+
+### 按照提示进行安装
+
+在运行安装脚本后，会出现许可协议，按Enter键查看协议内容，最后输入yes接受协议。
+
+你将被询问安装路径，默认路径通常是/home/username/anaconda3。你可以按Enter键使用默认路径，或者输入新的路径。
+
+安装完成后，系统会询问是否将Anaconda添加到PATH环境变量中，选择yes。
+
+### 初始化Anaconda
+安装完成后，运行以下命令初始化Anaconda：
+```shell
+source ~/anaconda3/bin/activate
+```
+
+### 验证安装
+
+验证Anaconda是否成功安装，如果安装成功，将显示conda的版本号。
+```shell
+conda --version
+```
+
+### 更新conda
+
+安装完成后，建议更新conda到最新版本：
+```shell
+conda update conda
+```
+
+### 使用Anaconda
+
+你可以使用conda create命令创建新的环境，使用conda install命令安装所需的包。
+
+
 ## <a id="sjhxz">Anaconda升级和卸载</a>
 
 1.升级
