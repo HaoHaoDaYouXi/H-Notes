@@ -5764,6 +5764,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.5.2.4" data-path="anaconda.html">
+            
+                <a href="anaconda.html#mrqdhj">
+            
+                    
+                    Anaconda设置默认的启动环境
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -6144,7 +6157,18 @@ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/menpo/
 <pre><code>conda config --remove channels https://mirrors.aliyun.com/anaconda/pkgs/free/
 </code></pre><p>&#x8BBE;&#x7F6E;&#x641C;&#x7D22;&#x65F6;&#x663E;&#x793A;&#x901A;&#x9053;&#x5730;&#x5740;</p>
 <pre><code>conda config --set show_channel_urls yes
-</code></pre><hr>
+</code></pre><h2 id="anaconda&#x8BBE;&#x7F6E;&#x9ED8;&#x8BA4;&#x7684;&#x542F;&#x52A8;&#x73AF;&#x5883;"><a id="mrqdhj">anaconda&#x8BBE;&#x7F6E;&#x9ED8;&#x8BA4;&#x7684;&#x542F;&#x52A8;&#x73AF;&#x5883;</a></h2>
+<p>&#x5B89;&#x88C5;&#x5B8C;anaconda&#x4E4B;&#x540E;&#x6211;&#x4EEC;&#x5F80;&#x5F80;&#x4F1A;&#x6DFB;&#x52A0;&#x65B0;&#x7684;&#x73AF;&#x5883;&#xFF0C;&#x4F46;&#x662F;&#x6BCF;&#x6B21;&#x542F;&#x52A8;&#x7684;&#x65F6;&#x5019;&#x90FD;&#x662F;&#x9ED8;&#x8BA4;&#x5728;base&#x73AF;&#x5883;</p>
+<p>&#x5728;linux&#x4E0B;&#xFF0C;&#x901A;&#x8FC7;&#x4FEE;&#x6539;<code>~/.bashrc</code>&#x6216;<code>~/.bash_profile</code>&#xFF0C;&#x5728;&#x6587;&#x4EF6;&#x6700;&#x540E;&#x6DFB;&#x52A0;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-shell">export PATH=&quot;~/anaconda/envs/your_env_name/bin:$PATH&quot; # your_env_name&#x662F;&#x4F60;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x73AF;&#x5883;&#x540D;
+</code></pre>
+<p>&#x7136;&#x540E;&#x4F7F;&#x7528;&#x5982;&#x4E0B;&#x547D;&#x4EE4;&#x5173;&#x95ED;&#x9ED8;&#x8BA4;&#x542F;&#x52A8;base&#x73AF;&#x5883;&#xFF1A;</p>
+<pre><code class="lang-shell">conda config --set auto_activate_base false # &#x8BBE;&#x7F6E;&#x975E;&#x81EA;&#x52A8;&#x542F;&#x52A8;
+</code></pre>
+<p>&#x7136;&#x540E;&#x4FEE;&#x6539;<code>~/.bashrc</code>&#x6587;&#x4EF6;&#xFF0C;&#x8BBE;&#x7F6E;&#x81EA;&#x542F;&#x52A8;&#x81EA;&#x5DF1;&#x7684;&#x73AF;&#x5883;</p>
+<pre><code class="lang-shell">conda activate my001
+</code></pre>
+<hr>
 
                                 
                                 </section>
@@ -6188,7 +6212,7 @@ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/menpo/
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Anaconda","level":"1.5.2","depth":2,"next":{"title":"Anaconda升级和卸载","level":"1.5.2.1","depth":3,"anchor":"#sjhxz","path":"python/conda/anaconda.md","ref":"python/conda/anaconda.md#sjhxz","articles":[]},"previous":{"title":"conda","level":"1.5.1","depth":2,"path":"python/conda/conda.md","ref":"python/conda/conda.md","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"HaoHaoDaYouXi","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"H-Codes","language":"zh-hans","links":{"sidebar":{"我的笔记仓库":"https://github.com/HaoHaoDaYouXi/H-Notes"}},"gitbook":"3.2.3","description":"一些知识笔记和各类学习资料"},"file":{"path":"python/conda/anaconda.md","mtime":"2024-11-25T13:56:09.715Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-27T14:29:24.968Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Anaconda","level":"1.5.2","depth":2,"next":{"title":"Anaconda升级和卸载","level":"1.5.2.1","depth":3,"anchor":"#sjhxz","path":"python/conda/anaconda.md","ref":"python/conda/anaconda.md#sjhxz","articles":[]},"previous":{"title":"conda","level":"1.5.1","depth":2,"path":"python/conda/conda.md","ref":"python/conda/conda.md","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"HaoHaoDaYouXi","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"H-Codes","language":"zh-hans","links":{"sidebar":{"我的笔记仓库":"https://github.com/HaoHaoDaYouXi/H-Notes"}},"gitbook":"3.2.3","description":"一些知识笔记和各类学习资料"},"file":{"path":"python/conda/anaconda.md","mtime":"2024-11-28T14:13:17.713Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-28T14:15:52.997Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
