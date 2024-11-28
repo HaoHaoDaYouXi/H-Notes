@@ -401,6 +401,7 @@
         - [Anaconda升级和卸载](python/conda/anaconda.md#sjhxz)
         - [Anaconda安装最新的TensorFlow版本](python/conda/anaconda.md#azxbb)
         - [设置镜像源](python/conda/anaconda.md#szjxy)
+        - [Anaconda设置默认的启动环境](python/conda/anaconda.md#mrqdhj)
 - [ai](ai/README.md)
     - [pytorch.md](ai/pytorch.md)
     - [通过开源搭建个人AI](ai/ai.md)

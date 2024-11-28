@@ -53,7 +53,6 @@ conda update conda
 
 你可以使用conda create命令创建新的环境，使用conda install命令安装所需的包。
 
-
 ## <a id="sjhxz">Anaconda升级和卸载</a>
 
 1.升级
@@ -185,5 +184,25 @@ conda config --remove channels https://mirrors.aliyun.com/anaconda/pkgs/free/
 ```
 conda config --set show_channel_urls yes
 ```
+
+## <a id="mrqdhj">anaconda设置默认的启动环境</a>
+
+安装完anaconda之后我们往往会添加新的环境，但是每次启动的时候都是默认在base环境
+
+在linux下，通过修改`~/.bashrc`或`~/.bash_profile`，在文件最后添加如下：
+```shell
+export PATH="~/anaconda/envs/your_env_name/bin:$PATH" # your_env_name是你自定义的环境名
+```
+
+然后使用如下命令关闭默认启动base环境：
+```shell
+conda config --set auto_activate_base false # 设置非自动启动
+```
+
+然后修改`~/.bashrc`文件，设置自启动自己的环境
+```shell
+conda activate my001
+```
+
 
 ----
