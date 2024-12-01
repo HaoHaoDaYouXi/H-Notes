@@ -53,6 +53,27 @@ conda update conda
 
 你可以使用conda create命令创建新的环境，使用conda install命令安装所需的包。
 
+## <a id="an_anaconda">windows 安装Anaconda</a>
+
+### 下载
+下载流程和前面一样，选择windows版本，下载安装
+
+### 配置环境变量
+
+安装后再path环境添加（`D:\Soft\Anaconda3`为安装路径）：
+```
+D:\Soft\Anaconda3
+D:\Soft\Anaconda3\Scripts
+D:\Soft\Anaconda3\Library\bin
+D:\Soft\Anaconda3\Library\mingw-w64\bin
+D:\Soft\Anaconda3\Library\usr\bin
+```
+
+### 验证安装
+
+输入`conda --version`命令检验，如果安装成功，将显示conda的版本号。
+
+
 ## <a id="sjhxz">Anaconda升级和卸载</a>
 
 1.升级
