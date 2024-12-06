@@ -6045,10 +6045,9 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="rocketmq">rocketmq</h1>
-<h2 id="&#x5B89;&#x88C5;&#x548C;&#x4F7F;&#x7528;">&#x5B89;&#x88C5;&#x548C;&#x4F7F;&#x7528;</h2>
+<p><a href="https://rocketmq.apache.org/zh/download/" target="_blank">&#x4E0B;&#x8F7D;&#x5730;&#x5740;</a></p>
+<h2 id="windows-&#x5B89;&#x88C5;&#x548C;&#x4F7F;&#x7528;">windows &#x5B89;&#x88C5;&#x548C;&#x4F7F;&#x7528;</h2>
 <ul>
-<li><a href="https://rocketmq.apache.org/zh/download/" target="_blank">&#x4E0B;&#x8F7D;&#x5730;&#x5740;</a></li>
-<li>windows<ul>
 <li>&#x914D;&#x7F6E; &#x73AF;&#x5883;&#x53D8;&#x91CF; ROCKETMQ_HOME</li>
 <li>&#x90E8;&#x7F72;&#x5B8C;&#x6210;&#x540E;&#x8FDB;&#x5165;bin&#x76EE;&#x5F55;&#xFF0C;&#x4FEE;&#x6539;runserver.cmd&#x7684;JAVA_OPT&#xFF0C;&#x5927;&#x5C0F;&#x53EF;&#x81EA;&#x5DF1;&#x8C03;&#x6574;(&#x521D;&#x59CB;&#x503C;&#x592A;&#x5927;&#x4F1A;&#x5BFC;&#x81F4;&#x5206;&#x914D;&#x5185;&#x5B58;&#x4E0D;&#x8DB3;&#x800C;&#x51FA;&#x9519;)</li>
 <li>&#x8FDB;&#x5165;&#x5230;rocketMQ&#x7684;bin&#x76EE;&#x5F55;&#x4E0B;&#xFF0C;&#x7136;&#x540E;&#x6267;&#x884C;&#x4E0B;&#x9762;&#x7684;&#x547D;&#x4EE4;&#xFF1A;<pre><code>#&#x542F;&#x52A8;RocketMQ&#x7684;&#x6CE8;&#x518C;&#x4E2D;&#x5FC3;
@@ -6057,13 +6056,12 @@ start mqnamesrv.cmd
 #&#x542F;&#x52A8;broker
 start mqbroker.cmd -n localhost:9876 -c ../conf/broker.conf autoCreateTopicEnable=true
 #&#x6267;&#x884C;&#x6210;&#x529F;&#x4F1A;&#x5F39;&#x51FA;&#x63D0;&#x793A;&#x6846;&#xFF0C;&#x4E0D;&#x8981;&#x5173;&#x95ED;
-</code></pre><pre><code>&#x5F53;&#x9047;&#x5230;&#x5728;windows &#x4E0B; &#x51FA;&#x73B0;&#x65E0;&#x6CD5;&#x542F;&#x52A8;broker&#x7684;&#x60C5;&#x51B5;&#x65F6;&#xFF0C;&#x8003;&#x8651;&#x662F;&#x5426;&#x4E3A;Rocketmq Broker&#x5F02;&#x5E38;&#x5173;&#x95ED;&#x5BFC;&#x81F4;
+</code></pre></li>
+</ul>
+<pre><code>&#x5F53;&#x9047;&#x5230;&#x5728;windows &#x4E0B; &#x51FA;&#x73B0;&#x65E0;&#x6CD5;&#x542F;&#x52A8;broker&#x7684;&#x60C5;&#x51B5;&#x65F6;&#xFF0C;&#x8003;&#x8651;&#x662F;&#x5426;&#x4E3A;Rocketmq Broker&#x5F02;&#x5E38;&#x5173;&#x95ED;&#x5BFC;&#x81F4;
 &#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF1A;
 &#x5C1D;&#x8BD5;&#x5C06;C&#x76D8; C:\Users\&#x7528;&#x6237; &#x7684;store&#x6587;&#x4EF6;&#x5939;&#x5220;&#x9664;&#xFF0C;&#x518D;&#x8FDB;&#x884C;&#x542F;&#x52A8;
-</code></pre>windows&#x542F;&#x52A8;&#x547D;&#x4EE4;&#xFF1A;<a href="start_mq.bat">start_mq.bat</a></li>
-</ul>
-</li>
-</ul>
+</code></pre><p>windows&#x542F;&#x52A8;&#x547D;&#x4EE4;&#xFF1A;<a href="start_mq.bat">start_mq.bat</a></p>
 <h3 id="&#x7AEF;&#x53E3;&#x8BF4;&#x660E;">&#x7AEF;&#x53E3;&#x8BF4;&#x660E;</h3>
 <p>&#x6211;&#x4EEC;&#x5728;&#x5B89;&#x88C5;rocketmq&#x540E;&#xFF0C;&#x8981;&#x5F00;&#x653E;&#x7684;&#x7AEF;&#x53E3;&#x4E00;&#x822C;&#x6709;4&#x4E2A;&#xFF1A;9876&#xFF0C;10911&#xFF0C;10912&#xFF0C;10909</p>
 <h4 id="1-&#x9996;&#x5148;&#x8BF4;9876">1. &#x9996;&#x5148;&#x8BF4;9876</h4>
@@ -6104,6 +6102,88 @@ Broker&#x5728;&#x5411;NameServer&#x6CE8;&#x518C;&#x65F6;&#xFF0C;&#x53EA;&#x4F1A;
 <blockquote>
 <p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x751F;&#x4EA7;&#x8005;&#x53D1;&#x9001;&#x6D88;&#x606F;&#x662F;&#x8BF7;&#x6C42;fastRemotingServer&#xFF0C;&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x914D;&#x7F6E;&#x8BA9;&#x5176;&#x8BF7;&#x6C42;remotingServer&#xFF1B;&#x6D88;&#x8D39;&#x8005;&#x62C9;&#x53D6;&#x6D88;&#x606F;&#x53EA;&#x80FD;&#x8BF7;&#x6C42;remotingServer&#x3002;</p>
 </blockquote>
+<h2 id="centos-&#x5B89;&#x88C5;">centos &#x5B89;&#x88C5;</h2>
+<p>&#x6839;&#x636E;&#x4E0B;&#x8F7D;&#x5730;&#x5740;&#xFF0C;&#x4E0B;&#x8F7D;&#x540E;&#x89E3;&#x538B;</p>
+<h3 id="&#x914D;&#x7F6E;&#x73AF;&#x5883;&#x53D8;&#x91CF;">&#x914D;&#x7F6E;&#x73AF;&#x5883;&#x53D8;&#x91CF;</h3>
+<ul>
+<li>&#x4FEE;&#x6539;<code>bin/runserver.sh</code>&#x6587;&#x4EF6;&#x4E2D;&#x7684;<code>JAVA_HOME</code>&#x5730;&#x5740;&#x4E3A;&#x81EA;&#x5DF1;&#x7684;&#x5730;&#x5740;</li>
+<li>&#x5982;&#x679C;&#x9700;&#x8981;&#x8C03;&#x6574;<code>namesrv</code>&#x5360;&#x7528;&#x5185;&#x5B58;&#x7684;&#x53EF;&#x4EE5;&#x8C03;&#x6574;<code>JAVA_OPT</code>&#x53C2;&#x6570;&#x4E2D;&#x7684;<code>-Xms</code>&#x548C;<code>-Xmx</code>&#x53C2;&#x6570;</li>
+<li>&#x540C;&#x6837;&#x7684;&#x4FEE;&#x6539;<code>bin/runbroker.sh</code>&#x6587;&#x4EF6;<pre><code>&#x9664;&#x4E86;&#x4FEE;&#x6539;jdk&#x8DEF;&#x5F84;&#x548C;&#x5185;&#x5B58;&#x5927;&#x5C0F;&#x5916;&#xFF0C;&#x5982;&#x679C;&#x7528;&#x7684;jdk&#x662F;1.8&#x7684;, broker&#x8FD8;&#x9700;&#x8981;&#x5783;&#x573E;&#x56DE;&#x6536;&#x5668;&#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x62A5;&#x9519;Error: VM option &apos;UseG1GC&apos; is experimental and must be enabled via -XX:+UnlockExperimentalVMOptions.
+&#x5728;-XX:+UseG1GC&#x524D;&#x6DFB;&#x52A0;-XX:+UnlockExperimentalVMOptions&#x5373;&#x53EF;&#xFF0C;&#x6216;&#x8005;&#x6362;&#x6210;&#x5176;&#x4ED6;&#x5783;&#x573E;&#x56DE;&#x6536;&#x5668;&#xFF0C;&#x6BD4;&#x5982;namesrv&#x7684;CMS
+</code></pre></li>
+<li>&#x4FEE;&#x6539;<code>conf/broker.conf</code>&#x914D;&#x7F6E;&#x6587;&#x4EF6;<pre><code># nameServer&#x5730;&#x5740;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x591A;&#x4E2A;nameServer&#x7528;&#x5206;&#x53F7;&#x5206;&#x5272;
+namesrvAddr = 192.168.0.110:9876 # &#x586B;&#x670D;&#x52A1;&#x5668;ip, &#x5982;&#x6709;&#x516C;&#x7F51;ip&#x586B;&#x516C;&#x7F51;ip
+autoCreateTopicEnable = true # &#x5F00;&#x542F;topic&#x81EA;&#x52A8;&#x521B;&#x5EFA;
+brokerIP1 = 192.168.0.110
+</code></pre></li>
+</ul>
+<h3 id="&#x4F7F;&#x7528;&#x547D;&#x4EE4;">&#x4F7F;&#x7528;&#x547D;&#x4EE4;</h3>
+<h4 id="&#x542F;&#x52A8;mqnamesrv">&#x542F;&#x52A8;mqnamesrv</h4>
+<pre><code class="lang-shell">nohup sh bin/mqnamesrv &gt; mqnamesrv.log 2&gt;&amp;1 &amp;
+</code></pre>
+<h4 id="&#x542F;&#x52A8;broker">&#x542F;&#x52A8;broker</h4>
+<pre><code class="lang-shell">nohup sh bin/mqbroker -n localhost:9876 -c conf/broker.conf &gt; mqbroker.log 2&gt;&amp;1 &amp;1
+</code></pre>
+<h4 id="&#x5173;&#x95ED;&#x670D;&#x52A1;">&#x5173;&#x95ED;&#x670D;&#x52A1;</h4>
+<pre><code class="lang-shell">./bin/mqshutdown namesrv
+./bin/mqshutdown broker
+</code></pre>
+<h4 id="&#x7AEF;&#x53E3;&#x8BF4;&#x660E;">&#x7AEF;&#x53E3;&#x8BF4;&#x660E;</h4>
+<p>&#x6211;&#x4EEC;&#x5728;&#x5B89;&#x88C5;rocketmq&#x540E;&#xFF0C;&#x8981;&#x5F00;&#x653E;&#x7684;&#x7AEF;&#x53E3;&#x4E00;&#x822C;&#x6709;4&#x4E2A;&#xFF1A;9876&#xFF0C;10911&#xFF0C;10912&#xFF0C;10909</p>
+<h3 id="&#x914D;&#x7F6E;&#x5F00;&#x673A;&#x81EA;&#x542F;">&#x914D;&#x7F6E;&#x5F00;&#x673A;&#x81EA;&#x542F;</h3>
+<p>&#x914D;&#x7F6E;<code>rocketmq</code>&#x5F00;&#x673A;&#x81EA;&#x542F;&#xFF0C;&#x5177;&#x4F53;&#x542F;&#x52A8;&#x7528;&#x6237;&#x548C;&#x6587;&#x4EF6;&#x5730;&#x5740;&#x6309;&#x7167;&#x81EA;&#x5DF1;&#x7684;&#x76EE;&#x5F55;&#x8C03;&#x6574;</p>
+<p>&#x521B;&#x5EFA;&#x811A;&#x672C;</p>
+<pre><code class="lang-shell">vim /etc/init.d/rocketmq
+</code></pre>
+<p>&#x811A;&#x672C;&#x5185;&#x5BB9;</p>
+<pre><code class="lang-shell">#!/bin/bash
+#
+# rocketmq - this script starts and stops the rocketmq daemon
+#
+# chkconfig: - 85 15
+
+source /etc/profile
+workdir=&quot;/home/h/soft/rocketmq-all-5.3.1-bin-release&quot;
+
+start() {
+  nohup sh $workdir/bin/mqnamesrv &gt;&gt; $workdir/mqnamesrv.log 2&gt;&amp;1 &amp;
+  sleep 1
+  nohup sh $workdir/bin/mqbroker -n localhost:9876 -c $workdir/conf/broker.conf &gt;&gt; $workdir/mqbroker.log 2&gt;&amp;1 &amp;
+}
+
+stop() {
+  sh $workdir/bin/mqshutdown broker
+  sleep 1
+  sh $workdir/bin/mqshutdown namesrv
+}
+
+restart() {
+  stop
+  sleep 5
+  start
+}
+
+case $1 in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  restart)
+    restart
+    ;;
+esac
+</code></pre>
+<p>&#x6DFB;&#x52A0;&#x6267;&#x884C;&#x6743;&#x9650;</p>
+<pre><code class="lang-shell">chmod +x /etc/init.d/rocketmq
+</code></pre>
+<p>&#x542F;&#x52A8;&#x547D;&#x4EE4;</p>
+<pre><code class="lang-shell">service rocketmq start        #&#x542F;&#x52A8;
+service rocketmq stop        #&#x5173;&#x95ED;
+service rocketmq restart    #&#x91CD;&#x542F;
+</code></pre>
+<hr>
 
                                 
                                 </section>
@@ -6147,7 +6227,7 @@ Broker&#x5728;&#x5411;NameServer&#x6CE8;&#x518C;&#x65F6;&#xFF0C;&#x53EA;&#x4F1A;
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"rocketmq","level":"1.2.15.8","depth":3,"next":{"title":"搜索引擎","level":"1.2.16","depth":2,"path":"java/docs/search/search.md","ref":"java/docs/search/search.md","articles":[{"title":"Elasticsearch","level":"1.2.16.1","depth":3,"anchor":"#elasticsearch","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#elasticsearch","articles":[{"title":"ELK Stack","level":"1.2.16.1.1","depth":4,"anchor":"#stack","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#stack","articles":[]},{"title":"查询类型","level":"1.2.16.1.2","depth":4,"anchor":"#cxlx","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#cxlx","articles":[]},{"title":"聚合","level":"1.2.16.1.3","depth":4,"anchor":"#jh","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#jh","articles":[]},{"title":"集群","level":"1.2.16.1.4","depth":4,"anchor":"#jq","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#jq","articles":[]},{"title":"常用的cat命令","level":"1.2.16.1.5","depth":4,"anchor":"#cyml","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#cyml","articles":[]},{"title":"分词","level":"1.2.16.1.6","depth":4,"anchor":"#fc","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#fc","articles":[]},{"title":"索引","level":"1.2.16.1.7","depth":4,"anchor":"#sy","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#sy","articles":[]},{"title":"创建索引的过程","level":"1.2.16.1.8","depth":4,"anchor":"#sycjgc","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#sycjgc","articles":[]},{"title":"更新和删除文档的过程","level":"1.2.16.1.9","depth":4,"anchor":"#gxhscwd","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#gxhscwd","articles":[]},{"title":"搜索过程","level":"1.2.16.1.10","depth":4,"anchor":"#syssgc","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#syssgc","articles":[]},{"title":"搜索过程","level":"1.2.16.1.11","depth":4,"anchor":"#syssgc","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#syssgc","articles":[]},{"title":"实现拼写纠错","level":"1.2.16.1.12","depth":4,"anchor":"#pxjc","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#pxjc","articles":[]},{"title":"深翻页","level":"1.2.16.1.13","depth":4,"anchor":"#sfy","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#sfy","articles":[]},{"title":"并发保证读写一致","level":"1.2.16.1.14","depth":4,"anchor":"#bfdxyz","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#bfdxyz","articles":[]},{"title":"优化","level":"1.2.16.1.15","depth":4,"anchor":"#yh","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#yh","articles":[]}]},{"title":"Solr","level":"1.2.16.2","depth":3,"anchor":"#solr","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#solr","articles":[{"title":"主要特点","level":"1.2.16.2.1","depth":4,"anchor":"#zytd","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#zytd","articles":[]},{"title":"安装与配置","level":"1.2.16.2.2","depth":4,"anchor":"#azpz","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#azpz","articles":[]},{"title":"Solr和Elasticsearch","level":"1.2.16.2.3","depth":4,"anchor":"#soleelasticsearch","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#soleelasticsearch","articles":[]}]}]},"previous":{"title":"设计消息队列系统","level":"1.2.15.7","depth":3,"anchor":"#sjxxdl","path":"java/docs/mq/mq.md","ref":"java/docs/mq/mq.md#sjxxdl","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"HaoHaoDaYouXi","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"H-Codes","language":"zh-hans","links":{"sidebar":{"我的笔记仓库":"https://github.com/HaoHaoDaYouXi/H-Notes"}},"gitbook":"3.2.3","description":"一些知识笔记和各类学习资料"},"file":{"path":"java/docs/mq/rocketmq/rocketmq.md","mtime":"2024-06-14T07:09:59.719Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-12-01T02:23:51.625Z"},"basePath":"../../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"rocketmq","level":"1.2.15.8","depth":3,"next":{"title":"搜索引擎","level":"1.2.16","depth":2,"path":"java/docs/search/search.md","ref":"java/docs/search/search.md","articles":[{"title":"Elasticsearch","level":"1.2.16.1","depth":3,"anchor":"#elasticsearch","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#elasticsearch","articles":[{"title":"ELK Stack","level":"1.2.16.1.1","depth":4,"anchor":"#stack","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#stack","articles":[]},{"title":"查询类型","level":"1.2.16.1.2","depth":4,"anchor":"#cxlx","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#cxlx","articles":[]},{"title":"聚合","level":"1.2.16.1.3","depth":4,"anchor":"#jh","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#jh","articles":[]},{"title":"集群","level":"1.2.16.1.4","depth":4,"anchor":"#jq","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#jq","articles":[]},{"title":"常用的cat命令","level":"1.2.16.1.5","depth":4,"anchor":"#cyml","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#cyml","articles":[]},{"title":"分词","level":"1.2.16.1.6","depth":4,"anchor":"#fc","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#fc","articles":[]},{"title":"索引","level":"1.2.16.1.7","depth":4,"anchor":"#sy","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#sy","articles":[]},{"title":"创建索引的过程","level":"1.2.16.1.8","depth":4,"anchor":"#sycjgc","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#sycjgc","articles":[]},{"title":"更新和删除文档的过程","level":"1.2.16.1.9","depth":4,"anchor":"#gxhscwd","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#gxhscwd","articles":[]},{"title":"搜索过程","level":"1.2.16.1.10","depth":4,"anchor":"#syssgc","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#syssgc","articles":[]},{"title":"搜索过程","level":"1.2.16.1.11","depth":4,"anchor":"#syssgc","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#syssgc","articles":[]},{"title":"实现拼写纠错","level":"1.2.16.1.12","depth":4,"anchor":"#pxjc","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#pxjc","articles":[]},{"title":"深翻页","level":"1.2.16.1.13","depth":4,"anchor":"#sfy","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#sfy","articles":[]},{"title":"并发保证读写一致","level":"1.2.16.1.14","depth":4,"anchor":"#bfdxyz","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#bfdxyz","articles":[]},{"title":"优化","level":"1.2.16.1.15","depth":4,"anchor":"#yh","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#yh","articles":[]}]},{"title":"Solr","level":"1.2.16.2","depth":3,"anchor":"#solr","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#solr","articles":[{"title":"主要特点","level":"1.2.16.2.1","depth":4,"anchor":"#zytd","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#zytd","articles":[]},{"title":"安装与配置","level":"1.2.16.2.2","depth":4,"anchor":"#azpz","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#azpz","articles":[]},{"title":"Solr和Elasticsearch","level":"1.2.16.2.3","depth":4,"anchor":"#soleelasticsearch","path":"java/docs/search/search.md","ref":"java/docs/search/search.md#soleelasticsearch","articles":[]}]}]},"previous":{"title":"设计消息队列系统","level":"1.2.15.7","depth":3,"anchor":"#sjxxdl","path":"java/docs/mq/mq.md","ref":"java/docs/mq/mq.md#sjxxdl","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"HaoHaoDaYouXi","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"H-Codes","language":"zh-hans","links":{"sidebar":{"我的笔记仓库":"https://github.com/HaoHaoDaYouXi/H-Notes"}},"gitbook":"3.2.3","description":"一些知识笔记和各类学习资料"},"file":{"path":"java/docs/mq/rocketmq/rocketmq.md","mtime":"2024-12-06T16:36:22.469Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-12-06T16:37:33.603Z"},"basePath":"../../../..","book":{"language":""}});
         });
     </script>
 </div>
