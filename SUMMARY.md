@@ -409,6 +409,7 @@
     - [仓颉](cang_jie/README.md)
         - [仓颉编程语言语言规约](cang_jie/cangjie_lang.md)
     - [git](other/git/git.md)
+        - [github](other/git/github.md)
         - [删除原分支并重新创建一个](other/git/git.md#scyfz)
         - [scydtj](other/git/git.md#scydtj)
         - [git 提交和更新脚本命令](other/git/git.md#tjgxml)
